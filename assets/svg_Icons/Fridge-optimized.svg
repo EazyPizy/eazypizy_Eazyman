@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="518.578" height="290.76mm" style="shape-rendering:geometricPrecision;text-rendering:geometricPrecision;image-rendering:optimizeQuality;fill-rule:evenodd;clip-rule:evenodd" viewBox="0 0 3439 7287">
+    <defs>
+        <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="1048" y1="850" x2="1048" y2="7202">
+            <stop offset="0" style="stop-opacity:1;stop-color:#dbdadb"/>
+            <stop offset="1" style="stop-opacity:1;stop-color:#b2b1b3"/>
+        </linearGradient>
+        <style>
+            .fil12,.fil6,.fil7{fill:#dbdadc;fill-rule:nonzero}.fil6,.fil7{fill:#c8c6c6}.fil7{fill:#a4a3a5}.fil0,.fil1,.fil9{fill:#4e4a4a;fill-rule:nonzero}.fil1,.fil9{fill:#35302f}.fil9{fill:#302c2b}
+        </style>
+    </defs>
+    <g id="Layer_x0020_1">
+        <path class="fil0" d="M1831 7054v155l135 78v-155z"/>
+        <path class="fil1" d="m1831 7054 135-78 134 78-134 78z"/>
+        <path class="fil1" d="M1966 7132v155l134-78v-155z"/>
+        <path class="fil0" d="M3169 6282v155l135 78v-156z"/>
+        <path class="fil1" d="m3169 6282 135-78 135 78-135 77z"/>
+        <path class="fil1" d="M3304 6359v156l135-78v-155z"/>
+        <path style="fill:#b2b1b3;fill-rule:nonzero" d="M1966 1914v5288l1473-851V1063z"/>
+        <path style="fill:url(#id0)" d="M1966 7202h-1V1914h1z"/>
+        <path style="fill:#eeedee;fill-rule:nonzero" d="M124 850 1597 0l1842 1063-1473 851z"/>
+        <path style="fill:#a6a4a2;fill-rule:nonzero" d="M1842 1983v5288l123-70V1914z"/>
+        <path class="fil6" d="M1842 1983 0 919v5288l1842 1064z"/>
+        <path class="fil7" d="m1189 3859-657-379V2438l657 379v1042zM551 2469v1000l620 358V2827l-620-358z"/>
+        <path style="fill:#f6f7f7;fill-rule:nonzero" d="m0 919 124-69 1841 1064-123 69z"/>
+        <path class="fil6" d="m124 850 19-10z"/>
+        <path class="fil9" d="m1966 7202 18-11z"/>
+        <path style="fill:#848487;fill-rule:nonzero" d="M1966 7202V1914l18-11v5288z"/>
+        <path style="fill:#b4b4b6;fill-rule:nonzero" d="M1966 1914v-1L124 850l19-10 1841 1063z"/>
+        <path class="fil1" d="M290 4185v-167l1184 684v167z"/>
+        <path class="fil12" d="M290 4047v-75l1184 684v75z"/>
+        <path style="fill:#959597;fill-rule:nonzero" d="m1842 5083-345-198-23-13v-216L290 3972v216l-23-14L0 4020v-32l267 154v-210l1230 711v210l345 199z"/>
+        <path class="fil9" d="M290 4185v-167z"/>
+        <path class="fil7" d="M1474 4656 290 3972v75-75z"/>
+        <path class="fil1" d="m1134 2849-547-316v400l547 315z"/>
+        <path style="fill:#6ecaf3;fill-rule:nonzero" d="M661 2862v-195l399 228v195z"/>
+        <path class="fil0" d="m1134 3217-547-315v546l547 315z"/>
+        <path style="fill:#767477;fill-rule:nonzero" d="m587 3448 199-115 348 183v247z"/>
+        <path style="fill:#616060;fill-rule:nonzero" d="M786 3333v-317l-199-114v546z"/>
+        <path class="fil12" d="m1134 3217-547-315v31l547 315z"/>
+        <path style="fill:#7e7d7c;fill-rule:nonzero" d="M1842 5083v-31l123-72v31z"/>
+    </g>
+</svg>
