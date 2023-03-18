@@ -4,6 +4,7 @@ import '../../theme/app_colors.dart';
 import '../Eazyman_catalouge/View_EazyManCataloge.dart.dart';
 import '../Home/View_HomeScreen.dart';
 import '../ManageCustomers/view_ManageCustomers.dart';
+import '../ManageOrders/View_ManageOrders.dart';
 
 class NavigationView extends StatefulWidget {
   const NavigationView({super.key});
@@ -18,9 +19,9 @@ class _NavigationViewState extends State<NavigationView> {
   final List<Widget> _pages = [
     const HomeScreen(),
     SizedBox(),
-    SizedBox(),
-    ManageCustomers(),
-     EazyManCatalogScreen() // const CategoryView(),
+    const ManageOrders(),
+    const ManageCustomers(),
+    EazyManCatalogScreen() // const CategoryView(),
     // const StoreHome(),
     //
     // const ViewCart(),

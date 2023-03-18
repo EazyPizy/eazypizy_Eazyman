@@ -1,3 +1,4 @@
+import 'package:eazypizy_eazyman/Modules/onBoarding_Screen/View_OnBoarding_Screens.dart';
 import 'package:flutter/material.dart';
 
 import '../BottomNavigationBar/View_Bottom_Navigation_Bar.dart';
@@ -46,7 +47,7 @@ class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const InputMobileNumberScreen()));
+                          builder: (context) => const OnBoardingScreens()));
                     },
                     child: const Text("Continue"),
                   ),

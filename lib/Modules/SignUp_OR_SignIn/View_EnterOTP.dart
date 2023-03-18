@@ -1,24 +1,26 @@
 import 'dart:async';
+import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pinput/pinput.dart';
 
-import '../eazymanResigstration/viewBusinessCardSample.dart';
+import '../eazymanRegistration/viewBusinessCardSample.dart';
+import '../onBoarding_Screen/View_OnBoarding_Screens.dart';
 
 class VerifyOTPScreen extends StatefulWidget {
   //static const routeName = '/verify-otp-screen';
 
-
-  const VerifyOTPScreen( {super.key}
-      );
+  const VerifyOTPScreen({super.key});
 
   @override
   State<VerifyOTPScreen> createState() => _VerifyOTPScreenState();
 }
 
-class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
+final otpController = TextEditingController();
 
+class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -49,16 +51,19 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                       child: const Text("Change Number"))
                 ],
               ),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                maxLength: 10,
-                decoration: const InputDecoration(
-                  helperText: 'Resend OTP In',
-                  errorText: "Enter OTP",
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFF6200EE)),
-                  ),
-                ),
+              Pinput(
+                // defaultPinTheme: defaultPinTheme,
+                // focusedPinTheme: focusedPinTheme,
+                // submittedPinTheme: submittedPinTheme,
+                controller: otpController,
+                length: 6,
+                validator: (s) {
+                  if ((s?.length ?? 0) < 6) {
+                    return 'Enter complete digits';
+                  }
+                  return null;
+                },
+                onCompleted: print,
               ),
 
               const SizedBox(height: 4),
@@ -74,9 +79,10 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
                   alignment: Alignment.centerRight,
                   child: ElevatedButton(
                     onPressed: () async {
+                      EasySnackBar.buildErronSnackbar(
+                          "WrongOTP", "Enter again");
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const BusinessCardSample(
-                          )));
+                          builder: (context) => const BusinessCardSample()));
                     },
                     child: const Text("Continue"),
                   ),
@@ -94,11 +100,4 @@ class _VerifyOTPScreenState extends State<VerifyOTPScreen> {
       ),
     );
   }
-
-
-
-
-
-
-
 }

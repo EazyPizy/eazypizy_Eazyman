@@ -53,6 +53,9 @@ dependencies:
   im_stepper: ^1.0.1+1
   contacts_service: ^0.4.1
   permission_handler: ^10.0.0
+  smooth_page_indicator: ^1.0.0+2
+
+
 
   #firebase
   firebase_core: ^2.7.0

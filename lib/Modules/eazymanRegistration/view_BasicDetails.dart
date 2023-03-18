@@ -41,45 +41,71 @@ class _BasicDetailsState extends State<BasicDetails> {
           state:
               _activeCurrentStep <= 0 ? StepState.editing : StepState.complete,
           isActive: _activeCurrentStep >= 0,
-          title: Column(
+          title: const Text('Account'),
+          content: Column(
             children: [
-              Icon(Icons.access_alarm),
-              const Text('Account'),
+              const SizedBox(
+                height: 10,
+              ),
+              Column(
+                children: [
+                  SizedBox(
+                    height: 50,
+                    child: TextField(
+                      controller: name,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Full Name',
+                        // hintText: 'Full name'
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    height: 50,
+                    child: TextField(
+                      controller: email,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Email',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    height: 50,
+                    child: TextField(
+                      controller: pass,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: 'Date of birth',
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: const [
+                      Chip(
+                        label: Text("Male"),
+                      ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Chip(
+                        label: Text("Female"),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ],
-          ),
-          content: EasyContainer(
-            child: Column(
-              children: [
-                TextField(
-                  controller: name,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Full Name',
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                TextField(
-                  controller: email,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Email',
-                  ),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                TextField(
-                  controller: pass,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Password',
-                  ),
-                ),
-              ],
-            ),
           ),
         ),
         Step(
@@ -87,36 +113,36 @@ class _BasicDetailsState extends State<BasicDetails> {
                 ? StepState.editing
                 : StepState.complete,
             isActive: _activeCurrentStep >= 1,
-            subtitle: Text(
-              'subtitle',
-              style: Get.textTheme.titleSmall,
-            ),
             title: const Text('Address'),
-            content: Container(
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextField(
+            content: Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 50,
+                  child: TextField(
                     controller: address,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Full House Address',
+                      labelText: 'Location',
                     ),
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextField(
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 50,
+                  child: TextField(
                     controller: pincode,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Pin Code',
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             )),
         Step(
             state: _activeCurrentStep <= 2
@@ -131,10 +157,37 @@ class _BasicDetailsState extends State<BasicDetails> {
                 : StepState.complete,
             isActive: _activeCurrentStep >= 3,
             title: const Text('Select'),
+            content: Column(
+              children: [
+                Text(
+                  'Do you have Experience',
+                  style: Get.textTheme.headlineLarge,
+                ),
+                Row(
+                  children: const [
+                    Chip(
+                      label: Text("Yes"),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Chip(
+                      label: Text("No"),
+                    ),
+                  ],
+                ),
+              ],
+            )),
+        Step(
+            state: _activeCurrentStep <= 4
+                ? StepState.editing
+                : StepState.complete,
+            isActive: _activeCurrentStep >= 4,
+            title: const Text('Select'),
             content: const UserImageUploadScreen()),
         Step(
             state: StepState.complete,
-            isActive: _activeCurrentStep >= 4,
+            isActive: _activeCurrentStep >= 5,
             title: const Text('Confirm'),
             content: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -155,12 +208,12 @@ class _BasicDetailsState extends State<BasicDetails> {
 
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Registration', style: Get.textTheme.titleMedium),
-        ),
+        // appBar: AppBar(
+        //     //  title: Text('Registration', style: Get.textTheme.titleMedium),
+        //     ),
         body: ConstrainedBox(
           constraints: BoxConstraints.tightFor(
-              height: MediaQuery.of(context).size.height - 20),
+              height: MediaQuery.of(context).size.height),
           child: Stepper(
             elevation: 0,
             type: StepperType.horizontal,

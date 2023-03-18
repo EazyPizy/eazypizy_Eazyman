@@ -1,22 +1,17 @@
-import 'package:eazypizy_eazyman/Modules/eazymanResigstration/Compnents/SelectServices_Tile.dart';
-import 'package:eazypizy_eazyman/Modules/eazymanResigstration/view_BasicDetails.dart';
+import 'package:eazypizy_eazyman/Modules/eazymanRegistration/view_BasicDetails.dart';
+import 'package:eazypizy_eazyman/theme/app_colors.dart';
+
+import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class BusinessCardSample extends StatefulWidget {
+class BusinessCardSample extends StatelessWidget {
   static const routeName = '/BusinessCardSample';
 
   const BusinessCardSample({super.key});
 
-  @override
-  _BusinessCardSampleState createState() => _BusinessCardSampleState();
-}
-
-bool isVisible = true;
-
-class _BusinessCardSampleState extends State<BusinessCardSample> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -29,22 +24,26 @@ class _BusinessCardSampleState extends State<BusinessCardSample> {
               children: [
                 Text(
                   'Lets Build your Business Card',
-                  style: Get.textTheme.headlineLarge,
+                  style: Get.textTheme.titleLarge,
                 ),
                 const SizedBox(
                   height: 50,
                 ),
                 const EasyContainer(
-                    color: Colors.blueAccent,
-                    width: double.infinity,
-                    borderRadius: 25,
-                    height: 200,
+                    showBorder: true,
+                    color: Colors.white,
+                    width: 250,
+                    borderRadius: 10,
+                    borderColor: EazyColors.blackShade,
+                    height: 400,
                     child: Text('Business card')),
                 Expanded(
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
                       onPressed: () {
+                        EasySnackBar.buildSnackbar(
+                            'Trial', 'This is ur first snack bar');
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => BasicDetails()));
                       },
@@ -58,3 +57,5 @@ class _BusinessCardSampleState extends State<BusinessCardSample> {
     );
   }
 }
+
+bool isVisible = true;
