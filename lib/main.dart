@@ -1,3 +1,4 @@
+import 'package:eazypizy_eazyman/core/language.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:eazypizy_eazyman/theme/theme.dart';
 import 'package:flutter/material.dart';
@@ -7,9 +8,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'Modules/ChooseLanguage/view_ChooseLanguage.dart';
 import 'core/pages.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import 'core/services/category_services.dart';
@@ -43,6 +42,9 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => GetMaterialApp(
       //  title: 'Flutter Demo',
         theme: theme,
+        locale: const Locale('en','US'),
+        translations: Language(),
+        fallbackLocale: const Locale('en','US'),
         home: ChooseLanguageScreen(),
         getPages: pages,
       ),

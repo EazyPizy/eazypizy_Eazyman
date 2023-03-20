@@ -30,17 +30,33 @@ class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
             children: [
               const SizedBox(height: 40),
               Text(
-                "Choose Your Language",
+                "msg".tr,
                 textScaleFactor: 1.2,
                 style: Get.textTheme.titleLarge,
                 textDirection: TextDirection.ltr,
               ),
               const SizedBox(height: 24),
-              const LanguageSelectionTile(),
+              ListTile(
+                onTap: () {
+                  Get.updateLocale(const Locale('hi',' '));
+                },
+                leading: const Icon(Icons.sort_by_alpha),
+                title: Text(
+                  'language1'.tr,
+                  style: const TextStyle(color: Colors.black),
+                ),
+              ),
+              ListTile(
+                onTap: () {
+                  Get.updateLocale(const Locale('en', 'US'));
+                },
+                leading: const Icon(Icons.sort_by_alpha),
+                title: Text(
+                  'language2'.tr,
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
               const SizedBox(height: 16),
-              const LanguageSelectionTile(),
-              const SizedBox(height: 16),
-              const LanguageSelectionTile(),
               const SizedBox(height: 16),
               Expanded(
                 child: Center(
@@ -49,7 +65,7 @@ class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => const OnBoardingScreens()));
                     },
-                    child: const Text("Continue"),
+                    child:  Text("Continue".tr),
                   ),
                 ),
               ),
