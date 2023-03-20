@@ -39,7 +39,7 @@ class _InputMobileNumberScreenState extends State<InputMobileNumberScreen> {
                 ),
               ),
               Text(
-                "Enter Your Mobile Number",
+                "Enter Your Mobile Number".tr,
                 style: Get.textTheme.titleLarge,
                 textScaleFactor: 1.5,
               ),

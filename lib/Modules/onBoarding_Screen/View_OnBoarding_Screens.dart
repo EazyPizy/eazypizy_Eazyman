@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../SignUp_OR_SignIn/View_EnterMobileNumber.dart';
@@ -80,14 +81,14 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const InputMobileNumberScreen()));
                 },
-                child: const Text("Get Started"),
+                child:  Text("Get Started".tr),
               ) : ElevatedButton(
                 onPressed: () {
                   controller.nextPage(
                       duration: const Duration(milliseconds: 500),
                       curve: Curves.easeIn);
                 },
-                child: const Text("Next"),
+                child:  Text("Next".tr),
               ),
             ),
           ),

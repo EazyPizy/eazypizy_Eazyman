@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class LanguageSelectionTile extends StatefulWidget {
-  const LanguageSelectionTile({super.key});
+  LanguageSelectionTile({required this.lang, super.key});
 
+  String lang;
 
   @override
   State<LanguageSelectionTile> createState() => _LanguageSelectionTileState();
@@ -14,11 +15,19 @@ class _LanguageSelectionTileState extends State<LanguageSelectionTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: isSelected ? Colors.blue : Colors.grey),
+          borderRadius: BorderRadius.circular(5)
+          //shape: BoxShape.circle,
+          ),
+      height: 90,
+      width: double.infinity,
       child: ListTile(
         leading: const Icon(Icons.sort_by_alpha),
-        title: const Text(
-          "English",
-          style: TextStyle(color: Colors.black),
+        title: Text(
+          widget.lang,
+          style: const TextStyle(color: Colors.black),
         ),
         trailing: IconButton(
           icon: const Icon(Icons.radio_button_unchecked),
@@ -35,14 +44,6 @@ class _LanguageSelectionTileState extends State<LanguageSelectionTile> {
           },
         ),
       ),
-      decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: isSelected ? Colors.blue : Colors.grey),
-          borderRadius: BorderRadius.circular(5)
-          //shape: BoxShape.circle,
-          ),
-      height: 90,
-      width: double.infinity,
     );
   }
 }
