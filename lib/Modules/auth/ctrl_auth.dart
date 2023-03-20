@@ -97,8 +97,7 @@ class AuthenticationController extends GetxController {
         codeSent: (verificationId, forceResendingToken) {
           _log.v('OTP sent');
           _verificationId = verificationId;
-          EazySnackBar.buildErronSnackbar(
-              'OTP Sent', 'OTP sent on given number');
+          EazySnackBar.buildSnackbar('OTP Sent', 'OTP sent on given number');
           Get.to(const VerifyOTPScreen());
         },
         codeAutoRetrievalTimeout: (verificationId) {

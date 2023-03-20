@@ -1,5 +1,4 @@
-import 'package:eazypizy_eazyman/Modules/BottomNavigationBar/View_Bottom_Navigation_Bar.dart';
-import 'package:eazypizy_eazyman/Modules/eazymanRegistration/viewBusinessCardSample.dart';
+import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:eazypizy_eazyman/theme/theme.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'Modules/ChooseLanguage/view_ChooseLanguage.dart';
 import 'core/pages.dart';
 import 'core/services/category_services.dart';
 
@@ -44,21 +42,25 @@ class MyApp extends StatelessWidget {
         //  title: 'Flutter Demo',
         theme: theme,
         // home: ChooseLanguageScreen(),
-        home: initialRoute(),
+        // home: initialRoute(),
+        initialRoute: initialRoute(),
         getPages: pages,
       ),
     );
   }
 }
 
-Widget initialRoute() {
+String initialRoute() {
   if (EazyMenService.instance.isLoggedIn) {
     if (EazyMenService.instance.exists) {
-      return const NavigationView();
+      // return const NavigationView();
+      return Routes.navigationScreen;
     } else {
-      return const BusinessCardSample();
+      // return const BusinessCardSample();
+      return Routes.bussinessCardScreen;
     }
   } else {
-    return ChooseLanguageScreen();
+    // return ChooseLanguageScreen();
+    return Routes.choseLanguage;
   }
 }

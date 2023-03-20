@@ -1,51 +1,50 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eazypizy_eazyman/Models/EazymanModel.dart';
 import 'package:eazypizy_eazyman/core/logger.dart';
-import 'package:eazypizy_eazyman/core/typedefs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
-class CustomerModel {
-  CustomerModel({
-    required this.id,
-    required this.phoneNumber,
-    this.name,
-    this.address,
-    this.pincode,
-  });
-  factory CustomerModel.fromJson(Map<String, dynamic> json) => CustomerModel(
-        id: json['id'] as String,
-        phoneNumber: json['phoneNumber'] as String,
-        address: json['address'] != null
-            ? List.from(json['address'] as Iterable)
-            : null,
-        name: json['name'] as String?,
-        pincode: json['pincode'] as String?,
-      );
+// class CustomerModel {
+//   CustomerModel({
+//     required this.id,
+//     required this.phoneNumber,
+//     this.name,
+//     this.address,
+//     this.pincode,
+//   });
+//   factory CustomerModel.fromJson(Map<String, dynamic> json) => CustomerModel(
+//         id: json['id'] as String,
+//         phoneNumber: json['phoneNumber'] as String,
+//         address: json['address'] != null
+//             ? List.from(json['address'] as Iterable)
+//             : null,
+//         name: json['name'] as String?,
+//         pincode: json['pincode'] as String?,
+//       );
 
-  DynamicMap toJson() => {
-        'id': id,
-        'name': name,
-        'address': address,
-        'pincode': pincode,
-        'phoneNumber': phoneNumber
-      };
+//   DynamicMap toJson() => {
+//         'id': id,
+//         'name': name,
+//         'address': address,
+//         'pincode': pincode,
+//         'phoneNumber': phoneNumber
+//       };
 
-  final String id;
-  final String phoneNumber;
-  final String? name;
-  final List<String>? address;
-  final String? pincode;
+//   final String id;
+//   final String phoneNumber;
+//   final String? name;
+//   final List<String>? address;
+//   final String? pincode;
 
-  /// if the customer has address and name to complete checkout
-  bool isApplicable() {
-    if (address != null && name != null) {
-      return true;
-    }
-    return false;
-  }
-}
+//   /// if the customer has address and name to complete checkout
+//   bool isApplicable() {
+//     if (address != null && name != null) {
+//       return true;
+//     }
+//     return false;
+//   }
+// }
 
 class EazyMenService extends GetxService {
   static EazyMenService get instance => Get.find<EazyMenService>();
