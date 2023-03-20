@@ -2,27 +2,39 @@ import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EasySnackBar {
-  EasySnackBar._();
+class EazySnackBar {
+  EazySnackBar._();
 
   static buildSnackbar(String title, String message) {
     Get.snackbar(title, message,
         colorText: EazyColors.blackShade,
-        duration: Duration(seconds: 4),
+        duration: const Duration(seconds: 4),
         snackPosition: SnackPosition.BOTTOM,
-        padding: EdgeInsets.all(15),
-        margin: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.all(15),
         backgroundColor: EazyColors.dummy);
+  }
+
+  static buildSuccessSnackbar(String title, String message) {
+    Get.snackbar(
+      title,
+      message,
+      colorText: EazyColors.blackShade,
+      duration: const Duration(seconds: 4),
+      snackPosition: SnackPosition.BOTTOM,
+      padding: const EdgeInsets.all(15),
+      margin: const EdgeInsets.all(15),
+      backgroundColor: Colors.greenAccent,
+    );
   }
 
   static buildErronSnackbar(String title, String message) {
     Get.snackbar(title, message,
         colorText: EazyColors.white,
-        duration: Duration(seconds: 4),
+        duration: const Duration(seconds: 4),
         snackPosition: SnackPosition.BOTTOM,
-        padding: EdgeInsets.all(15),
-        margin: EdgeInsets.all(15),
-
+        padding: const EdgeInsets.all(15),
+        margin: const EdgeInsets.all(15),
         backgroundColor: Colors.red);
   }
 }

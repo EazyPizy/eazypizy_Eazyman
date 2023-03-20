@@ -1,10 +1,9 @@
 import 'package:eazypizy_eazyman/Modules/onBoarding_Screen/View_OnBoarding_Screens.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../BottomNavigationBar/View_Bottom_Navigation_Bar.dart';
-import '../SignUp_OR_SignIn/View_EnterMobileNumber.dart';
 import 'Components/language_selection_tile.dart';
-import 'package:get/get.dart';
 
 class ChooseLanguageScreen extends StatefulWidget {
   static String routeName = '/choose-language-screen';

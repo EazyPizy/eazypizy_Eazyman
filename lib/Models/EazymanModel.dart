@@ -2,14 +2,14 @@
 //
 //     final eazyMenModel = eazyMenModelFromJson(jsonString);
 
-
 import '../core/typedefs.dart';
 
 class EazyMenModel {
   EazyMenModel({
+    required this.eazyManUid,
+    required this.phoneNumber,
     this.personalDetail,
     this.bankDetails,
-    this.eazyManUid,
     this.dateOfRegistration,
     this.lastActive,
     this.lastStatus,
@@ -36,7 +36,8 @@ class EazyMenModel {
         //                 .map((e) => BankDetail.fromJson(e as DynamicMap))
         //             as Iterable,
         //       ),
-        eazyManUid: json['EazyMan_UID'] as String?,
+        eazyManUid: json['EazyMan_UID'] as String,
+        phoneNumber: json['phoneNumber'] as String,
         dateOfRegistration: json['Date_Of_Registration'] as String?,
         lastActive: json['Last_Active'] as String?,
         lastStatus: json['Last_Status'] as String?,
@@ -65,9 +66,10 @@ class EazyMenModel {
               ),
       );
 
+  final String eazyManUid;
+  final String phoneNumber;
   final PersonalDetail? personalDetail;
   final BankDetail? bankDetails;
-  final String? eazyManUid;
   final String? dateOfRegistration;
   final String? lastActive;
   final String? lastStatus;

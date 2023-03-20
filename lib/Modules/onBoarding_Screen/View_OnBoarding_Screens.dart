@@ -1,8 +1,7 @@
+import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
-import '../SignUp_OR_SignIn/View_EnterMobileNumber.dart';
 
 class OnBoardingScreens extends StatefulWidget {
   static const routeName = '/OnBoardingScreens';
@@ -23,17 +22,15 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
     super.dispose();
   }
 
-  Widget buildPage({ image,
+  Widget buildPage({
+    image,
   }) =>
       Image.asset(image);
 
-
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
+  Widget build(BuildContext context) => Scaffold(
         body: Stack(children: [
           PageView(
-
             onPageChanged: (index) {
               setState(() {
                 isLastPage = index == 2;
@@ -59,7 +56,6 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
                   )),
             ],
           ),
-
           Padding(
             padding: const EdgeInsets.all(25.0),
             child: Align(
@@ -76,20 +72,32 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
             padding: const EdgeInsets.all(25.0),
             child: Align(
               alignment: Alignment.bottomLeft,
-              child: isLastPage ? ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const InputMobileNumberScreen()));
-                },
-                child:  Text("Get Started".tr),
-              ) : ElevatedButton(
-                onPressed: () {
-                  controller.nextPage(
-                      duration: const Duration(milliseconds: 500),
-                      curve: Curves.easeIn);
-                },
-                child:  Text("Next".tr),
-              ),
+              child: isLastPage
+                  ? ElevatedButton(
+                      onPressed: () {
+                        // Navigator.of(context).push(
+                        //   MaterialPageRoute(
+                        //     builder: (context) =>
+                        //         const InputMobileNumberScreen(),
+                        //   ),
+                        // );
+
+                        // Get.to(const InputMobileNumberScreen(),
+                        //     binding: BindingsBuilder(() {
+                        //   Get.lazyPut(() => AuthenticationController());
+                        // }));
+                        Get.toNamed(Routes.enterMobileNumber);
+                      },
+                      child: const Text("Get Started"),
+                    )
+                  : ElevatedButton(
+                      onPressed: () {
+                        controller.nextPage(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeIn);
+                      },
+                      child: const Text("Next"),
+                    ),
             ),
           ),
           Padding(
@@ -106,15 +114,11 @@ class _OnBoardingScreensState extends State<OnBoardingScreens> {
                     //  type: WormType.thin,
                     // strokeWidth: 5,
                   ),
-                  onDotClicked: (index) =>
-                      controller.animateToPage(
-                          index, duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeIn),
+                  onDotClicked: (index) => controller.animateToPage(index,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeIn),
                 )),
           )
         ]),
       );
-
-
 }
-
