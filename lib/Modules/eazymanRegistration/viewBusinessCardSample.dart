@@ -1,9 +1,6 @@
-import 'package:eazypizy_eazyman/Modules/eazymanRegistration/view_BasicDetails.dart';
+import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
-
-import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -30,22 +27,25 @@ class BusinessCardSample extends StatelessWidget {
                   height: 50,
                 ),
                 const EasyContainer(
-                    showBorder: true,
-                    color: Colors.white,
-                    width: 250,
-                    borderRadius: 10,
-                    borderColor: EazyColors.blackShade,
-                    height: 400,
-                    child: Text('Business card')),
+                  showBorder: true,
+                  color: Colors.white,
+                  width: 250,
+                  borderRadius: 10,
+                  borderColor: EazyColors.blackShade,
+                  height: 400,
+                  child: Text('Business card'),
+                ),
                 Expanded(
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: ElevatedButton(
                       onPressed: () {
-                        EasySnackBar.buildSnackbar(
-                            'Trial', 'This is ur first snack bar');
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => BasicDetails()));
+                        // Navigator.of(context).push(
+                        //   MaterialPageRoute(
+                        //     builder: (context) => const BasicDetails(),
+                        //   ),
+                        // );
+                        Get.toNamed(Routes.basicDetailsScreen);
                       },
                       child: const Text("Continue"),
                     ),

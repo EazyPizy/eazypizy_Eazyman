@@ -1,18 +1,14 @@
-import 'package:eazypizy_eazyman/widgets/easy_container.dart';
+import 'package:eazypizy_eazyman/Modules/eazymanRegistration/ctrl_registration.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:get/get.dart';
-import 'package:im_stepper/stepper.dart';
 
 import 'Compnents/SelectServices_Tile.dart';
 import 'UserImageUploadScreen.dart';
 
-// enum Gender { male, female, other }
-
 class BasicDetails extends StatefulWidget {
   static const routeName = '/BasicDetails';
 
-  BasicDetails({super.key});
+  const BasicDetails({super.key});
 
   @override
   State<BasicDetails> createState() => _BasicDetailsState();
@@ -26,15 +22,7 @@ class _BasicDetailsState extends State<BasicDetails> {
 
   int upperBound = 6; // upperBound MUST BE total number of icons minus 1.
 
-  TextEditingController name = TextEditingController();
-
-  TextEditingController email = TextEditingController();
-
-  TextEditingController pass = TextEditingController();
-
-  TextEditingController address = TextEditingController();
-
-  TextEditingController pincode = TextEditingController();
+  late final RegistrationController controller;
 
   List<Step> stepList() => [
         Step(
@@ -52,7 +40,7 @@ class _BasicDetailsState extends State<BasicDetails> {
                   SizedBox(
                     height: 50,
                     child: TextField(
-                      controller: name,
+                      controller: controller.name,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Full Name',
@@ -66,7 +54,7 @@ class _BasicDetailsState extends State<BasicDetails> {
                   SizedBox(
                     height: 50,
                     child: TextField(
-                      controller: email,
+                      controller: controller.email,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Email',
@@ -76,12 +64,12 @@ class _BasicDetailsState extends State<BasicDetails> {
                   const SizedBox(
                     height: 20,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                     child: TextField(
-                      controller: pass,
+                      // controller: pass,
                       obscureText: true,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'Date of birth',
                       ),
@@ -122,7 +110,7 @@ class _BasicDetailsState extends State<BasicDetails> {
                 SizedBox(
                   height: 50,
                   child: TextField(
-                    controller: address,
+                    controller: controller.address,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Location',
@@ -135,7 +123,7 @@ class _BasicDetailsState extends State<BasicDetails> {
                 SizedBox(
                   height: 50,
                   child: TextField(
-                    controller: pincode,
+                    controller: controller.pincode,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: 'Pin Code',
@@ -145,12 +133,12 @@ class _BasicDetailsState extends State<BasicDetails> {
               ],
             )),
         Step(
-            state: _activeCurrentStep <= 2
-                ? StepState.editing
-                : StepState.complete,
-            isActive: _activeCurrentStep >= 2,
-            title: const Text('Select'),
-            content: const SelectServiceTile()),
+          state:
+              _activeCurrentStep <= 2 ? StepState.editing : StepState.complete,
+          isActive: _activeCurrentStep >= 2,
+          title: const Text('Select'),
+          content: const SelectServiceTile(),
+        ),
         Step(
             state: _activeCurrentStep <= 3
                 ? StepState.editing
@@ -179,67 +167,81 @@ class _BasicDetailsState extends State<BasicDetails> {
               ],
             )),
         Step(
-            state: _activeCurrentStep <= 4
-                ? StepState.editing
-                : StepState.complete,
-            isActive: _activeCurrentStep >= 4,
-            title: const Text('Select'),
-            content: const UserImageUploadScreen()),
+          state:
+              _activeCurrentStep <= 4 ? StepState.editing : StepState.complete,
+          isActive: _activeCurrentStep >= 4,
+          title: const Text('Select'),
+          content: const UserImageUploadScreen(),
+        ),
         Step(
-            state: StepState.complete,
-            isActive: _activeCurrentStep >= 5,
-            title: const Text('Confirm'),
-            content: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text('Name: ${name.text}'),
-                Text('Email: ${email.text}'),
-                Text('Password: ${pass.text}'),
-                Text('Address : ${address.text}'),
-                Text('PinCode : ${pincode.text}'),
-              ],
-            ))
+          state: StepState.complete,
+          isActive: _activeCurrentStep >= 5,
+          title: const Text('Confirm'),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text('Name: ${controller.name.text}'),
+              Text('Email: ${controller.email.text}'),
+              Text('Password: ${controller.pass.text}'),
+              Text('Address : ${controller.address.text}'),
+              Text('PinCode : ${controller.pincode.text}'),
+            ],
+          ),
+        )
       ];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    controller = Get.put(RegistrationController());
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController nameController = TextEditingController();
-
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //     //  title: Text('Registration', style: Get.textTheme.titleMedium),
-        //     ),
-        body: ConstrainedBox(
-          constraints: BoxConstraints.tightFor(
-              height: MediaQuery.of(context).size.height),
-          child: Stepper(
-            elevation: 0,
-            type: StepperType.horizontal,
-            currentStep: _activeCurrentStep,
-            steps: stepList(),
-            onStepContinue: () {
-              if (_activeCurrentStep < (stepList().length - 1)) {
-                setState(() {
-                  _activeCurrentStep += 1;
-                });
-              }
-            },
-            onStepCancel: () {
-              if (_activeCurrentStep == 0) {
-                return;
-              }
+        body: SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints.tightFor(
+              height: MediaQuery.of(context).size.height,
+            ),
+            child: Stepper(
+              elevation: 0,
+              type: StepperType.vertical,
+              currentStep: _activeCurrentStep,
+              steps: stepList(),
+              onStepContinue: () {
+                if (_activeCurrentStep < (stepList().length - 1)) {
+                  setState(() {
+                    _activeCurrentStep += 1;
+                  });
+                } else {
+                  controller.submit();
+                }
+              },
+              onStepCancel: () {
+                if (_activeCurrentStep == 0) {
+                  return;
+                }
 
-              setState(() {
-                _activeCurrentStep -= 1;
-              });
-            },
-            onStepTapped: (int index) {
-              setState(() {
-                _activeCurrentStep = index;
-              });
-            },
+                setState(() {
+                  _activeCurrentStep -= 1;
+                });
+              },
+              onStepTapped: (int index) {
+                setState(() {
+                  _activeCurrentStep = index;
+                });
+              },
+            ),
           ),
         ),
       ),
