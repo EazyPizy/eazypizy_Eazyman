@@ -4,12 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
 
+import 'ctrl_registration.dart';
+
 
 class UserImageUploadScreen extends StatefulWidget {
   static const routeName = '/UserImageUploadScreen';
 
   const UserImageUploadScreen(
-      {super.key});
+      {super.key, required this.controller});
+  final RegistrationController controller;
 
   @override
   _UserImageUploadScreenState createState() => _UserImageUploadScreenState();
@@ -74,6 +77,11 @@ class _UserImageUploadScreenState extends State<UserImageUploadScreen> {
               ),
             ),
           ),
+
+          ElevatedButton(onPressed: (){
+            widget.controller.upload(imageFile!);
+
+          }, child: Text('Upload'))
 
         ]);
   }

@@ -1,8 +1,12 @@
 import 'package:eazypizy_eazyman/Modules/eazymanRegistration/ctrl_registration.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:validators/validators.dart';
+import 'package:intl/intl.dart';
 
+import '../../theme/app_colors.dart';
 import 'Compnents/SelectServices_Tile.dart';
+import 'Compnents/personal_Details_1.dart';
 import 'UserImageUploadScreen.dart';
 
 class BasicDetails extends StatefulWidget {
@@ -17,6 +21,7 @@ class BasicDetails extends StatefulWidget {
 class _BasicDetailsState extends State<BasicDetails> {
   int _activeCurrentStep = 0;
   int dotCount = 5;
+  bool isEmailRight = false;
 
   int activeStep = 0; // Initial step set to 5.
 
@@ -25,77 +30,19 @@ class _BasicDetailsState extends State<BasicDetails> {
   late final RegistrationController controller;
 
   List<Step> stepList() => [
+        ///Step 1///
         Step(
-          state:
-              _activeCurrentStep <= 0 ? StepState.editing : StepState.complete,
-          isActive: _activeCurrentStep >= 0,
-          title: const Text('Account'),
-          content: Column(
-            children: [
-              const SizedBox(
-                height: 10,
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                    height: 50,
-                    child: TextField(
-                      controller: controller.name,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Full Name',
-                        // hintText: 'Full name'
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: 50,
-                    child: TextField(
-                      controller: controller.email,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Email',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const SizedBox(
-                    height: 50,
-                    child: TextField(
-                      // controller: pass,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Date of birth',
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: const [
-                      Chip(
-                        label: Text("Male"),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Chip(
-                        label: Text("Female"),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
+            state: _activeCurrentStep <= 0
+                ? StepState.editing
+                : StepState.complete,
+            isActive: _activeCurrentStep >= 0,
+            title: const Text('Account'),
+            content: PersonalDetails1(
+              controller: controller,
+            )),
+
+        ///Step 2///
+
         Step(
             state: _activeCurrentStep <= 1
                 ? StepState.editing
@@ -105,33 +52,36 @@ class _BasicDetailsState extends State<BasicDetails> {
             content: Column(
               children: [
                 const SizedBox(
-                  height: 20,
-                ),
-                SizedBox(
-                  height: 50,
-                  child: TextField(
-                    controller: controller.address,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Location',
-                    ),
+                  child: Icon(
+                    Icons.map_outlined,
+                    color: Colors.blueAccent,
+                    size: 100,
                   ),
                 ),
+                SizedBox(
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: const Text('Choose Location'),
+                    )),
                 const SizedBox(
                   height: 20,
                 ),
                 SizedBox(
                   height: 50,
                   child: TextField(
-                    controller: controller.pincode,
+                    controller: controller.city,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(),
-                      labelText: 'Pin Code',
+                      labelText: 'Enter City',
                     ),
                   ),
                 ),
               ],
             )),
+
+        ///Step 3///
+
         Step(
           state:
               _activeCurrentStep <= 2 ? StepState.editing : StepState.complete,
@@ -139,6 +89,9 @@ class _BasicDetailsState extends State<BasicDetails> {
           title: const Text('Select'),
           content: const SelectServiceTile(),
         ),
+
+        ///Step 4///
+
         Step(
             state: _activeCurrentStep <= 3
                 ? StepState.editing
@@ -151,28 +104,59 @@ class _BasicDetailsState extends State<BasicDetails> {
                   'Do you have Experience',
                   style: Get.textTheme.headlineLarge,
                 ),
-                Row(
-                  children: const [
-                    Chip(
-                      label: Text("Yes"),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Chip(
-                      label: Text("No"),
-                    ),
-                  ],
+                Wrap(
+                  spacing: 8,
+                  children:
+                  List.generate(controller.expList.length, (index) {
+                    return ChoiceChip(
+                      labelPadding: const EdgeInsets.all(2.0),
+                      label: Text(controller.expList[index],
+                          style: Get.textTheme.titleLarge
+                      ),
+                      selected: controller.defaultExpIndex == index,
+                      selectedColor: Colors.blueAccent,
+                      backgroundColor: EazyColors.white,
+
+
+                      onSelected: (value) {
+                        setState(() {
+                          controller.defaultExpIndex =
+                          value ? index : controller.defaultExpIndex;
+                        });
+                        print('Exp ${controller.defaultExpIndex}');
+                      },
+                      // backgroundColor: color,
+                      elevation: 1,
+                      // padding: EdgeInsets.symmetric(
+                      //     horizontal: SizeConfig.widthMultiplier * 4),
+                    );
+                  }),
                 ),
+
+                // controller.expList == controller.expList[controller.defaultExpIndex]?
+                // TextField(
+                //   controller: controller.city,
+                //   decoration: const InputDecoration(
+                //     border: OutlineInputBorder(),
+                //     labelText: 'Enter Year of Experiance',
+                //   ),
+                // ):Container()  ,
               ],
             )),
+
+        ///Step 5///
+
         Step(
           state:
               _activeCurrentStep <= 4 ? StepState.editing : StepState.complete,
           isActive: _activeCurrentStep >= 4,
           title: const Text('Select'),
-          content: const UserImageUploadScreen(),
+          content:  UserImageUploadScreen
+            (controller: controller,),
         ),
+
+        ///Step 6///
+
         Step(
           state: StepState.complete,
           isActive: _activeCurrentStep >= 5,
@@ -183,13 +167,14 @@ class _BasicDetailsState extends State<BasicDetails> {
             children: [
               Text('Name: ${controller.name.text}'),
               Text('Email: ${controller.email.text}'),
-              Text('Password: ${controller.pass.text}'),
+              Text('Password: ${controller.dob.text}'),
               Text('Address : ${controller.address.text}'),
-              Text('PinCode : ${controller.pincode.text}'),
+              Text('PinCode : ${controller.city.text}'),
             ],
           ),
         )
       ];
+
   @override
   void initState() {
     // TODO: implement initState
@@ -215,16 +200,25 @@ class _BasicDetailsState extends State<BasicDetails> {
             ),
             child: Stepper(
               elevation: 0,
-              type: StepperType.vertical,
+              type: StepperType.horizontal,
               currentStep: _activeCurrentStep,
               steps: stepList(),
               onStepContinue: () {
+                // if (_activeCurrentStep < (stepList().length - 4)) {
+                //   setState(() {
+                //     _activeCurrentStep += 4;
+                //   });
+                // } else {
+                //   controller.submit();
+                // }
+
                 if (_activeCurrentStep < (stepList().length - 1)) {
                   setState(() {
                     _activeCurrentStep += 1;
                   });
                 } else {
                   controller.submit();
+                 // controller.upload();
                 }
               },
               onStepCancel: () {

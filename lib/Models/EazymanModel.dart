@@ -70,7 +70,7 @@ class EazyMenModel {
   final String phoneNumber;
   final PersonalDetail? personalDetail;
   final BankDetail? bankDetails;
-  final String? dateOfRegistration;
+  final DateTime? dateOfRegistration;
   final String? lastActive;
   final String? lastStatus;
   final List<String>? mainServices;

@@ -27,6 +27,10 @@ class SelectServiceTile extends StatelessWidget {
               ),
               child: ListTile(
                   contentPadding: const EdgeInsets.all(8),
+                  onTap: (){
+                    controller.addSubServicesToEazyman(controller.mainServiceCategories[index]?.serviceId?? '');
+                    print(controller.mainService.length);
+                  },
 
                   // tileColor: Colors.white,
                   trailing: const Icon(Icons.check_box_outline_blank),

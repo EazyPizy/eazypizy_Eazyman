@@ -29,26 +29,24 @@ class BusinessCardSample extends StatelessWidget {
                 const EasyContainer(
                   showBorder: true,
                   color: Colors.white,
-                  width: 250,
+                  width: double.infinity,
                   borderRadius: 10,
                   borderColor: EazyColors.blackShade,
-                  height: 400,
+                  height: 200,
                   child: Text('Business card'),
                 ),
-                Expanded(
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Navigator.of(context).push(
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const BasicDetails(),
-                        //   ),
-                        // );
-                        Get.toNamed(Routes.basicDetailsScreen);
-                      },
-                      child: const Text("Continue"),
-                    ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Navigator.of(context).push(
+                      //   MaterialPageRoute(
+                      //     builder: (context) => const BasicDetails(),
+                      //   ),
+                      // );
+                      Get.toNamed(Routes.basicDetailsScreen);
+                    },
+                    child: const Text("Continue"),
                   ),
                 ),
               ]),
