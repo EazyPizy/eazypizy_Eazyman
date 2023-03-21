@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../theme/app_colors.dart';
-import '../Eazyman_catalouge/View_EazyManCataloge.dart.dart';
+import '../Eazyman_catalouge/view_eazy_man_cataloge.dart';
 import '../Home/View_HomeScreen.dart';
 import '../ManageCustomers/view_ManageCustomers.dart';
 import '../ManageOrders/View_ManageOrders.dart';
@@ -18,14 +18,10 @@ class _NavigationViewState extends State<NavigationView> {
 
   final List<Widget> _pages = [
     const HomeScreen(),
-    SizedBox(),
+    const SizedBox(),
     const ManageOrders(),
     const ManageCustomers(),
-    EazyManCatalogScreen() // const CategoryView(),
-    // const StoreHome(),
-    //
-    // const ViewCart(),
-    // const CustomerProfile(),
+    EazyManCatalogScreen()
   ];
 
   @override

@@ -4,6 +4,7 @@ import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -85,15 +86,20 @@ class RegistrationController extends GetxController {
       _log.v('Updating eazymen details...');
 
       final eazyman = EazyMenModel(
-          eazyManUid: 'lll',
-          phoneNumber: '456',
-          mainServices: mainService,
-          dateOfRegistration: DateTime.now(),
-          personalDetail: PersonalDetail(
-              firstName: nameS, lastName: nameS, dob: dobS, city: cityS));
+        eazyManUid: FirebaseAuth.instance.currentUser!.uid,
+        phoneNumber: FirebaseAuth.instance.currentUser!.phoneNumber,
+        mainServices: mainService,
+        dateOfRegistration: DateTime.now(),
+        personalDetail: PersonalDetail(
+          firstName: nameS,
+          lastName: nameS,
+          dob: dobS,
+          city: cityS,
+        ),
+      );
       await FirebaseFirestore.instance
           .collection('EazyMen')
-          .doc(EazyMenService.instance.eazyMenID)
+          .doc(eazyman.eazyManUid)
           .set(eazyman.toJson());
 
       // "Date_Of_Registration": DateTime.now(),
@@ -117,9 +123,9 @@ class RegistrationController extends GetxController {
       // }
       //  });
       EazySnackBar.buildSuccessSnackbar('Success', 'Details updated.');
-      Get.toNamed(Routes.navigationScreen);
+      await EazyMenService.instance.fetchEazymenData();
+      Get.offAllNamed(Routes.navigationScreen);
     } on Exception catch (e) {
-      // TODO
       _log.e(e);
     }
   }

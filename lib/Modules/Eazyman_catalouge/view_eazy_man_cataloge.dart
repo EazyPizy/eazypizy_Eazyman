@@ -1,7 +1,6 @@
+import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/components/services_list.dart';
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/simmerLoader.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -14,8 +13,9 @@ import 'components/Easyman_ServiceCard.dart';
 import 'ctrl_Eazyman_profile.dart';
 
 class EazyManCatalogScreen extends StatelessWidget {
-  EazyManCatalogScreen({super.key, });
-
+  EazyManCatalogScreen({
+    super.key,
+  });
 
   int initPosition = 0;
 
@@ -25,225 +25,157 @@ class EazyManCatalogScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        child: Text('Eazyman catalouge'),
+    return Stack(children: [
+      Scaffold(
+        // appBar: AppBar(
+        //   automaticallyImplyLeading: false,
+        //   backgroundColor: Colors.white,
+        //   elevation: 0.5,
+        //   title: const Text(
+        //     "Plumber",
+        //     style: TextStyle(color: Colors.black),
+        //   ),
+        // ),
+        body: GetBuilder<ProfileController>(
+          init: ProfileController(),
+          builder: (controller) {
+            return DefaultTabController(
+              length: controller.userCategories.length,
+              child: NestedScrollView(
+                headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
+                  return <Widget>[
+                    SliverAppBar(
+                      surfaceTintColor: EazyColors.white,
+                      // backgroundColor: EazyColors.background,
+
+                      pinned: true,
+                      // title: Text("Plumber",
+                      // style: TextStyle(
+                      //   color: Colors.black
+                      // ),
+                      // ),
+                      expandedHeight: 210.h,
+                      flexibleSpace: LayoutBuilder(
+                        builder: (ctx, cons) {
+                          top = cons.biggest.height;
+
+                          return FlexibleSpaceBar(
+                            centerTitle: true,
+                            title: AnimatedOpacity(
+                              duration: const Duration(milliseconds: 100),
+                              opacity: top <= 130 ? 1.0 : 0.0,
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    width: 55.w,
+                                  ),
+                                  const CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                      'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29',
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 12.w,
+                                  ),
+                                  InkWell(
+                                    onTap: controller.getUserSubServices,
+                                    child: Text(
+                                      controller.eazyMen.personalDetail
+                                              ?.firstName ??
+                                          '',
+                                      style: Get.textTheme.headlineMedium,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            background: Column(
+                              children: [
+                                SizedBox(
+                                  height: 75.h,
+                                ),
+                                VisitingCard(
+                                  eazyMenModel: controller.eazyMen,
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: EasyContainer(
+                        color: EazyColors.white,
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8, right: 8),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: const [
+                                  Text('Top Reviews'),
+                                  TextButton(
+                                    onPressed: viewAllReviews,
+                                    child: Text('View All'),
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: 65.h,
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 10,
+                                itemBuilder: (context, i) => CustomerReviewTile(
+                                  index: i,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    SliverPersistentHeader(
+                      pinned: true,
+                      delegate: _SliverAppBarDelegate(
+                        TabBar(
+                          labelColor: EazyColors.dummy,
+                          unselectedLabelColor: Colors.grey,
+                          indicatorColor: EazyColors.dummy,
+                          tabs: controller.userCategories
+                              .map(
+                                (e) => Tab(
+                                  text: e.serviceName,
+                                ),
+                              )
+                              .toList(),
+                        ),
+                      ),
+                    )
+                  ];
+                },
+                body: controller.loading
+                    ? const Center(child: ShimmerLoader())
+                    : TabBarView(
+                        // controller: controller.tabController,
+                        children: controller.userCategories
+                            .map(
+                              (category) => ServicesListWidget(category),
+                            )
+                            .toList(),
+                      ),
+              ),
+            );
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.edit),
+          onPressed: () {},
+        ),
       ),
-    );
-
-
-    //   Stack(children: [
-    //   Scaffold(
-    //     appBar: AppBar(
-    //       automaticallyImplyLeading: false,
-    //       backgroundColor: Colors.white,
-    //       elevation: 0.5,
-    //       title: const Text(
-    //         "Plumber",
-    //         style: TextStyle(color: Colors.black),
-    //       ),
-    //     ),
-    //     body: GetBuilder<ProfileController>(
-    //       init: ProfileController(),
-    //       builder: (controller) {
-    //         return DefaultTabController(
-    //           length: controller.userCategories.length,
-    //           child: NestedScrollView(
-    //             headerSliverBuilder:
-    //                 (BuildContext context, bool innerBoxIsScrolled) {
-    //               return <Widget>[
-    //                 SliverAppBar(
-    //                   surfaceTintColor: EazyColors.white,
-    //                   // backgroundColor: EazyColors.background,
-    //
-    //                   pinned: true,
-    //                   // title: Text("Plumber",
-    //                   // style: TextStyle(
-    //                   //   color: Colors.black
-    //                   // ),
-    //                   // ),
-    //                   expandedHeight: 210.h,
-    //                   flexibleSpace: LayoutBuilder(
-    //                     builder: (ctx, cons) {
-    //                       top = cons.biggest.height;
-    //
-    //                       return FlexibleSpaceBar(
-    //                         centerTitle: true,
-    //                         title: AnimatedOpacity(
-    //                           duration: const Duration(milliseconds: 100),
-    //                           opacity: top <= 130 ? 1.0 : 0.0,
-    //                           child: Row(
-    //                             children: [
-    //                               SizedBox(
-    //                                 width: 55.w,
-    //                               ),
-    //                               const CircleAvatar(
-    //                                 backgroundImage: NetworkImage(
-    //                                   'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29',
-    //                                 ),
-    //                               ),
-    //                               SizedBox(
-    //                                 width: 12.w,
-    //                               ),
-    //                               InkWell(
-    //                                 onTap: controller.getUserSubServices,
-    //                                 child: Text(
-    //                                   controller.eazyMen.personalDetail?.firstName ?? '',
-    //                                   style: Get.textTheme.headlineMedium,
-    //                                 ),
-    //                               ),
-    //                             ],
-    //                           ),
-    //                         ),
-    //                         background: Column(
-    //                           children: [
-    //                             SizedBox(
-    //                               height: 75.h,
-    //                             ),
-    //                             VisitingCard(
-    //                               eazyMenModel: controller.eazyMen,
-    //                             ),
-    //                           ],
-    //                         ),
-    //                       );
-    //                     },
-    //                   ),
-    //                 ),
-    //                 SliverToBoxAdapter(
-    //                   child: EasyContainer(
-    //                     color: EazyColors.white,
-    //                     child: Column(
-    //                       children: [
-    //                         Padding(
-    //                           padding: const EdgeInsets.only(left: 8, right: 8),
-    //                           child: Row(
-    //                             mainAxisAlignment:
-    //                                 MainAxisAlignment.spaceBetween,
-    //                             children: const [
-    //                               Text('Top Reviews'),
-    //                               TextButton(
-    //                                 onPressed: viewAllReviews,
-    //                                 child: Text('View All'),
-    //                               )
-    //                             ],
-    //                           ),
-    //                         ),
-    //                         SizedBox(
-    //                           height: 65.h,
-    //                           child: ListView.builder(
-    //                             scrollDirection: Axis.horizontal,
-    //                             itemCount: 10,
-    //                             itemBuilder: (context, i) => CustomerReviewTile(
-    //                               index: i,
-    //                             ),
-    //                           ),
-    //                         )
-    //                       ],
-    //                     ),
-    //                   ),
-    //                 ),
-    //                 SliverPersistentHeader(
-    //                   pinned: true,
-    //                   delegate: _SliverAppBarDelegate(
-    //                     TabBar(
-    //                       labelColor: EazyColors.dummy,
-    //                       unselectedLabelColor: Colors.grey,
-    //                       indicatorColor: EazyColors.dummy,
-    //                       tabs: controller.userCategories
-    //                           .map(
-    //                             (e) => Tab(
-    //                               text: e.serviceName,
-    //                             ),
-    //                           )
-    //                           .toList(),
-    //                     ),
-    //                   ),
-    //                 )
-    //               ];
-    //             },
-    //             body: controller.loading
-    //                 ? const Center(child: ShimmerLoader())
-    //                 : TabBarView(
-    //                     // controller: controller.tabController,
-    //                     children: controller.userCategories
-    //                         .map(
-    //                           (e) => ListView.separated(
-    //                             shrinkWrap: true,
-    //                             // physics: const NeverScrollableScrollPhysics(),
-    //                             itemCount:
-    //                                 controller.userSubServiceCategories.length,
-    //                             itemBuilder: (context, index) => Column(
-    //                               crossAxisAlignment: CrossAxisAlignment.start,
-    //                               children: [
-    //                                 Padding(
-    //                                   padding: const EdgeInsets.only(
-    //                                     left: 8,
-    //                                     right: 8,
-    //                                   ),
-    //                                   child: Text(
-    //                                     controller
-    //                                             .userSubServiceCategories[index]
-    //                                             .subServiceName ??
-    //                                         '',
-    //                                     style: Get.textTheme.titleLarge,
-    //                                   ),
-    //                                 ),
-    //                                 Padding(
-    //                                   padding: const EdgeInsets.all(8),
-    //                                   child: ListView.builder(
-    //                                     shrinkWrap: true,
-    //                                     physics:
-    //                                         const NeverScrollableScrollPhysics(),
-    //                                     itemCount: controller
-    //                                         .getSubServiceProduct(
-    //                                           controller
-    //                                                   .userSubServiceCategories[
-    //                                               index],
-    //                                         )
-    //                                         .length,
-    //                                     itemBuilder: (context, _) {
-    //                                       return InkWell(
-    //                                         onTap: () {
-    //                                           // controller.addToCart(
-    //                                           //   controller.getSubServiceProduct(
-    //                                           //     controller
-    //                                           //         .userSubServiceCategories[
-    //                                           //     index],
-    //                                           //   )[_],
-    //                                           // );
-    //                                         },
-    //                                         child: EazymanServiceCard(
-    //                                           serviceProdName: controller
-    //                                                   .getSubServiceProduct(
-    //                                                     controller
-    //                                                             .userSubServiceCategories[
-    //                                                         index],
-    //                                                   )[_]
-    //                                                   .serviceProductName ??
-    //                                               '',
-    //                                         ),
-    //                                       );
-    //                                     },
-    //                                   ),
-    //                                 ),
-    //                               ],
-    //                             ),
-    //                             separatorBuilder:
-    //                                 (BuildContext context, int index) =>
-    //                                     Divider(
-    //                               color: Colors.grey.shade50,
-    //                               thickness: 5,
-    //                             ),
-    //                           ),
-    //                         )
-    //                         .toList(),
-    //                   ),
-    //           ),
-    //         );
-    //       },
-    //     ),
-    //   ),
-    // ]);
+    ]);
   }
 }
 
@@ -384,38 +316,42 @@ class VisitingCard extends StatelessWidget {
 
 Widget inSightCard() {
   return SizedBox(
-      height: 60,
-      // width: 50,
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: 100,
-          itemBuilder: (context, i) => Card(
-              elevation: 1,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Center(child: Text(" $i Best Service")),
-              ))));
+    height: 60,
+    // width: 50,
+    child: ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: 100,
+      itemBuilder: (context, i) => Card(
+        elevation: 1,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(child: Text(" $i Best Service")),
+        ),
+      ),
+    ),
+  );
 }
 
 Widget ratingBar(String jobsCount) {
   return Card(
     child: SizedBox(
-        height: 100,
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              "$jobsCount  Jobs",
-              style: const TextStyle(color: Colors.black, fontSize: 10),
-            ),
-            Text(
-              "$jobsCount  Rating",
-              style: const TextStyle(color: Colors.black, fontSize: 10),
-            ),
-          ],
-        )),
+      height: 100,
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(
+            "$jobsCount  Jobs",
+            style: const TextStyle(color: Colors.black, fontSize: 10),
+          ),
+          Text(
+            "$jobsCount  Rating",
+            style: const TextStyle(color: Colors.black, fontSize: 10),
+          ),
+        ],
+      ),
+    ),
   );
 }
 
