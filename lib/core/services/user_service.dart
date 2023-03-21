@@ -5,6 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
+import '../../Models/EazymanModel.dart';
+import '../../Models/EazymanModel.dart';
+import '../../Models/EazymanModel.dart';
+
 class EazyMenService extends GetxService {
   static EazyMenService get instance => Get.find<EazyMenService>();
   final Logger _log = getLogger('EazyMen Service');
