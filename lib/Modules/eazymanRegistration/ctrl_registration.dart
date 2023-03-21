@@ -95,6 +95,8 @@ class RegistrationController extends GetxController {
           lastName: nameS,
           dob: dobS,
           city: cityS,
+          images: imageURL,
+          email: emailS,
         ),
       );
       await FirebaseFirestore.instance
