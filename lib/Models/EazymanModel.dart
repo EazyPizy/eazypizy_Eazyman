@@ -38,7 +38,7 @@ class EazyMenModel {
         //       ),
         eazyManUid: json['EazyMan_UID'] as String,
         phoneNumber: json['phoneNumber'] as String,
-        dateOfRegistration: json['Date_Of_Registration'] as String?,
+        dateOfRegistration: json['Date_Of_Registration'],
         lastActive: json['Last_Active'] as String?,
         lastStatus: json['Last_Status'] as String?,
         // mainServices: List.from(elements) json['Main_Services'] as List<String>?,
