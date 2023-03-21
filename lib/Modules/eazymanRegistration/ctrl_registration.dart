@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -33,15 +34,15 @@ class RegistrationController extends GetxController {
       _log.v('Updating eazymen details...');
       await FirebaseFirestore.instance
           .collection('EazyMen')
-          .doc(EazyMenService.instance.eazyMenID)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
           .set({
         'name': nameS,
         'email': emailS,
       });
       EazySnackBar.buildSuccessSnackbar('Success', 'Details updated.');
-      Get.toNamed(Routes.navigationScreen);
+      await EazyMenService.instance.fetchEazymenData();
+      Get.offAllNamed(Routes.navigationScreen);
     } on Exception catch (e) {
-      // TODO
       _log.e(e);
     }
   }

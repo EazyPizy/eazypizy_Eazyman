@@ -37,7 +37,7 @@ class EazyMenModel {
         //             as Iterable,
         //       ),
         eazyManUid: json['EazyMan_UID'] as String,
-        phoneNumber: json['phoneNumber'] as String,
+        phoneNumber: json['phoneNumber'] as String?,
         dateOfRegistration: json['Date_Of_Registration'] as String?,
         lastActive: json['Last_Active'] as String?,
         lastStatus: json['Last_Status'] as String?,
@@ -67,7 +67,7 @@ class EazyMenModel {
       );
 
   final String eazyManUid;
-  final String phoneNumber;
+  final String? phoneNumber;
   final PersonalDetail? personalDetail;
   final BankDetail? bankDetails;
   final String? dateOfRegistration;

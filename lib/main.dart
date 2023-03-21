@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
 
 String initialRoute() {
   if (EazyMenService.instance.isLoggedIn) {
-    if (EazyMenService.instance.exists) {
+    if (EazyMenService.instance.eazyMen != null) {
       // return const NavigationView();
       return Routes.navigationScreen;
     } else {

@@ -1,4 +1,4 @@
-
+import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 
@@ -11,16 +11,14 @@ import '../../core/services/category_services.dart';
 
 class ProfileController extends GetxController {
   ProfileController();
+  final Logger _log = getLogger('Profile Controller');
 
   late final EazyMenModel eazyMen;
-  final List<MainCategoryModel> mainCategories =
-      CategoryService.instance.mainServiceCategories;
 
-  late final List<MainCategoryModel> userCategories;
+  final List<MainCategoryModel> userCategories = [];
   final List<SubServiceModel> userSubServiceCategories = [];
   final List<SubServiceProductModel> userSubServiceProducts = [];
 
-  final Logger _log = getLogger('Profile Controller');
   bool loading = false;
 
   List<SubServiceProductModel> getSubServiceProduct(
@@ -35,61 +33,24 @@ class ProfileController extends GetxController {
     return data;
   }
 
-  Future<void> getUserSubServices() async {
-    loading = true;
-    update();
-    try {
-      if (userCategories.isEmpty) {
-        _log.i('Empty main Category');
-        return;
-      }
-      // final data = await FirebaseFirestore.instance
-      //     .collection('SubServiceCategory')
-      //     .where(
-      //       'SubServiceID',
-      //       whereIn: eazyMen.subServices,
-      //       // arrayContains: Get.find<HomeController>()
-      //       //     .categories
-      //       //     .map((e) => e.serviceId)
-      //       //     .toList(),
-      //       // arrayContains: [userCategories[0].serviceId],
-      //     )
-      //     .get();
-
-      final data = CategoryService.instance.subServiceCategories;
-
-      // print(data.docs);
-      for (final element in data) {
-        if (eazyMen.subServices!.contains(element.subServiceId)) {
-          userSubServiceCategories.add(element);
-        }
-      }
-    } catch (e) {
-      _log.e(e.toString());
-    } finally {
-      loading = false;
-      update();
+  void getUserSubServices() {
+    if (userCategories.isEmpty) {
+      _log.i('Empty main Category');
+      return;
     }
+    final data = CategoryService.instance.subServiceCategories;
+
+    for (final element in data) {
+      if (eazyMen.subServices!.contains(element.subServiceId)) {
+        userSubServiceCategories.add(element);
+      }
+    }
+    print(userSubServiceCategories);
   }
 
-  Future<void> getUserServiceProducts() async {
-    print(eazyMen.subServiceProdcuts);
-    // final data = await FirebaseFirestore.instance
-    //     .collection('ServiceProducts')
-    //     .where(
-    //       'ServiceProductID',
-    //       whereIn: eazyMen.subServiceProdcuts,
-    //       // arrayContains: Get.find<HomeController>()
-    //       //     .categories
-    //       //     .map((e) => e.serviceId)
-    //       //     .toList(),
-    //       // arrayContains: [userCategories[0].serviceId],
-    //     )
-    //     .get();
-
+  void getUserServiceProducts() {
     final data = CategoryService.instance.serviceProducts;
 
-    // print(jsonEncode(data.docs[0].data()));
     for (final element in eazyMen.subServiceProdcuts ?? []) {
       userSubServiceProducts.add(
         data.firstWhere(
@@ -97,21 +58,29 @@ class ProfileController extends GetxController {
         ),
       );
     }
+    print(userSubServiceProducts);
     update();
   }
 
-  // void addToCart(SubServiceProductModel product) {
-  //   CartService.instance.addToCart(eazyMen: eazyMen, product: product);
-  // }
+  void getUserMainCategories() {
+    final _mainCategories = CategoryService.instance.mainServiceCategories;
+
+    for (final element in eazyMen.mainServices ?? []) {
+      userCategories.add(
+        _mainCategories.firstWhere(
+          (serviceProduct) => serviceProduct.serviceId == element,
+        ),
+      );
+    }
+    print(userCategories);
+    update();
+  }
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
-    // userCategories = Get.find<HomeController>()
-    //     .categories
-    //     .where((mainCat) => eazyMen.mainServices!.contains(mainCat.serviceId))
-    //     .toList();
+    eazyMen = EazyMenService.instance.eazyMen!;
+    getUserMainCategories();
     getUserSubServices();
     getUserServiceProducts();
   }
