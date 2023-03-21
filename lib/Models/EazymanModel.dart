@@ -2,6 +2,8 @@
 //
 //     final eazyMenModel = eazyMenModelFromJson(jsonString);
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../core/typedefs.dart';
 
 class EazyMenModel {
@@ -28,7 +30,9 @@ class EazyMenModel {
         //                 .map((e) => PersonalDetail.fromJson(e as DynamicMap))
         //             as Iterable,
         //       ),
-        bankDetails: BankDetail.fromJson(json['BankDetails'][0] as DynamicMap),
+        bankDetails: json['BankDetails'][0] != null
+            ? BankDetail.fromJson(json['BankDetails'][0] as DynamicMap)
+            : null,
         //  == null
         //     ? []
         //     : List<BankDetail>.from(
@@ -38,7 +42,8 @@ class EazyMenModel {
         //       ),
         eazyManUid: json['EazyMan_UID'] as String,
         phoneNumber: json['phoneNumber'] as String?,
-        dateOfRegistration: json['Date_Of_Registration'],
+        dateOfRegistration:
+            (json['Date_Of_Registration'] as Timestamp).toDate(),
         lastActive: json['Last_Active'] as String?,
         lastStatus: json['Last_Status'] as String?,
         // mainServices: List.from(elements) json['Main_Services'] as List<String>?,
