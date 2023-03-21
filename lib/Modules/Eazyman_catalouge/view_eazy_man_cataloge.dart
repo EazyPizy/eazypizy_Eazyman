@@ -27,15 +27,15 @@ class EazyManCatalogScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: [
       Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.white,
-          elevation: 0.5,
-          title: const Text(
-            "Plumber",
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
+        // appBar: AppBar(
+        //   automaticallyImplyLeading: false,
+        //   backgroundColor: Colors.white,
+        //   elevation: 0.5,
+        //   title: const Text(
+        //     "Plumber",
+        //     style: TextStyle(color: Colors.black),
+        //   ),
+        // ),
         body: GetBuilder<ProfileController>(
           init: ProfileController(),
           builder: (controller) {
@@ -169,6 +169,10 @@ class EazyManCatalogScreen extends StatelessWidget {
               ),
             );
           },
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.edit),
+          onPressed: () {},
         ),
       ),
     ]);
