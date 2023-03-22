@@ -25,8 +25,16 @@ class EazyMenService extends GetxService {
 
   Stream<User?> stateChange() => _firebaseAuth.authStateChanges();
 
+  @override
+  void onInit() {
+    super.onInit();
+   // logout();
+  }
+
   /// fetches the customer if they are logged in
   Future<EazyMenService> init() async {
+    logout();
+
     if (isLoggedIn) {
       // TODO: change to offline fetch
       await fetchEazymenData();
@@ -55,9 +63,5 @@ class EazyMenService extends GetxService {
     // TODO: delete from offline storage
   }
 
-  @override
-  void onInit() {
-    super.onInit();
-    // logout();
-  }
+
 }

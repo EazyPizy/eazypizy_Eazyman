@@ -8,6 +8,7 @@ import 'package:get/get.dart';
 import '../../Models/EazymanModel.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/easy_container.dart';
+import '../addServiceProdToEazyman/Add_SubService_To_UserCatalouge.dart';
 import 'components/CustomerRivewTile.dart';
 import 'components/Easyman_ServiceCard.dart';
 import 'ctrl_Eazyman_profile.dart';
@@ -172,7 +173,11 @@ class EazyManCatalogScreen extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.edit),
-          onPressed: () {},
+          onPressed: () {
+            // Navigator.of(context).push(MaterialPageRoute(
+            //   builder: (context) => AddSubServiceToUserCatalogue(),
+            // ));
+          },
         ),
       ),
     ]);

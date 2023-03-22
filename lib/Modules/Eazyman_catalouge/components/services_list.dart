@@ -5,6 +5,8 @@ import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/ctrl_Eazyman_profile.
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../addServiceProdToEazyman/Add_SubService_To_UserCatalouge.dart';
+
 class ServicesListWidget extends GetView<ProfileController> {
   const ServicesListWidget(
     this.mainCategory, {
@@ -21,50 +23,68 @@ class ServicesListWidget extends GetView<ProfileController> {
               (element) => element.serviceId!.contains(mainCategory.serviceId!),
             )
             .toList();
-    return ListView.separated(
-      shrinkWrap: true,
-      itemCount: subServices.length,
-      itemBuilder: (context, index) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(
-              left: 8,
-              right: 8,
+
+    return subServices.isNotEmpty
+        ? ListView.separated(
+            shrinkWrap: true,
+            itemCount: subServices.length,
+            itemBuilder: (context, index) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    left: 8,
+                    right: 8,
+                  ),
+                  child: Text(
+                    subServices[index].subServiceName ?? '',
+                    style: Get.textTheme.titleLarge,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: controller
+                            .getSubServiceProduct(
+                              subServices[index],
+                            )
+                            .length +
+                        1,
+                    itemBuilder: (context, _) {
+                      return EazymanServiceCard(
+                        serviceProdName: controller
+                                .getSubServiceProduct(
+                                  subServices[index],
+                                )[_]
+                                .serviceProductName ??
+                            '',
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
-            child: Text(
-              subServices[index].subServiceName ?? '',
-              style: Get.textTheme.titleLarge,
+            separatorBuilder: (BuildContext context, int index) => Divider(
+              color: Colors.grey.shade50,
+              thickness: 5,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8),
-            child: ListView.builder(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: controller
-                  .getSubServiceProduct(
-                    subServices[index],
-                  )
-                  .length,
-              itemBuilder: (context, _) {
-                return EazymanServiceCard(
-                  serviceProdName: controller
-                          .getSubServiceProduct(
-                            subServices[index],
-                          )[_]
-                          .serviceProductName ??
-                      '',
-                );
-              },
+          )
+        : Center(
+            child: SizedBox(
+              height: 60,
+              width: 120,
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => AddSubServiceToUserCatalogue(
+                        mainServiceID: mainCategory.serviceId!,
+                      ),
+                    ));
+                  },
+                  child: Text('Add Services')),
             ),
-          ),
-        ],
-      ),
-      separatorBuilder: (BuildContext context, int index) => Divider(
-        color: Colors.grey.shade50,
-        thickness: 5,
-      ),
-    );
+          );
   }
 }
