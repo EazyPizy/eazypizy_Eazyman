@@ -25,16 +25,8 @@ class EazyMenService extends GetxService {
 
   Stream<User?> stateChange() => _firebaseAuth.authStateChanges();
 
-  @override
-  void onInit() {
-    super.onInit();
-   // logout();
-  }
-
   /// fetches the customer if they are logged in
   Future<EazyMenService> init() async {
-    logout();
-
     if (isLoggedIn) {
       // TODO: change to offline fetch
       await fetchEazymenData();
@@ -45,14 +37,18 @@ class EazyMenService extends GetxService {
   Future<void> fetchEazymenData() async {
     _log.v('Getting eazymen details...');
 
-    _eazyMen = EazyMenModel.fromJson(
-      (await FirebaseFirestore.instance
-              .collection('EazyMen')
-              .doc(_firebaseAuth.currentUser!.uid)
-              // .doc('1ABxdhC163jgDXUxhhFBehCyyjSzcg5pPZ')
-              .get())
-          .data()!,
-    );
+    try {
+      _eazyMen = EazyMenModel.fromJson(
+        (await FirebaseFirestore.instance
+                .collection('EazyMen')
+                .doc(_firebaseAuth.currentUser!.uid)
+                // .doc('1ABxdhC163jgDXUxhhFBehCyyjSzcg5pPZ')
+                .get())
+            .data()!,
+      );
+    } catch (e) {
+      _log.e(e);
+    }
 
     _log.i(_eazyMen?.toJson());
   }
@@ -62,6 +58,4 @@ class EazyMenService extends GetxService {
     await _firebaseAuth.signOut();
     // TODO: delete from offline storage
   }
-
-
 }

@@ -3,6 +3,7 @@
 //     final eazyMenModel = eazyMenModelFromJson(jsonString);
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eazypizy_eazyman/Models/eazymen_product.dart';
 
 import '../core/typedefs.dart';
 
@@ -60,8 +61,9 @@ class EazyMenModel {
               ),
         subServiceProdcuts: json['Service_Product'] == null
             ? []
-            : List<String>.from(
-                json['Service_Product']!.map((e) => e.toString()) as Iterable,
+            : List<EazymenProductModel>.from(
+                json['Service_Product']!
+                    .map((e) => EazymenProductModel.fromJson(e)) as Iterable,
               ),
         deviceInfo: json['Device_Info'] == null
             ? []
@@ -80,7 +82,7 @@ class EazyMenModel {
   final String? lastStatus;
   final List<String>? mainServices;
   final List<String>? subServices;
-  final List<String>? subServiceProdcuts;
+  final List<EazymenProductModel>? subServiceProdcuts;
   final List<DeviceInfo>? deviceInfo;
 
   Map<String, dynamic> toJson() => {

@@ -1,3 +1,4 @@
+import 'package:eazypizy_eazyman/Models/eazymen_product.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
@@ -17,16 +18,16 @@ class ProfileController extends GetxController {
 
   final List<MainCategoryModel> userCategories = [];
   final List<SubServiceModel> userSubServiceCategories = [];
-  final List<SubServiceProductModel> userSubServiceProducts = [];
+  final List<EazymenProductModel> userSubServiceProducts = [];
 
   bool loading = false;
 
-  List<SubServiceProductModel> getSubServiceProduct(
+  List<EazymenProductModel> getSubServiceProduct(
     SubServiceModel subService,
   ) {
-    final data = <SubServiceProductModel>[];
+    final data = <EazymenProductModel>[];
     for (final element in userSubServiceProducts) {
-      if (element.subServiceIDs!.contains(subService.subServiceId)) {
+      if (element.subServiceId == subService.subServiceId) {
         data.add(element);
       }
     }
@@ -51,12 +52,22 @@ class ProfileController extends GetxController {
   void getUserServiceProducts() {
     final data = CategoryService.instance.serviceProducts;
 
-    for (final element in eazyMen.subServiceProdcuts ?? []) {
+    for (EazymenProductModel element in eazyMen.subServiceProdcuts ?? []) {
       userSubServiceProducts.add(
-        data.firstWhere(
-          (serviceProduct) => serviceProduct.serviceProductId == element,
+        EazymenProductModel(
+          subServiceId: element.subServiceId,
+          productId: element.productId,
+          price: element.price,
+          isActive: element.isActive,
+          productDetails:
+              data.firstWhere((_) => _.serviceProductId == element.productId),
         ),
       );
+      // userSubServiceProducts.add(
+      //   data.firstWhere(
+      //     (serviceProduct) => serviceProduct.serviceProductId == element,
+      //   ),
+      // );
     }
     print(userSubServiceProducts);
     update();

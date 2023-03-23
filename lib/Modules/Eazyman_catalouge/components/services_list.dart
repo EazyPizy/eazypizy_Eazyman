@@ -53,13 +53,42 @@ class ServicesListWidget extends GetView<ProfileController> {
                             .length +
                         1,
                     itemBuilder: (context, _) {
+                      if (controller
+                              .getSubServiceProduct(
+                                subServices[index],
+                              )
+                              .length ==
+                          _) {
+                        return Center(
+                          child: SizedBox(
+                            height: 60,
+                            width: 120,
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        AddSubServiceToUserCatalogue(
+                                      mainService: mainCategory,
+                                    ),
+                                  ));
+                                },
+                                child: Text('Add Services')),
+                          ),
+                        );
+                      }
                       return EazymanServiceCard(
                         serviceProdName: controller
                                 .getSubServiceProduct(
                                   subServices[index],
                                 )[_]
+                                .productDetails!
                                 .serviceProductName ??
                             '',
+                        price: controller
+                            .getSubServiceProduct(
+                              subServices[index],
+                            )[_]
+                            .price,
                       );
                     },
                   ),
@@ -79,7 +108,7 @@ class ServicesListWidget extends GetView<ProfileController> {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => AddSubServiceToUserCatalogue(
-                        mainServiceID: mainCategory.serviceId!,
+                        mainService: mainCategory,
                       ),
                     ));
                   },

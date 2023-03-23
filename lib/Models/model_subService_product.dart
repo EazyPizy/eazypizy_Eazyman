@@ -2,7 +2,6 @@
 //
 //     final subServiceProductModel = subServiceProductModelFromJson(jsonString);
 
-
 import '../core/typedefs.dart';
 
 class SubServiceProductModel {
