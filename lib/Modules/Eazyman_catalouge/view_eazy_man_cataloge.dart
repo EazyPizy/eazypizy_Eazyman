@@ -9,6 +9,7 @@ import '../../Models/EazymanModel.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/easy_container.dart';
 import '../addServiceProdToEazyman/Add_SubService_To_UserCatalouge.dart';
+import '../addServiceProdToEazyman/ctrl_add_products.dart';
 import 'components/CustomerRivewTile.dart';
 import 'components/Easyman_ServiceCard.dart';
 import 'ctrl_Eazyman_profile.dart';
@@ -171,17 +172,14 @@ class EazyManCatalogScreen extends StatelessWidget {
             );
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          child: const Icon(Icons.edit),
-          onPressed: () {
-            // Navigator.of(context).push(MaterialPageRoute(
-            //   builder: (context) => AddSubServiceToUserCatalogue(),
-            // ));
-          },
-        ),
+
       ),
     ]);
   }
+
+
+
+
 }
 
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
@@ -572,5 +570,7 @@ Future<void> viewAllReviews() {
 //   return MyServiceProductModel(
 // serviceProdID: serviceId,mySetPrice: myPrice,serviceProductModel: service,
 //   );
+
+
 
 /// Custom View, These lines of code is used for Custom Tab View, And this piece of code is shifted to separate class. ///

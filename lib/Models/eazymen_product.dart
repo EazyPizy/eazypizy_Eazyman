@@ -24,4 +24,12 @@ class EazymenProductModel {
         subServiceId: json['subServiceId'] as String,
         productDetails: productModel,
       );
+
+
+  Map<String, dynamic> toJson() => {
+    'productId': productId,
+    'price': price,
+    'active': isActive,
+    'subServiceId': subServiceId,
+  };
 }

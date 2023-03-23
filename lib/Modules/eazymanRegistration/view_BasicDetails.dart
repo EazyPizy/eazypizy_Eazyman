@@ -214,25 +214,25 @@ class _BasicDetailsState extends State<BasicDetails> {
               height: MediaQuery.of(context).size.height,
             ),
             child: Stepper(
-              controlsBuilder: (BuildContext context, ControlsDetails details) {
-                return Row(
-                  children: <Widget>[
-                    ElevatedButton(
-                      child: Text('Elevated Button'),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.green,
-                      ),
-                      onPressed: () {
-                        details.onStepContinue;
-                      },
-                    ),
-                    // TextButton(
-                    //   onPressed: details.onStepCancel,
-                    //   child: const Text('CANCEL'),
-                    // ),
-                  ],
-                );
-              },
+              // controlsBuilder: (BuildContext context, ControlsDetails details) {
+              //   return Row(
+              //     children: <Widget>[
+              //       ElevatedButton(
+              //         child: Text('Elevated Button'),
+              //         style: ElevatedButton.styleFrom(
+              //           primary: Colors.green,
+              //         ),
+              //         onPressed: () {
+              //           details.onStepContinue;
+              //         },
+              //       ),
+              //       TextButton(
+              //         onPressed: details.onStepCancel,
+              //         child: const Text('CANCEL'),
+              //       ),
+              //     ],
+              //   );
+              // },
               elevation: 0,
               type: StepperType.horizontal,
               currentStep: _activeCurrentStep,

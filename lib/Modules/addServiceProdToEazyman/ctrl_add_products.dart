@@ -5,6 +5,8 @@ import 'package:eazypizy_eazyman/core/services/category_services.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:get/get.dart';
 
+import '../../Models/eazymen_product.dart';
+
 class AddSubServiceProductsController extends GetxController {
   final _categoryService = CategoryService.instance;
   final List<SubServiceProductModel> eazymenProducts = [];
@@ -38,19 +40,23 @@ class AddSubServiceProductsController extends GetxController {
         .toList();
   }
 
-  Future<void> updateProducts() async {
+  Future<void> updateProducts(String subServiceID, String prodID) async {
+    final newData = EazymenProductModel(
+        subServiceId: subServiceID, productId: prodID, price: 12, isActive: true);
     FirebaseFirestore.instance
         .collection('EazyMen')
         .doc(EazyMenService.instance.eazyMen!.eazyManUid)
-        .update({
-      'Sub_Services': eazymenServices.map((e) => e.subServiceId).toList(),
-    });
-    FirebaseFirestore.instance
-        .collection('EazyMen')
-        .doc(EazyMenService.instance.eazyMen!.eazyManUid)
-        .update({
-      'Service_Product': eazymenProducts.map((e) => e.serviceProductId).toList()
-    });
+        .update(
+      {"Service_Product": {newData.toJson()}
+    }
+    );
+    await FirebaseFirestore.instance
+         .collection('EazyMen')
+         .doc(EazyMenService.instance.eazyMen!.eazyManUid)
+         .update({
+      'Sub_Services': {subServiceID}
+    }
+    );
   }
 
   @override
