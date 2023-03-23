@@ -11,11 +11,13 @@ class EazymanServiceCard extends StatelessWidget {
   const EazymanServiceCard({
     super.key,
     required this.serviceProdName,
+    required this.price,
   });
 
   // final ProductModel product;
 
   final String serviceProdName;
+  final int price;
 
   // final String serviceProdID;
 
@@ -65,7 +67,7 @@ class EazymanServiceCard extends StatelessWidget {
                               // Spacer(),
 
                               Text(
-                                '499',
+                                price.toString(),
                                 style: Get.textTheme.titleMedium,
                                 softWrap: true,
                                 overflow: TextOverflow.fade,
