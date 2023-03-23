@@ -19,7 +19,9 @@ class EazymanServiceCard extends StatelessWidget {
   final String serviceProdName;
   final int price;
 
+
   // final String serviceProdID;
+  final bool isSwitchOn = false;
 
   @override
   Widget build(BuildContext context) {
@@ -149,6 +151,51 @@ class EazymanServiceCard extends StatelessWidget {
                         ],
                       ),
                     ),
+                    Switch(
+                        activeTrackColor: Colors.lightGreenAccent,
+                        activeColor: Colors.green,
+                        inactiveThumbColor: Colors.redAccent,
+                        value: isSwitchOn,
+                        onChanged: (bool value) {
+                          // if (isSwitchOn == true) {
+                          //   showDialog(
+                          //     context: context,
+                          //     builder: (builder) {
+                          //       return AlertDialog(
+                          //         title: const Text(
+                          //           'Do you want to Hide this service from your catalogue?',
+                          //           style: TextStyle(fontSize: 12),
+                          //         ),
+                          //         actions: [
+                          //           TextButton(
+                          //               onPressed: () {
+                          //                 storeToggleSwitchValue(
+                          //                     widget.mainServiceID,
+                          //                     widget.serviceProdID,
+                          //                     value);
+                          //                 setState(() {
+                          //                   isSwitchOn = value;
+                          //                   Navigator.pop(context);
+                          //                 });
+                          //               },
+                          //               child: const Text(
+                          //                 'Yes',
+                          //               )),
+                          //           TextButton(
+                          //             onPressed: () {
+                          //               Navigator.pop(context);
+                          //             },
+                          //             child: const Text('No'),
+                          //           )
+                          //         ],
+                          //       );
+                          //     },
+                          //   );
+                          // } else {
+                          //   isSwitchOn = value;
+                          // }
+                        }),
+
                     // Spacer(),
                     //  Padding(
                     //    padding: const EdgeInsets.all(8.0),

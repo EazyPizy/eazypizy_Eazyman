@@ -24,96 +24,97 @@ class ServicesListWidget extends GetView<ProfileController> {
             )
             .toList();
 
-    return subServices.isNotEmpty
-        ? ListView.separated(
-            shrinkWrap: true,
-            itemCount: subServices.length,
-            itemBuilder: (context, index) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 8,
-                    right: 8,
-                  ),
-                  child: Text(
-                    subServices[index].subServiceName ?? '',
-                    style: Get.textTheme.titleLarge,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: controller
-                            .getSubServiceProduct(
-                              subServices[index],
-                            )
-                            .length +
-                        1,
-                    itemBuilder: (context, _) {
-                      if (controller
-                              .getSubServiceProduct(
-                                subServices[index],
-                              )
-                              .length ==
-                          _) {
-                        return Center(
-                          child: SizedBox(
-                            height: 60,
-                            width: 120,
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        AddSubServiceToUserCatalogue(
-                                      mainService: mainCategory,
-                                    ),
-                                  ));
-                                },
-                                child: Text('Add Services')),
-                          ),
-                        );
-                      }
-                      return EazymanServiceCard(
-                        serviceProdName: controller
-                                .getSubServiceProduct(
-                                  subServices[index],
-                                )[_]
-                                .productDetails!
-                                .serviceProductName ??
-                            '',
-                        price: controller
-                            .getSubServiceProduct(
-                              subServices[index],
-                            )[_]
-                            .price,
-                      );
-                    },
-                  ),
-                ),
-              ],
-            ),
-            separatorBuilder: (BuildContext context, int index) => Divider(
-              color: Colors.grey.shade50,
-              thickness: 5,
-            ),
-          )
-        : Center(
-            child: SizedBox(
-              height: 60,
-              width: 120,
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => AddSubServiceToUserCatalogue(
-                        mainService: mainCategory,
-                      ),
-                    ));
-                  },
-                  child: Text('Add Services')),
-            ),
-          );
+    return EazymanServiceCard(serviceProdName: "name", price:120);
+      // subServices.isNotEmpty
+      //   ? ListView.separated(
+      //       shrinkWrap: true,
+      //       itemCount: subServices.length,
+      //       itemBuilder: (context, index) => Column(
+      //         crossAxisAlignment: CrossAxisAlignment.start,
+      //         children: [
+      //           Padding(
+      //             padding: const EdgeInsets.only(
+      //               left: 8,
+      //               right: 8,
+      //             ),
+      //             child: Text(
+      //               subServices[index].subServiceName ?? '',
+      //               style: Get.textTheme.titleLarge,
+      //             ),
+      //           ),
+      //           Padding(
+      //             padding: const EdgeInsets.all(8),
+      //             child: ListView.builder(
+      //               shrinkWrap: true,
+      //               physics: const NeverScrollableScrollPhysics(),
+      //               itemCount: controller
+      //                       .getSubServiceProduct(
+      //                         subServices[index],
+      //                       )
+      //                       .length +
+      //                   1,
+      //               itemBuilder: (context, _) {
+      //                 if (controller
+      //                         .getSubServiceProduct(
+      //                           subServices[index],
+      //                         )
+      //                         .length ==
+      //                     _) {
+      //                   return Center(
+      //                     child: SizedBox(
+      //                       height: 60,
+      //                       width: 120,
+      //                       child: ElevatedButton(
+      //                           onPressed: () {
+      //                             Navigator.of(context).push(MaterialPageRoute(
+      //                               builder: (context) =>
+      //                                   AddSubServiceToUserCatalogue(
+      //                                 mainService: mainCategory,
+      //                               ),
+      //                             ));
+      //                           },
+      //                           child: Text('Add Services')),
+      //                     ),
+      //                   );
+      //                 }
+      //                 return EazymanServiceCard(
+      //                   serviceProdName: controller
+      //                           .getSubServiceProduct(
+      //                             subServices[index],
+      //                           )[_]
+      //                           .productDetails!
+      //                           .serviceProductName ??
+      //                       '',
+      //                   price: controller
+      //                       .getSubServiceProduct(
+      //                         subServices[index],
+      //                       )[_]
+      //                       .price,
+      //                 );
+      //               },
+      //             ),
+      //           ),
+      //         ],
+      //       ),
+      //       separatorBuilder: (BuildContext context, int index) => Divider(
+      //         color: Colors.grey.shade50,
+      //         thickness: 5,
+      //       ),
+      //     )
+      //   : Center(
+      //       child: SizedBox(
+      //         height: 60,
+      //         width: 120,
+      //         child: ElevatedButton(
+      //             onPressed: () {
+      //               Navigator.of(context).push(MaterialPageRoute(
+      //                 builder: (context) => AddSubServiceToUserCatalogue(
+      //                   mainService: mainCategory,
+      //                 ),
+      //               ));
+      //             },
+      //             child: Text('Add Services')),
+      //       ),
+      //     );
   }
 }
