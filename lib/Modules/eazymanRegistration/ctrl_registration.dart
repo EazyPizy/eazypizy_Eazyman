@@ -52,7 +52,7 @@ class RegistrationController extends GetxController {
     return [...mainService];
   }
 
-  void addSubServicesToEazyman(
+  void addSubServicesToEazman(
     String mainServiceID,
   ) {
     if (mainService.contains(mainServiceID)) {
@@ -62,6 +62,7 @@ class RegistrationController extends GetxController {
     } else {
       mainService.add((mainServiceID));
     }
+    update(['id']);
   }
 
   Future upload(

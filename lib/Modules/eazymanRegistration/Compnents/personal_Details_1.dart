@@ -12,10 +12,10 @@ import '../viewBusinessCardSample.dart';
 class PersonalDetails1 extends StatefulWidget {
   const PersonalDetails1({
     super.key,
-    required this.controller,
+   // required this.controller,
   });
 
-  final RegistrationController controller;
+  // final RegistrationController controller;
 
   @override
   State<PersonalDetails1> createState() => _PersonalDetails1State();
@@ -26,6 +26,7 @@ class _PersonalDetails1State extends State<PersonalDetails1> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.find<RegistrationController>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,7 +34,7 @@ class _PersonalDetails1State extends State<PersonalDetails1> {
         SizedBox(
           height: 50,
           child: TextField(
-            controller: widget.controller.name,
+            controller: controller.name,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
               labelText: 'Full Name',
@@ -47,7 +48,7 @@ class _PersonalDetails1State extends State<PersonalDetails1> {
         SizedBox(
           height: 50,
           child: TextField(
-              controller: widget.controller.email,
+              controller: controller.email,
               decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   // prefixIcon: const Icon(Icons.email, color: Colors.red,),
@@ -77,7 +78,7 @@ class _PersonalDetails1State extends State<PersonalDetails1> {
           height: 50,
           child: TextField(
             readOnly: true,
-            controller: widget.controller.dob,
+            controller: controller.dob,
             obscureText: false,
             decoration: const InputDecoration(
               border: OutlineInputBorder(),
@@ -101,7 +102,7 @@ class _PersonalDetails1State extends State<PersonalDetails1> {
                 print(
                     formattedDate); //formatted date output using intl package =>  2021-03-16
                 setState(() {
-                  widget.controller.dob.text =
+                  controller.dob.text =
                       formattedDate; //set output date to TextField value.
                 });
               } else {}
@@ -114,24 +115,24 @@ class _PersonalDetails1State extends State<PersonalDetails1> {
         Wrap(
           spacing: 8,
           children:
-          List.generate(widget.controller.choicesList.length, (index) {
+          List.generate(controller.choicesList.length, (index) {
             return ChoiceChip(
               labelPadding: const EdgeInsets.all(2.0),
               label: Text(
-                  widget.controller.choicesList[index],
+                  controller.choicesList[index],
                   style: Get.textTheme.titleLarge
               ),
-              selected: widget.controller.defaultChoiceIndex == index,
+              selected: controller.defaultChoiceIndex == index,
               selectedColor: Colors.blueAccent,
               backgroundColor: EazyColors.white,
 
 
               onSelected: (value) {
                 setState(() {
-                  widget.controller.defaultChoiceIndex =
-                  value ? index : widget.controller.defaultChoiceIndex;
+                  controller.defaultChoiceIndex =
+                  value ? index : controller.defaultChoiceIndex;
                 });
-                print('gender ${widget.controller.defaultChoiceIndex}');
+                print('gender ${controller.defaultChoiceIndex}');
               },
               // backgroundColor: color,
               elevation: 1,

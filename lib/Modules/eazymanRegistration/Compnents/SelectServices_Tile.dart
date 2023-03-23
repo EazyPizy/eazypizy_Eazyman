@@ -9,7 +9,7 @@ class SelectServiceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<RegistrationController>(builder: (controller) {
+    return GetBuilder<RegistrationController>(id: 'id',builder: (controller) {
       return Column(
         children: [
           Text(
@@ -27,13 +27,23 @@ class SelectServiceTile extends StatelessWidget {
               ),
               child: ListTile(
                   contentPadding: const EdgeInsets.all(8),
-                  onTap: (){
-                    controller.addSubServicesToEazyman(controller.mainServiceCategories[index]?.serviceId?? '');
+                  onTap: () {
+                    controller.addSubServicesToEazman(
+                        controller.mainServiceCategories[index]?.serviceId ??
+                            '');
                     print(controller.mainService.length);
                   },
 
                   // tileColor: Colors.white,
-                  trailing: const Icon(Icons.check_box_outline_blank),
+                  trailing: controller.mainService.contains(
+                          controller.mainServiceCategories[index]?.serviceId)
+                      ? const Icon(
+                          Icons.check_box,
+                          color: Colors.green,
+                        )
+                      : Icon(
+                          Icons.check_box_outline_blank,
+                        ),
                   title: Text(
                     controller.mainServiceCategories[index].serviceName ?? '',
                   ),

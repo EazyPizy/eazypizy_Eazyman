@@ -1,8 +1,7 @@
 import 'package:eazypizy_eazyman/Modules/eazymanRegistration/ctrl_registration.dart';
+import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:validators/validators.dart';
-import 'package:intl/intl.dart';
 
 import '../../theme/app_colors.dart';
 import 'Compnents/SelectServices_Tile.dart';
@@ -22,12 +21,13 @@ class _BasicDetailsState extends State<BasicDetails> {
   int _activeCurrentStep = 0;
   int dotCount = 5;
   bool isEmailRight = false;
-
   int activeStep = 0; // Initial step set to 5.
 
   int upperBound = 6; // upperBound MUST BE total number of icons minus 1.
 
   late final RegistrationController controller;
+
+
 
   List<Step> stepList() => [
         ///Step 1///
@@ -37,8 +37,7 @@ class _BasicDetailsState extends State<BasicDetails> {
                 : StepState.complete,
             isActive: _activeCurrentStep >= 0,
             title: const Text('Account'),
-            content: PersonalDetails1(
-              controller: controller,
+            content: const PersonalDetails1(
             )),
 
         ///Step 2///
@@ -48,21 +47,36 @@ class _BasicDetailsState extends State<BasicDetails> {
                 ? StepState.editing
                 : StepState.complete,
             isActive: _activeCurrentStep >= 1,
-            title: const Text('Address'),
+            title:  const Text('Address'),
             content: Column(
               children: [
+                const EasyContainer(
+                    width: double.infinity,
+                    height: 200,
+                    borderRadius: 25,
+                    showBorder: true,
+                    child: Text('New card')),
                 const SizedBox(
                   child: Icon(
                     Icons.map_outlined,
                     color: Colors.blueAccent,
                     size: 100,
                   ),
-                ),
+                ),const SizedBox(height: 100,),
+
                 SizedBox(
                     height: 50,
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5),
+                        ),                        elevation: 0,
+                        minimumSize: const Size.fromHeight(40), // fromHeight use double.infinity as width and 40 is the height
+                      ),
+
                       onPressed: () {},
-                      child: const Text('Choose Location'),
+                      child:  Text('Choose Location', style: Get.textTheme.titleLarge,),
                     )),
                 const SizedBox(
                   height: 20,
@@ -175,6 +189,7 @@ class _BasicDetailsState extends State<BasicDetails> {
         )
       ];
 
+
   @override
   void initState() {
     // TODO: implement initState
@@ -199,6 +214,25 @@ class _BasicDetailsState extends State<BasicDetails> {
               height: MediaQuery.of(context).size.height,
             ),
             child: Stepper(
+              controlsBuilder: (BuildContext context, ControlsDetails details) {
+                return Row(
+                  children: <Widget>[
+                    ElevatedButton(
+                      child: Text('Elevated Button'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                      ),
+                      onPressed: () {
+                        details.onStepContinue;
+                      },
+                    ),
+                    // TextButton(
+                    //   onPressed: details.onStepCancel,
+                    //   child: const Text('CANCEL'),
+                    // ),
+                  ],
+                );
+              },
               elevation: 0,
               type: StepperType.horizontal,
               currentStep: _activeCurrentStep,
