@@ -43,7 +43,7 @@ class AddSubServiceProductsController extends GetxController {
   Future<void> updateProducts(String subServiceID, String prodID) async {
     final newData = EazymenProductModel(
         subServiceId: subServiceID, productId: prodID, price: 12, isActive: true);
-    FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('EazyMen')
         .doc(EazyMenService.instance.eazyMen!.eazyManUid)
         .update(

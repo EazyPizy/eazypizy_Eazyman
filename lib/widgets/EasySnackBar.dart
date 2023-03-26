@@ -8,7 +8,7 @@ class EazySnackBar {
   static buildSnackbar(String title, String message) {
     Get.snackbar(title, message,
         colorText: EazyColors.blackShade,
-        duration: const Duration(seconds: 4),
+        duration: const Duration(seconds: 2),
         snackPosition: SnackPosition.BOTTOM,
         padding: const EdgeInsets.all(15),
         margin: const EdgeInsets.all(15),
@@ -20,7 +20,7 @@ class EazySnackBar {
       title,
       message,
       colorText: EazyColors.blackShade,
-      duration: const Duration(seconds: 4),
+      duration: const Duration(seconds: 2),
       snackPosition: SnackPosition.BOTTOM,
       padding: const EdgeInsets.all(15),
       margin: const EdgeInsets.all(15),

@@ -1,5 +1,9 @@
+import 'dart:typed_data';
+
 import 'package:eazypizy_eazyman/Models/eazymen_product.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 
@@ -9,12 +13,17 @@ import '../../Models/model_subService_product.dart';
 import '../../Models/subService_category.dart';
 import '../../core/logger.dart';
 import '../../core/services/category_services.dart';
+import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 class ProfileController extends GetxController {
   ProfileController();
   final Logger _log = getLogger('Profile Controller');
 
   late final EazyMenModel eazyMen;
+  final GlobalKey _globalKey =  GlobalKey();
 
   final List<MainCategoryModel> userCategories = [];
   final List<SubServiceModel> userSubServiceCategories = [];
@@ -86,6 +95,9 @@ class ProfileController extends GetxController {
     print(userCategories);
     update();
   }
+
+
+
 
   @override
   void onInit() {

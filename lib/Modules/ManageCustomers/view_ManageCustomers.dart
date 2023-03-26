@@ -1,6 +1,9 @@
+import 'package:eazypizy_eazyman/Modules/ManageCustomers/view_AddCustomer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'Add_Customers.dart';
 
 class ManageCustomers extends StatefulWidget {
   static const routeName = '/ManageCustomers=Screen';
@@ -69,8 +72,10 @@ class _ManageCustomersState extends State<ManageCustomers> {
         floatingActionButton: FloatingActionButton.extended(
           heroTag: "btn1",
           onPressed: () {
-            // Navigator.of(context).pushNamed(AddCustomer.routeName);
-            // Navigator.of(context).pushNamed(ChangeLanguageScreen.routeName);
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => ADDCustomers(
+              ),
+            ));            // Navigator.of(context).pushNamed(ChangeLanguageScreen.routeName);
             // Get.bottomSheet(_categoryBottomButtons(),
             //     backgroundColor: Colors.white,
             //     shape: RoundedRectangleBorder(
