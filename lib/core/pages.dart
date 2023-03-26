@@ -1,5 +1,6 @@
 import 'package:eazypizy_eazyman/Modules/BottomNavigationBar/View_Bottom_Navigation_Bar.dart';
 import 'package:eazypizy_eazyman/Modules/ChooseLanguage/view_ChooseLanguage.dart';
+import 'package:eazypizy_eazyman/Modules/addServiceProdToEazyman/Add_SubService_To_UserCatalouge.dart';
 import 'package:eazypizy_eazyman/Modules/auth/View_EnterMobileNumber.dart';
 import 'package:eazypizy_eazyman/Modules/auth/View_EnterOTP.dart';
 import 'package:eazypizy_eazyman/Modules/eazymanRegistration/viewBusinessCardSample.dart';
@@ -40,5 +41,9 @@ List<GetPage> pages = [
   GetPage(
     name: Routes.navigationScreen,
     page: () => const NavigationView(),
+  ),
+  GetPage(
+    name: Routes.addEazymenProductScreen,
+    page: () => const AddSubServiceToUserCatalogue(),
   ),
 ];

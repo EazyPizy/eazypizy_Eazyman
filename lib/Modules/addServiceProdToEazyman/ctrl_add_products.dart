@@ -3,32 +3,53 @@ import 'package:eazypizy_eazyman/Models/model_subService_product.dart';
 import 'package:eazypizy_eazyman/Models/subService_category.dart';
 import 'package:eazypizy_eazyman/core/services/category_services.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
+import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../Models/eazymen_product.dart';
 
 class AddSubServiceProductsController extends GetxController {
   final _categoryService = CategoryService.instance;
-  final List<SubServiceProductModel> eazymenProducts = [];
-  final List<SubServiceModel> eazymenServices = [];
 
-  toggleProduct(SubServiceProductModel product, SubServiceModel subService) {
-    // if (eazymenServices.contains(subService)) {
-    //   eazymenServices.remove(subService);
-    // } else {
-    //   eazymenServices.add(subService);
-    // }
+  final List<EazymenProductModel> eazymenProducts = [];
+  late final List<TextEditingController> priceControllers;
+
+  void makeControllers() {
+    priceControllers = List.generate(
+      eazymenProducts.length,
+      (index) =>
+          TextEditingController(text: eazymenProducts[index].price.toString()),
+    );
+  }
+
+  void toggleProduct(
+      SubServiceProductModel product, SubServiceModel subService) {
     if (ifEazymenProduct(product)) {
-      eazymenProducts.remove(product);
+      eazymenProducts.removeWhere(
+          (element) => element.productId == product.serviceProductId);
     } else {
-      eazymenProducts.add(product);
+      eazymenProducts.add(
+        EazymenProductModel(
+          subServiceId: subService.subServiceId!,
+          productId: product.serviceProductId!,
+          price: 0,
+          isActive: true,
+          productDetails: product,
+        ),
+      );
     }
     print(eazymenProducts);
     update();
   }
 
   bool ifEazymenProduct(SubServiceProductModel product) {
-    return eazymenProducts.contains(product);
+    for (var element in eazymenProducts) {
+      if (element.productId == product.serviceProductId) {
+        return true;
+      }
+    }
+    return false;
   }
 
   List<SubServiceProductModel> getProductsBySubService(
@@ -40,32 +61,55 @@ class AddSubServiceProductsController extends GetxController {
         .toList();
   }
 
-  Future<void> updateProducts(String subServiceID, String prodID) async {
-    final newData = EazymenProductModel(
-        subServiceId: subServiceID, productId: prodID, price: 12, isActive: true);
-    FirebaseFirestore.instance
-        .collection('EazyMen')
-        .doc(EazyMenService.instance.eazyMen!.eazyManUid)
-        .update(
-      {"Service_Product": {newData.toJson()}
+  Future<void> updateProducts() async {
+    final List<String> subServices = [];
+
+    for (var i = 0; i < eazymenProducts.length; i++) {
+      eazymenProducts[i].price = int.parse(priceControllers[i].text);
+      if (!subServices.contains(eazymenProducts[i].subServiceId)) {
+        subServices.add(eazymenProducts[i].subServiceId);
+      }
     }
-    );
-    await FirebaseFirestore.instance
-         .collection('EazyMen')
-         .doc(EazyMenService.instance.eazyMen!.eazyManUid)
-         .update({
-      'Sub_Services': {subServiceID}
+    print(eazymenProducts.map((e) => e.toJson()).toList());
+    print(subServices);
+    try {
+      await Future.wait([
+        FirebaseFirestore.instance
+            .collection('EazyMen')
+            .doc(EazyMenService.instance.eazyMen!.eazyManUid)
+            .update({
+          "Service_Product": eazymenProducts.map((e) => e.toJson()).toList()
+        }),
+        FirebaseFirestore.instance
+            .collection('EazyMen')
+            .doc(EazyMenService.instance.eazyMen!.eazyManUid)
+            .update({
+          'Sub_Services': subServices,
+        }),
+      ]);
+      EazySnackBar.buildSuccessSnackbar('Done!', 'Products Updated!');
+    } catch (e) {
+      EazySnackBar.buildSuccessSnackbar('Error', 'Something went wrong!');
     }
-    );
   }
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    for (var product in EazyMenService.instance.eazyMen!.subServiceProdcuts!) {
-      eazymenProducts.add(_categoryService.serviceProducts.firstWhere(
-          (element) => element.serviceProductId == product.productId));
+    for (var element in EazyMenService.instance.eazyMen!.subServiceProdcuts!) {
+      eazymenProducts.add(
+        EazymenProductModel(
+          subServiceId: element.subServiceId,
+          productId: element.productId,
+          price: element.price,
+          isActive: element.isActive,
+          productDetails: _categoryService.serviceProducts
+              .firstWhere((prod) => prod.serviceProductId == element.productId),
+        ),
+      );
     }
+    // eazymenProducts
+    //     .addAll(EazyMenService.instance.eazyMen!.subServiceProdcuts!);
   }
 }

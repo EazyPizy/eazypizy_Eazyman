@@ -4,7 +4,7 @@ class EazymenProductModel {
   final String productId;
   final SubServiceProductModel? productDetails;
   final String subServiceId;
-  final int price;
+  int price;
   final bool isActive;
 
   EazymenProductModel({
@@ -25,11 +25,10 @@ class EazymenProductModel {
         productDetails: productModel,
       );
 
-
   Map<String, dynamic> toJson() => {
-    'productId': productId,
-    'price': price,
-    'active': isActive,
-    'subServiceId': subServiceId,
-  };
+        'productId': productId,
+        'price': price,
+        'active': isActive,
+        'subServiceId': subServiceId,
+      };
 }
