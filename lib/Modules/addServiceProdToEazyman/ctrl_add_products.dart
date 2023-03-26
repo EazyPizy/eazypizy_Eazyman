@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eazypizy_eazyman/Models/model_subService_product.dart';
 import 'package:eazypizy_eazyman/Models/subService_category.dart';
+import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:eazypizy_eazyman/core/services/category_services.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
@@ -63,6 +64,12 @@ class AddSubServiceProductsController extends GetxController {
 
   Future<void> updateProducts() async {
     final List<String> subServices = [];
+    showDialog(
+      context: Get.context!,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
 
     for (var i = 0; i < eazymenProducts.length; i++) {
       eazymenProducts[i].price = int.parse(priceControllers[i].text);
@@ -87,10 +94,17 @@ class AddSubServiceProductsController extends GetxController {
           'Sub_Services': subServices,
         }),
       ]);
+      // Get.back();
       EazySnackBar.buildSuccessSnackbar('Done!', 'Products Updated!');
+      await fetchEazymen();
+      Get.offAllNamed(Routes.navigationScreen);
     } catch (e) {
       EazySnackBar.buildSuccessSnackbar('Error', 'Something went wrong!');
     }
+  }
+
+  Future<void> fetchEazymen() async {
+    await EazyMenService.instance.fetchEazymenData();
   }
 
   @override
