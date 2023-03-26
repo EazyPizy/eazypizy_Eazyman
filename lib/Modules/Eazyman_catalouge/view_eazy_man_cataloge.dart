@@ -1,43 +1,45 @@
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/components/services_list.dart';
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/simmerLoader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-
 import '../../Models/EazymanModel.dart';
+import '../../core/capture_Image.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/easy_container.dart';
-import '../addServiceProdToEazyman/Add_SubService_To_UserCatalouge.dart';
-import '../addServiceProdToEazyman/ctrl_add_products.dart';
-import 'components/CustomerRivewTile.dart';
-import 'components/Easyman_ServiceCard.dart';
+import '../../widgets/widget_to_image.dart';
 import 'ctrl_Eazyman_profile.dart';
 
-class EazyManCatalogScreen extends StatelessWidget {
-  EazyManCatalogScreen({
+class EazyManCatalogScreen extends StatefulWidget {
+  const EazyManCatalogScreen({
     super.key,
   });
 
+  @override
+  State<EazyManCatalogScreen> createState() => _EazyManCatalogScreenState();
+}
+
+class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
   int initPosition = 0;
 
   bool isChecked = false;
 
   var top = 0.0;
 
+  late GlobalKey key1;
+    Uint8List?  bytes1;
+
+  //
+  // Uint8List? bytes2;
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
       Scaffold(
-        // appBar: AppBar(
-        //   automaticallyImplyLeading: false,
-        //   backgroundColor: Colors.white,
-        //   elevation: 0.5,
-        //   title: const Text(
-        //     "Plumber",
-        //     style: TextStyle(color: Colors.black),
-        //   ),
-        // ),
         body: GetBuilder<ProfileController>(
           init: ProfileController(),
           builder: (controller) {
@@ -63,6 +65,7 @@ class EazyManCatalogScreen extends StatelessWidget {
                           top = cons.biggest.height;
 
                           return FlexibleSpaceBar(
+
                             centerTitle: true,
                             title: AnimatedOpacity(
                               duration: const Duration(milliseconds: 100),
@@ -70,7 +73,7 @@ class EazyManCatalogScreen extends StatelessWidget {
                               child: Row(
                                 children: [
                                   SizedBox(
-                                    width: 55.w,
+                                    width: 15.w,
                                   ),
                                   const CircleAvatar(
                                     backgroundImage: NetworkImage(
@@ -97,8 +100,14 @@ class EazyManCatalogScreen extends StatelessWidget {
                                 SizedBox(
                                   height: 75.h,
                                 ),
-                                VisitingCard(
-                                  eazyMenModel: controller.eazyMen,
+                                WidgetToImage(
+                                  builder: (key) {
+                                    this.key1 = key;
+
+                                    return VisitingCard(
+                                      eazyMenModel: controller.eazyMen,
+                                    );
+                                  },
                                 ),
                               ],
                             ),
@@ -111,6 +120,17 @@ class EazyManCatalogScreen extends StatelessWidget {
                         color: EazyColors.white,
                         child: Column(
                           children: [
+                            TextButton(
+                                onPressed: () async {
+
+                                  final bytes1 = await Utils.capture(key1!);
+
+                                  print(bytes1);
+                                  setState(() {
+                                    this.bytes1 = bytes1;
+                                  });
+
+                                }, child: const Text('Share Card')),
                             Padding(
                               padding: const EdgeInsets.only(left: 8, right: 8),
                               child: Row(
@@ -127,13 +147,14 @@ class EazyManCatalogScreen extends StatelessWidget {
                             ),
                             SizedBox(
                               height: 65.h,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 10,
-                                itemBuilder: (context, i) => CustomerReviewTile(
-                                  index: i,
-                                ),
-                              ),
+                              child: buildImage(bytes1)
+                              // child: ListView.builder(
+                              //   scrollDirection: Axis.horizontal,
+                              //   itemCount: 10,
+                              //   itemBuilder: (context, i) => CustomerReviewTile(
+                              //     index: i,
+                              //   ),
+                              // ),
                             )
                           ],
                         ),
@@ -172,14 +193,9 @@ class EazyManCatalogScreen extends StatelessWidget {
             );
           },
         ),
-
-      ),
+      )
     ]);
   }
-
-
-
-
 }
 
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
@@ -211,6 +227,9 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   }
 }
 
+Widget buildImage(Uint8List? bytes) =>
+    bytes != null ? Image.memory(bytes) : Container();
+
 // void _viewAsCustomerSheet(context, eazyMan) {
 //   showModalBottomSheet(
 //       context: context,
@@ -221,7 +240,10 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 // }
 
 class VisitingCard extends StatelessWidget {
-  const VisitingCard({super.key, required EazyMenModel eazyMenModel});
+  const VisitingCard({
+    Key? key,
+    required EazyMenModel eazyMenModel,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -484,92 +506,8 @@ Future<void> viewAllReviews() {
   );
 }
 
-// Widget pageContent(mainServiceID, mainServiceName, BuildContext context) {
-//   final mySubServiceCategory =
-//       Provider.of<SubServiceCategoryProvider>(context, listen: false);
-//
-//   return Consumer<EazymanProvider>(builder: (context, userProvider, child) {
-//     return FutureBuilder(
-//         future: userProvider.getMyServiceProduct(
-//           mainServiceID,
-//         ),
-//         builder: (context, snapshot) {
-//           List<ServiceProductModel> myServiceProducts =
-//               userProvider.myServiceProduct;
-//           //
-//           // SubServiceCategoryProvider
-//           //     subServiceCategoryProvider =
-//           //     Provider.of(context, listen: true);
-//           // subServiceCategoryProvider.getSubServiceProduct(
-//           //     result[index].serviceCategoryID);
-//           List<ServiceProductModel> masterSubService =
-//               mySubServiceCategory.subServiceProductItems;
-//
-//           List<ServiceProductModel> result2 = [];
-//
-//           for (var aElement in myServiceProducts) {
-//             ServiceProductModel value = masterSubService.firstWhere(
-//                 (bElement) => bElement.serviceProdID == aElement.serviceProdID,
-//                 orElse: () => null);
-//             if (value != null) {
-//               result2.add(value);
-//             }
-//           }
-//           return result2.isNotEmpty
-//               ? ListView.builder(
-//                   shrinkWrap: true,
-//                   // physics: NeverScrollableScrollPhysics(),
-//                   itemCount: result2.length + 1,
-//                   itemBuilder: (ctx, i) => i != myServiceProducts.length
-//                       ? MyServiceProdWidget(
-//                           serviceProdName: result2[i].serviceProdName,
-//                           serviceProdID: result2[i].serviceProdID,
-//                           mainServiceID: mainServiceID,
-//                         )
-//                       : InkWell(
-//                           onTap: () {
-//                             Navigator.of(context).push(MaterialPageRoute(
-//                               builder: (context) =>
-//                                   AddSubServiceToUserCatalogue(
-//                                 mainServiceID,
-//                                 mainServiceName,
-//                               ),
-//                             ));
-//                           },
-//                           child: Padding(
-//                             padding: const EdgeInsets.only(left: 8.0, right: 8),
-//                             child: Container(
-//                               width: double.infinity,
-//                               decoration: BoxDecoration(
-//                                 border: Border.all(
-//                                   color: Colors.blue,
-//                                 ),
-//                                 color: Colors.blue.withOpacity(0.05),
-//                               ),
-//                               child: const ListTile(title: Text(" ADD MORE")),
-//                             ),
-//                           ),
-//                         ))
-//               : Center(
-//                   child: ElevatedButton(
-//                   onPressed: () {
-//                     Navigator.of(context).push(MaterialPageRoute(
-//                       builder: (context) => AddSubServiceToUserCatalogue(
-//                         mainServiceID,
-//                         mainServiceName,
-//                       ),
-//                     ));
-//                   },
-//                   child: const Text("ADD Service"),
-//                 ));
-//         });
-//   });
-// }
 
-//  combineModelData (String serviceId,String myPrice,ServiceProductModel service){
-//   return MyServiceProductModel(
-// serviceProdID: serviceId,mySetPrice: myPrice,serviceProductModel: service,
-//   );
+
 
 
 
