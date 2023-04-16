@@ -15,7 +15,12 @@ class Language extends Translations {
           'Get Started':'Get Started',
           'Home':'Home',
           'Category':'Category',
-          'Help':'Help'
+          'Help':'Help',
+          'Add Customer': 'Add Customer',
+          'Search customer':'Search customer',
+          'Get OTP':'Get OTP',
+          'Mobile Number':'Mobile Number',
+          'Enter OTP':'Enter OTP',
         },
 
         'hi_': {
@@ -29,6 +34,12 @@ class Language extends Translations {
           'Home':'होम',
           'Category':'कैटेगरी',
           'Help':'सहायता',
+          'Add Customer': 'ग्राहक जोड़ें',
+          'Search customer':'ग्राहक खोजें',
+          'Get OTP':'ओटीपी प्राप्त करें',
+          'Mobile Number':'मोबाइल नंबर',
+          'Enter OTP':'ओटीपी दर्ज करें',
         }
+
       };
 }

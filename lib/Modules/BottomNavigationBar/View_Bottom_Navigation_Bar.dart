@@ -1,6 +1,9 @@
+import 'package:eazypizy_eazyman/Modules/BottomNavigationBar/view_sideDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../theme/app_colors.dart';
+import '../../widgets/easy_container.dart';
+import '../Account/view_Account.dart';
 import '../Eazyman_catalouge/view_eazy_man_cataloge.dart';
 import '../Home/View_HomeScreen.dart';
 import '../ManageCustomers/view_ManageCustomers.dart';
@@ -18,10 +21,11 @@ class _NavigationViewState extends State<NavigationView> {
 
   final List<Widget> _pages = [
     const HomeScreen(),
+    EazyManCatalogScreen(),
     const SizedBox(),
     const ManageOrders(),
-    const ManageCustomers(),
-    EazyManCatalogScreen()
+    Account()
+   // const ManageCustomers(),
   ];
 
   @override
@@ -32,6 +36,14 @@ class _NavigationViewState extends State<NavigationView> {
       },
       child: Scaffold(
         backgroundColor: EazyColors.appBarBG,
+        endDrawer: EasyContainer(
+          width: MediaQuery.of(context).size.width/1.5,
+          child: const Drawer(
+
+
+            child: DrawerView()
+          ),
+        ),
         body: _pages[_selectedPageIndex],
         bottomNavigationBar: CustomBottomNavigationBar(
           iconList: const [
@@ -125,14 +137,14 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                 border: Border(
                   top: BorderSide(
                     width: 3,
-                    color: EazyColors.dummy,
+                    color: EazyColors.primary,
                   ),
                 ),
               )
             : const BoxDecoration(),
         child: Icon(
           icon,
-          color: index == _selectedIndex ? EazyColors.dummy : Colors.grey,
+          color: index == _selectedIndex ? EazyColors.primary : Colors.grey,
         ),
       ),
     );

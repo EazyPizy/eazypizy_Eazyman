@@ -29,7 +29,7 @@ class _AddCustomerState extends State<AddCustomer> {
     return Scaffold(
       appBar: AppBar(
         elevation: .5,
-        title: Text("Add New Customer", style: Get.textTheme.titleMedium),
+        title: Text("Add New Customers", style: Get.textTheme.titleMedium),
       ),
       body: Column(
         children: [
@@ -53,7 +53,7 @@ class _AddCustomerState extends State<AddCustomer> {
               onPressed: () {
 
               },
-              child: const Text("Add Manually")),
+              child: const Text("Adddd Manually")),
           Expanded(
             child: Center(
               child: !isLoading

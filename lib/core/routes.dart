@@ -8,4 +8,5 @@ abstract class Routes {
   static const basicDetailsScreen = '/basic-details-screen';
   static const navigationScreen = '/navigation-screen';
   static const addEazymenProductScreen = '/add-product-screen';
+  static const detailOrderScreen = '/order-details';
 }

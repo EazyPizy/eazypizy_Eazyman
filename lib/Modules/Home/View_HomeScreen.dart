@@ -1,9 +1,18 @@
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
+import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+
+import '../../theme/eazy_spaces.dart';
+import '../../widgets/CarouselImage.dart';
+import '../../widgets/easy_container.dart';
+import '../View_earned_Commision.dart';
+import '../eazymanRegistration/Compnents/SelectServices_Tile.dart';
+import '../eazymanRegistration/Compnents/personal_Details_1.dart';
+import 'components/stepsToCompeleteProfile.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/HomeScreen'
@@ -16,44 +25,46 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   EazymanProvider eazymanProvider =
-  //       Provider.of<EazymanProvider>(context, listen: false);
-  //   eazymanProvider.getCurrentUserData();
-  // }
-
   final List<Widget> imageList = [
     Image.network('https://via.placeholder.com/600x400'),
     Image.network('https://via.placeholder.com/600x400'),
     Image.network('https://via.placeholder.com/600x400'),
   ];
 
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "Amit Bairwa",
-          style: TextStyle(
-            color: Color(0xff142b6f),
-          ),
+          style: Get.textTheme.titleLarge,
         ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Scaffold.of(context).openEndDrawer();
+
+              },
+              icon: Icon(Icons.handyman))
+        ],
         automaticallyImplyLeading: false,
       ),
       body: SingleChildScrollView(
+        padding: Space.scaffoldPadding,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
+            Space.vertical(16),
+            EasyContainer(
               width: double.infinity,
-              margin: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(5)),
-                  color: Colors.blue.withOpacity(0.10)),
+              color: Colors.blue.withOpacity(0.10),
+              // margin: const EdgeInsets.all(10),
+
+              borderRadius: 10,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -72,15 +83,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
                       child: Row(
                         children: [
-                          Flexible(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: EazyColors.background,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(5))),
+                          const Flexible(
+                            child: EasyContainer(
+                              color: EazyColors.background,
+                              borderRadius: 10,
                               height: 50,
                               width: double.infinity,
-                              child: const Center(
+                              child: Center(
                                   child:
                                       Text("https//eazyPizy.netramPlumber.in")),
                             ),
@@ -97,117 +106,105 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: const Text("Visit"),
-                          ),
+                          EazyButtons.flexWidthElevatedButton2('Visit', () {}),
+                          // ElevatedButton(
+                          //   onPressed: () {},
+                          //   child: const Text("Visit"),
+                          // ),
                           const SizedBox(width: 10),
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: const Text(
-                              "Share",
-                            ),
-                          ),
+                          EazyButtons.flexWidthElevatedButton('Share', () {}),
                         ]),
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 100,
-                margin: const EdgeInsets.all(4),
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(5),
-                  ),
-                  color: EazyColors.background,
-                ),
-              ),
+            Space.vertical(16),
+            Text(
+              'Your Earning',
+              style: Get.textTheme.titleLarge,
             ),
+            Space.vertical(16),
             statics(),
-            Card(
-              margin: const EdgeInsets.fromLTRB(13, 0, 13, 0),
-              child: SizedBox(
-                height: 150,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text("Your Status"),
+            Space.vertical(16),
+            CompleteYourProfile(),
+            EasyContainer(
+              color: Colors.white,
+              borderRadius: 10,
+              // showBorder: true,
+              //  borderColor: Colors.blueAccent.withOpacity(.5),
+              height: 150,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        Text("Your Status"),
+                      ],
                     ),
-                    Center(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          SizedBox(
-                              width: 100,
-                              height: 80,
-                              child: Card(
-                                  elevation: 1,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: Center(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: const <Widget>[
-                                        Text(
-                                          " 0 ",
-                                        ),
-                                        Text(
-                                          'Orders',
-                                        )
-                                      ],
-                                    ),
-                                  ))),
-                          SizedBox(
-                              width: 100,
-                              height: 80,
-                              child: Card(
-                                  elevation: 1,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: Center(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: const <Widget>[
-                                        Text(
-                                          " 0 ",
-                                        ),
-                                        Text('Services')
-                                      ],
-                                    ),
-                                  ))),
-                          SizedBox(
-                              width: 100,
-                              height: 80,
-                              child: Card(
-                                  elevation: 1,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8)),
-                                  child: Center(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: const <Widget>[
-                                        Text(
-                                          " 0 ",
-                                        ),
-                                        Text('Visitors')
-                                      ],
-                                    ),
-                                  ))),
-                        ],
-                      ),
+                  ),
+                  Center(
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                            width: 100,
+                            height: 80,
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const <Widget>[
+                                  Text(
+                                    " 0 ",
+                                  ),
+                                  Text(
+                                    'Orders',
+                                  )
+                                ],
+                              ),
+                            )),
+                        SizedBox(
+                            width: 100,
+                            height: 80,
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const <Widget>[
+                                  Text(
+                                    " 0 ",
+                                  ),
+                                  Text('Services')
+                                ],
+                              ),
+                            )),
+                        SizedBox(
+                            width: 100,
+                            height: 80,
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const <Widget>[
+                                  Text(
+                                    " 0 ",
+                                  ),
+                                  Text('Visitors')
+                                ],
+                              ),
+                            )),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            myCarousel(imageList)
+            Space.vertical(16),
+            const Carousel(
+              autoplay: true,
+              width: double.infinity,
+            )
           ],
         ),
       ),
@@ -225,126 +222,127 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget statics() {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Flexible(
-                  child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Colors.red.withOpacity(0.8),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: const Center(child: Text(" Total Orders")),
+        Row(
+          children: [
+            Flexible(
+                child: EasyContainer(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const EarnedCommission(),
+                ));
+              },
+              height: 100,
+              borderRadius: 10,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const EasyContainer(
+                    customBorderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        topLeft: Radius.circular(10)),
+                    height: 25,
+                    color: Colors.red,
+                    child: Text("Commission"),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text("100", style: Get.textTheme.titleLarge),
                     ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Text("100", style: Get.textTheme.titleMedium),
-                      ),
-                    )
-                  ],
-                ),
-              )),
-              const SizedBox(
-                width: 8,
+                  )
+                ],
               ),
-              Flexible(
-                  child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Colors.green.withOpacity(0.8),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: const Center(child: Text(" Total Services")),
+            )),
+            Space.horizontal(8),
+            Flexible(
+                child: EasyContainer(
+              height: 100,
+              borderRadius: 10,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const EasyContainer(
+                    customBorderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        topLeft: Radius.circular(10)),
+                    height: 25,
+                    color: Colors.orange,
+                    child: Text("Service"),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text("100", style: Get.textTheme.titleLarge),
                     ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Text("100", style: Get.textTheme.titleMedium),
-                      ),
-                    )
-                  ],
-                ),
-              )),
-            ],
-          ),
+                  )
+                ],
+              ),
+            )),
+          ],
         ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Flexible(
-                  child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  color: Colors.blue.withOpacity(0.8),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child:
-                          const Center(child: Text("Commission \n      Earn")),
+        Space.vertical(8),
+        Row(
+          children: [
+            Flexible(
+                child: EasyContainer(
+              height: 100,
+              borderRadius: 10,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const EasyContainer(
+                    customBorderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        topLeft: Radius.circular(10)),
+                    height: 25,
+                    color: Colors.green,
+                    child: Text(" Total Orders"),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Text("100", style: Get.textTheme.titleLarge),
                     ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Text("100", style: Get.textTheme.titleMedium),
-                      ),
-                    )
-                  ],
-                ),
-              )),
-              const SizedBox(
-                width: 8,
+                  )
+                ],
               ),
-              Flexible(
-                  child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  color: Colors.orange.withOpacity(0.8),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Center(child: Text("Service \n  Earn")),
+            )),
+            const SizedBox(
+              width: 8,
+            ),
+            Flexible(
+                child: EasyContainer(
+              height: 100,
+              borderRadius: 10,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const EasyContainer(
+                    customBorderRadius: BorderRadius.only(
+                        topRight: Radius.circular(10),
+                        topLeft: Radius.circular(10)),
+                    height: 25,
+                    color: Colors.blueAccent,
+                    child: Text(" Total Services"),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text("100", style: Get.textTheme.titleLarge),
                     ),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Text("100", style: Get.textTheme.titleMedium),
-                      ),
-                    )
-                  ],
-                ),
-              )),
-            ],
-          ),
+                  ),
+                ],
+              ),
+            )),
+          ],
         ),
       ],
     );
@@ -367,3 +365,4 @@ Widget myCarousel(List<Widget> imageList) {
         viewportFraction: 0.8,
       ));
 }
+

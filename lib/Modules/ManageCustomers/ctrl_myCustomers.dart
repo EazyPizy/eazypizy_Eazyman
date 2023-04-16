@@ -8,18 +8,15 @@ import '../../core/services/user_service.dart';
 import 'myCustomerModel.dart';
 
 class MyCustomerController extends GetxController {
-  List<Contact> contacts = [];
 
+  List<Contact> contacts = [];
   List<Contact> filterContacts = [];
   TextEditingController searchController = TextEditingController();
-
   TextEditingController nameController = TextEditingController();
-
   TextEditingController phoneController = TextEditingController();
 
   Future<void> addCustomer() async {
     var id = const Uuid();
-    //  data["MyCustomerID"] = id.v1();
     final newData = MyCustomerModel(
         myCustomerName: nameController.text,
         myCustomerPhone: phoneController.text,
@@ -32,19 +29,41 @@ class MyCustomerController extends GetxController {
         .set({
       'myCustomerPersonalDetails': {
         newData.toJson()
-        // 'customer_Name': nameController.text,
-        // 'customer_Number': phoneController.text,
-        // 'my_CustomerUID': id.v1()
-      }
+             }
     });
   }
 
-  /// Get Customer
+  List<MyCustomerModel> _myCustomers = [];
+
+  List<MyCustomerModel> get myCustomers {
+    return [..._myCustomers];
+  }
+  set myCustomers(List<MyCustomerModel> existingCustomers) {
+    _myCustomers = existingCustomers;
+  }
+  void getMyCustomers() async {
+    QuerySnapshot snapshots = await FirebaseFirestore.instance
+        .collection('EazyMen')
+        .doc(EazyMenService.instance.eazyMen!.eazyManUid)
+        .collection("myCustomers")
+        .get();
+
+    List<MyCustomerModel> _myCustomerList = [];
+    for (var document in snapshots.docs) {
+      MyCustomerModel myCustomers =
+      MyCustomerModel.fromJson((document.data() as List)[0] as Map<String, dynamic>);
+      _myCustomerList.add(myCustomers);
+    }
+
+    print(_myCustomerList.length);
+    myCustomers = _myCustomerList;
+  }
 
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    getMyCustomers();
   }
 }

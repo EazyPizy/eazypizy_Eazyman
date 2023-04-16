@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 abstract class EazyColors {
-  static const Color dummy = Colors.amber;
+  static const Color primary = Colors.indigo;
   static const Color lightBlack = Colors.black54;
   static  const Color background =Color(0xFFF6F6F6);
   static const secBackground = Color(0xffececf6);

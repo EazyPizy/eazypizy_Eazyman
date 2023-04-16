@@ -36,7 +36,7 @@ class _CarouselState extends State<Carousel> {
       options: CarouselOptions(
         autoPlay: widget.autoplay,
         aspectRatio: 2,
-        viewportFraction: 0.9,
+        viewportFraction: 1,
           enlargeCenterPage: true
       ),
     );

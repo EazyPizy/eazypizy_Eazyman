@@ -1,7 +1,10 @@
 import 'package:eazypizy_eazyman/Modules/onBoarding_Screen/View_OnBoarding_Screens.dart';
+import 'package:eazypizy_eazyman/theme/app_colors.dart';
+import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/easy_container.dart';
 import '../BottomNavigationBar/View_Bottom_Navigation_Bar.dart';
 import 'Components/language_selection_tile.dart';
 
@@ -10,11 +13,11 @@ class ChooseLanguageScreen extends StatefulWidget {
 
   ChooseLanguageScreen({super.key});
 
-  bool selected = false;
-
   @override
   State<ChooseLanguageScreen> createState() => _ChooseLanguageScreenState();
 }
+
+bool selected = false;
 
 class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
   @override
@@ -30,54 +33,92 @@ class _ChooseLanguageScreenState extends State<ChooseLanguageScreen> {
               const SizedBox(height: 40),
               Text(
                 "msg".tr,
-                textScaleFactor: 1.2,
+                textScaleFactor: 1.8,
                 style: Get.textTheme.titleLarge,
                 textDirection: TextDirection.ltr,
               ),
               const SizedBox(height: 24),
-              ListTile(
+              EasyContainer(
+                  borderRadius: 10,
+                  height: 75,
+                  color: EazyColors.white,
+                  showBorder: true,
+                  borderColor: selected ? EazyColors.primary : Colors.grey,
+                  onTap: () {
+                    setState(() {
+                      Get.updateLocale(const Locale('hi', ' '));
+                      selected = true;
+                    });
+                  },
+                  child: ListTile(
+                      leading: const Icon(
+                        Icons.sort_by_alpha,
+                        color: Colors.grey,
+                      ),
+                      title: Text(
+                        'language1'.tr,
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      trailing: selected
+                          ? Icon(
+                              Icons.radio_button_on,
+                              color: EazyColors.primary,
+                            )
+                          //: Icons.radio_button_off),
+                          : Icon(
+                              Icons.radio_button_off,
+                              color: Colors.grey,
+                            ))),
+              const SizedBox(height: 24),
+              EasyContainer(
+                borderRadius: 10,
+                height: 75,
+                color: EazyColors.white,
+                showBorder: true,
                 onTap: () {
-                  Get.updateLocale(const Locale('hi',' '));
+                  setState(() {
+                    Get.updateLocale(const Locale('en', 'US'));
+                    selected = false;
+                  });
                 },
-                leading: const Icon(Icons.sort_by_alpha),
-                title: Text(
-                  'language1'.tr,
-                  style: const TextStyle(color: Colors.black),
+                borderColor: selected ? Colors.grey : EazyColors.primary,
+                child: ListTile(
+                  leading: const Icon(Icons.sort_by_alpha),
+                  title: Text(
+                    'language2'.tr,
+                    style: TextStyle(color: Colors.black),
+                  ),
+                    trailing: selected
+                        ? Icon(
+                      Icons.radio_button_off,
+                      color: Colors.grey,
+                    )
+                    //: Icons.radio_button_off),
+                        : Icon(
+                      Icons.radio_button_on,
+                      color: EazyColors.primary,
+                    )
                 ),
               ),
-              ListTile(
-                onTap: () {
-                  Get.updateLocale(const Locale('en', 'US'));
-                },
-                leading: const Icon(Icons.sort_by_alpha),
-                title: Text(
-                  'language2'.tr,
-                  style: TextStyle(color: Colors.black),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const SizedBox(height: 16),
+              Spacer(),
               Expanded(
                 child: Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const OnBoardingScreens()));
-                    },
-                    child:  Text("Continue".tr),
-                  ),
+                  child: EazyButtons.fullWidthElevatedButton('Continue'.tr, () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const OnBoardingScreens()));
+                  }),
                 ),
               ),
             ],
           ),
         ),
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const NavigationView()));
-          },
-          label: const Text("Skip"),
-        ),
+        // floatingActionButton: FloatingActionButton.extended(
+        //   onPressed: () {
+        //     Navigator.of(context).push(MaterialPageRoute(
+        //         builder: (context) => const NavigationView()));
+        //   },
+        //   label: const Text("Skip"),
+        // ),
       ),
     );
   }

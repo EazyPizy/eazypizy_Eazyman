@@ -12,7 +12,7 @@ class EazySnackBar {
         snackPosition: SnackPosition.BOTTOM,
         padding: const EdgeInsets.all(15),
         margin: const EdgeInsets.all(15),
-        backgroundColor: EazyColors.dummy);
+        backgroundColor: EazyColors.primary);
   }
 
   static buildSuccessSnackbar(String title, String message) {

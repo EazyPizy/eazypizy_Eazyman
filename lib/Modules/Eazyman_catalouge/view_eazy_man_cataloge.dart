@@ -2,16 +2,20 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/components/services_list.dart';
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/simmerLoader.dart';
+import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../Models/EazymanModel.dart';
-import '../../core/capture_Image.dart';
 import '../../theme/app_colors.dart';
+import '../../theme/eazy_spaces.dart';
 import '../../widgets/easy_container.dart';
 import '../../widgets/widget_to_image.dart';
+import '../eazymanRegistration/Compnents/SelectServices_Tile.dart';
+import '../eazymanRegistration/Compnents/personal_Details_1.dart';
+import 'components/CustomerRivewTile.dart';
 import 'ctrl_Eazyman_profile.dart';
 
 class EazyManCatalogScreen extends StatefulWidget {
@@ -31,10 +35,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
   var top = 0.0;
 
   late GlobalKey key1;
-    Uint8List?  bytes1;
-
-  //
-  // Uint8List? bytes2;
+  Uint8List? bytes1;
 
   @override
   Widget build(BuildContext context) {
@@ -52,64 +53,138 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                     SliverAppBar(
                       surfaceTintColor: EazyColors.white,
                       // backgroundColor: EazyColors.background,
-
+//automaticallyImplyLeading: false,
+                      title: Text('Catalog'),
                       pinned: true,
-                      // title: Text("Plumber",
-                      // style: TextStyle(
-                      //   color: Colors.black
-                      // ),
-                      // ),
-                      expandedHeight: 210.h,
+                      expandedHeight: 250.h,
                       flexibleSpace: LayoutBuilder(
                         builder: (ctx, cons) {
-                          top = cons.biggest.height;
+                          top = cons.biggest.height.h;
 
                           return FlexibleSpaceBar(
-
-                            centerTitle: true,
-                            title: AnimatedOpacity(
-                              duration: const Duration(milliseconds: 100),
-                              opacity: top <= 130 ? 1.0 : 0.0,
-                              child: Row(
+                            // centerTitle: true,
+                            // title: AnimatedOpacity(
+                            //   duration: const Duration(milliseconds: 100),
+                            //   opacity: top <= 130 ? 1.0 : 0.0,
+                            //   child: Row(
+                            //     children: [
+                            //       SizedBox(
+                            //         width: 15.w,
+                            //       ),
+                            //       const CircleAvatar(
+                            //         backgroundImage: NetworkImage(
+                            //           'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29',
+                            //         ),
+                            //       ),
+                            //       SizedBox(
+                            //         width: 12.w,
+                            //       ),
+                            //       InkWell(
+                            //         onTap: controller.getUserSubServices,
+                            //         child: Text(
+                            //           controller.eazyMen.personalDetail
+                            //                   ?.firstName ??
+                            //               '',
+                            //           style: Get.textTheme.headlineMedium,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // ),
+                            background: EasyContainer(
+                              color: EazyColors.white,
+                              borderRadius: 0.r,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
-                                    width: 15.w,
+                                  Space.vertical(
+                                    90.h,
                                   ),
-                                  const CircleAvatar(
-                                    backgroundImage: NetworkImage(
-                                      'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29',
+                                  Center(
+                                    child: SizedBox(
+                                      height: 75.h,
+                                      width: 75.w,
+                                      child: CircleAvatar(),
                                     ),
                                   ),
-                                  SizedBox(
-                                    width: 12.w,
-                                  ),
-                                  InkWell(
-                                    onTap: controller.getUserSubServices,
-                                    child: Text(
-                                      controller.eazyMen.personalDetail
-                                              ?.firstName ??
-                                          '',
-                                      style: Get.textTheme.headlineMedium,
+                                  Center(
+                                    child: SizedBox(
+                                      //height: 50,
+                                      child: Text(
+                                        'Amit Bairwa',
+                                        style: Get.textTheme.titleLarge,
+                                      ),
                                     ),
                                   ),
+                                  Center(
+                                    child: EasyContainer(
+                                      elevation: 1,
+                                      width: 70.h,
+                                      color: Colors.orange,
+                                      //height: 10,
+
+                                      child: Text(
+                                        'Plumber',
+                                        style: Get.textTheme.titleLarge,
+                                      ),
+                                    ),
+                                  ),
+                                  Space.vertical(
+                                    10.h,
+                                  ),
+                                  Container(
+                                    width: double.infinity,
+                                    height: 60.h,
+                                    //color: Colors.white,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Column(
+                                          children: const [
+                                            Text('99'),
+                                            Text('Experiance')
+                                          ],
+                                        ),
+                                        Container(
+                                          width: 1.w,
+                                          height: 40.h,
+                                          color: Colors.blue,
+                                        ),
+                                        Column(
+                                          children: const [
+                                            Text('99'),
+                                            Text('Experiance')
+                                          ],
+                                        ),
+                                        Container(
+                                          width: 1,
+                                          height: 40.h,
+                                          color: Colors.blue,
+                                        ),
+                                        Column(
+                                          children: const [
+                                            Text('99'),
+                                            Text('Experiance')
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                  // WidgetToImage(
+                                  //   builder: (key) {
+                                  //     this.key1 = key;
+                                  //
+                                  //     return VisitingCard(
+                                  //       eazyMenModel: controller.eazyMen,
+                                  //     );
+                                  //   },
+                                  // ),
                                 ],
                               ),
-                            ),
-                            background: Column(
-                              children: [
-                                SizedBox(
-                                  height: 75.h,
-                                ),
-                                WidgetToImage(
-                                  builder: (key) {
-                                    this.key1 = key;
-
-                                    return VisitingCard(
-                                      eazyMenModel: controller.eazyMen,
-                                    );
-                                  },
-                                ),
-                              ],
                             ),
                           );
                         },
@@ -120,17 +195,6 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                         color: EazyColors.white,
                         child: Column(
                           children: [
-                            TextButton(
-                                onPressed: () async {
-
-                                  final bytes1 = await Utils.capture(key1!);
-
-                                  print(bytes1);
-                                  setState(() {
-                                    this.bytes1 = bytes1;
-                                  });
-
-                                }, child: const Text('Share Card')),
                             Padding(
                               padding: const EdgeInsets.only(left: 8, right: 8),
                               child: Row(
@@ -147,14 +211,14 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                             ),
                             SizedBox(
                               height: 65.h,
-                              child: buildImage(bytes1)
-                              // child: ListView.builder(
-                              //   scrollDirection: Axis.horizontal,
-                              //   itemCount: 10,
-                              //   itemBuilder: (context, i) => CustomerReviewTile(
-                              //     index: i,
-                              //   ),
-                              // ),
+                              //child: buildImage(bytes1)
+                              child: ListView.builder(
+                                scrollDirection: Axis.horizontal,
+                                itemCount: 10,
+                                itemBuilder: (context, i) => CustomerReviewTile(
+                                  index: i,
+                                ),
+                              ),
                             )
                           ],
                         ),
@@ -164,9 +228,9 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                       pinned: true,
                       delegate: _SliverAppBarDelegate(
                         TabBar(
-                          labelColor: EazyColors.dummy,
+                          labelColor: EazyColors.primary,
                           unselectedLabelColor: Colors.grey,
-                          indicatorColor: EazyColors.dummy,
+                          indicatorColor: EazyColors.primary,
                           tabs: controller.userCategories
                               .map(
                                 (e) => Tab(
@@ -192,6 +256,23 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
               ),
             );
           },
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.only(bottom: 8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              EazyButtons.flexWidthElevatedButton2(
+                'View Profile',
+                () {},
+              ),
+              EazyButtons.flexWidthElevatedButton(
+                'Share Profile',
+                () {},
+              ),
+            ],
+          ),
         ),
       )
     ]);
@@ -239,109 +320,10 @@ Widget buildImage(Uint8List? bytes) =>
 //       });
 // }
 
-class VisitingCard extends StatelessWidget {
-  const VisitingCard({
-    Key? key,
-    required EazyMenModel eazyMenModel,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      elevation: 1,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            EasyContainer(
-              width: double.infinity,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Flexible(
-                      flex: 2,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Text(
-                              'Amit',
-                              textScaleFactor: 1.5,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: "Roboto",
-                                fontSize: 17.0,
-                              ),
-                            ),
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [Text("149"), Text("Jobs")],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [Text("149"), Text("Services")],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Text("11"),
-                                  Text("Experiance")
-                                ],
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: SizedBox(
-                        height: 100,
-                        width: 80,
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5)),
-                          child: Image.asset(
-                            'assets/five.jpg',
-                          ),
-                        ),
-                      ),
-                    )
-                  ]),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                "Delhi  | NCR",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontFamily: "Roboto",
-                  fontSize: 12.0,
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 Widget inSightCard() {
   return SizedBox(
-    height: 60,
+    height: 60.h,
     // width: 50,
     child: ListView.builder(
       scrollDirection: Axis.horizontal,
@@ -360,7 +342,7 @@ Widget inSightCard() {
 Widget ratingBar(String jobsCount) {
   return Card(
     child: SizedBox(
-      height: 100,
+      height: 100.h,
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -406,8 +388,8 @@ Future<void> viewAllReviews() {
                   style: Get.textTheme.titleMedium,
                 ),
                 SizedBox(
-                  width: 100,
-                  height: 30,
+                  width: 100.w,
+                  height: 30.h,
                   child: FittedBox(
                     child: Image.asset('assets/EazymenLogo.png'),
                   ),
@@ -420,8 +402,8 @@ Future<void> viewAllReviews() {
                   '4.9',
                   style: Get.textTheme.headlineLarge,
                 ),
-                const SizedBox(
-                  width: 80,
+                SizedBox(
+                  width: 80.w,
                 ),
                 Column(
                   children: [
@@ -446,8 +428,8 @@ Future<void> viewAllReviews() {
                     Text('349 Ratings', style: Get.textTheme.bodySmall)
                   ],
                 ),
-                const SizedBox(
-                  width: 50,
+                SizedBox(
+                  width: 50.w,
                 ),
               ],
             ),
@@ -456,12 +438,12 @@ Future<void> viewAllReviews() {
               child: Row(
                 children: [
                   const Text('Excellent(149)'),
-                  const SizedBox(
-                    width: 50,
+                  SizedBox(
+                    width: 50.w,
                   ),
                   Container(
-                    height: 5,
-                    width: 150,
+                    height: 5.h,
+                    width: 150.w,
                     decoration: const BoxDecoration(color: Colors.green),
                   )
                 ],
@@ -472,12 +454,10 @@ Future<void> viewAllReviews() {
               child: Row(
                 children: [
                   const Text('Good(199)'),
-                  const SizedBox(
-                    width: 74,
-                  ),
+                  SizedBox(width: 74.w),
                   Container(
-                    height: 5,
-                    width: 100,
+                    height: 5.h,
+                    width: 100.w,
                     decoration: const BoxDecoration(color: Colors.green),
                   )
                 ],
@@ -488,12 +468,12 @@ Future<void> viewAllReviews() {
               child: Row(
                 children: [
                   const Text('Average(99)'),
-                  const SizedBox(
-                    width: 60,
+                  SizedBox(
+                    width: 60.w,
                   ),
                   Container(
-                    height: 5,
-                    width: 100,
+                    height: 5.h,
+                    width: 100.w,
                     decoration: const BoxDecoration(color: Colors.red),
                   )
                 ],
@@ -505,10 +485,5 @@ Future<void> viewAllReviews() {
     ),
   );
 }
-
-
-
-
-
 
 /// Custom View, These lines of code is used for Custom Tab View, And this piece of code is shifted to separate class. ///

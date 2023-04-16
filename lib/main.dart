@@ -15,8 +15,8 @@ import 'core/services/category_services.dart';
 Future<void> main() async {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      systemNavigationBarColor: EazyColors.white,
-      statusBarColor: EazyColors.white, // navigation bar color
+      systemNavigationBarColor: EazyColors.background,
+      statusBarColor: EazyColors.background, // navigation bar color
       // status bar color
     ),
   );
@@ -49,6 +49,10 @@ class MyApp extends StatelessWidget {
         // home: initialRoute(),
         initialRoute: initialRoute(),
         getPages: pages,
+
+
+
+
       ),
     );
   }
