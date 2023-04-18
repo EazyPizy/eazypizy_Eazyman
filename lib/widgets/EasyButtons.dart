@@ -101,6 +101,23 @@ class EazyButtons {
       ),
     );
   }
+
+  static primaryTextButton (String lable ,VoidCallback onPressed){
+    return TextButton(
+      onPressed: onPressed,
+
+      style: TextButton.styleFrom(
+          padding: EdgeInsets.zero,
+          foregroundColor: EazyColors.primary,
+          minimumSize: Size(50, 30),
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          alignment: Alignment.centerLeft),
+      child: Text(
+        lable
+      )
+    );
+
+  }
 }
 
 // This is any page in your project

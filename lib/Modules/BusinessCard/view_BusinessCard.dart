@@ -19,6 +19,7 @@ class VisitingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       EasyContainer(
+
         //padding: 10,
         //margin: 10,
         borderRadius: 10.r,

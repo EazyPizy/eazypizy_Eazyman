@@ -1,13 +1,17 @@
+import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../../theme/app_colors.dart';
 
+import '../../../widgets/EazyTextField.dart';
 import '../../../widgets/easy_container.dart';
+import 'Edit_ServiceProd.dart';
 
 enum SampleItem {
   edit,
@@ -32,124 +36,142 @@ class EazymanServiceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EasyContainer(
-
       borderRadius: 10,
       width: double.infinity,
-      height: 110,
+      //height: 110,
       elevation: 0.5,
       padding: 4,
       color: EazyColors.white,
       showBorder: false,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Flexible(
-            flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8),
-              child: EasyContainer(
-                borderColor: EazyColors.borderColors,
-                showBorder: true,
-                color: EazyColors.white,
-                height: 90,
-                width: 150,
-                child: Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Flexible(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 8),
+                  child: EasyContainer(
+                    borderColor: EazyColors.borderColors,
+                    showBorder: true,
+                    color: EazyColors.white,
+                    height: 90.h,
+                    width: 150.w,
+                    child: Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
+                  ),
+                ),
               ),
-            ),
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Flexible(
-            flex: 3,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      serviceProdName,
-                      style: Get.textTheme.titleMedium,
-                      softWrap: true,
-                      overflow: TextOverflow.fade,
-                    ),
-                    const Spacer(),
-                    const SwitchExample()
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
-                      child: Text(
-                        'INR 199',
-                        style: Get.textTheme.titleSmall,
-                        softWrap: true,
-                        overflow: TextOverflow.fade,
-                      ),
-                    ),
-                    // const SizedBox(
-                    //   width: 18,
-                    // ),
-                    Container(
-                      color: Colors.green,
-                      width: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Text(
-                        '49 OFF',
-                        style: Get.textTheme.titleSmall,
-                        softWrap: true,
-                        overflow: TextOverflow.fade,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
+              const SizedBox(
+                width: 8,
+              ),
+              Flexible(
+                flex: 3,
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    FittedBox(
-                      child: TextButton.icon(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.remove_red_eye_outlined,
-                          size: 13,
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          serviceProdName,
+                          style: Get.textTheme.titleMedium,
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
                         ),
-                        label: Text(
-                          'Preview',
-                          style: Get.textTheme.titleSmall,
+                        const Spacer(),
+                        const SwitchExample()
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4.0),
+                          child: Text(
+                            'INR 199',
+                            style: Get.textTheme.titleSmall,
+                            softWrap: true,
+                            overflow: TextOverflow.fade,
+                          ),
                         ),
-                      ),
+
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4),
+                          child: Text(
+                            '49 OFF',
+                            style: Get.textTheme.titleSmall,
+                            softWrap: true,
+                            overflow: TextOverflow.fade,
+                          ),
+                        ),
+                      ],
                     ),
-                    TextButton.icon(
-                      onPressed: () {
-                        Share.share('AC Service at 499 Only');
-                      },
-                      icon: const Icon(
-                        Icons.share_sharp,
-                        size: 13,
-                      ),
-                      label: Text(
-                        'Share Service',
-                        style: Get.textTheme.titleSmall,
-                      ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        FittedBox(
+                          child: TextButton.icon(
+                            onPressed: () {},
+                            icon: const Icon(
+                              Icons.remove_red_eye_outlined,
+                              size: 13,
+                            ),
+                            label: Text(
+                              'Preview',
+                              style: Get.textTheme.titleSmall,
+                            ),
+                          ),
+                        ),
+                        TextButton.icon(
+                          onPressed: () {
+                            Share.share('AC Service at 499 Only');
+                          },
+                          icon: const Icon(
+                            Icons.share_sharp,
+                            size: 13,
+                          ),
+                          label: Text(
+                            'Share Service',
+                            style: Get.textTheme.titleSmall,
+                          ),
+                        ),
+                        const Spacer(),
+                        const PopupMenuExample()
+                      ],
                     ),
-                    const Spacer(),
-                    const PopupMenuExample()
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
+          const Divider(),
+          EazyButtons.primaryTextButton("View Details", () {
+            Get.bottomSheet(
+                Column(
+                  children: [
+                    EazyTextField.fullWidthTextField('New Price'),
+                  ],
+                ),
+                elevation: 20.0,
+                enableDrag: false,
+                backgroundColor: EazyColors.white,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10.0),
+                  topRight: Radius.circular(10.0),
+                  // barrierColor: Colors.red[50],
+                  // isDismissible: false,
+                )));
+          })
         ],
       ),
     );
@@ -226,9 +248,30 @@ class _PopupMenuExampleState extends State<PopupMenuExample> {
         });
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleItem>>[
-        const PopupMenuItem<SampleItem>(
+        PopupMenuItem<SampleItem>(
           value: SampleItem.edit,
           child: Text('Edit'),
+          onTap: () {
+            Get.bottomSheet(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      EazyTextField.fullWidthTextField('New Price'),
+                    ],
+                  ),
+                ),
+                elevation: 20.0,
+                enableDrag: false,
+                backgroundColor: Colors.green,
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10.0),
+                  topRight: Radius.circular(10.0),
+                  // barrierColor: Colors.red[50],
+                  // isDismissible: false,
+                )));
+          },
         ),
         const PopupMenuItem<SampleItem>(
           value: SampleItem.delete,

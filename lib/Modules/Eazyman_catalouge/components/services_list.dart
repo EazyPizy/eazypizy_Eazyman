@@ -3,6 +3,7 @@ import 'package:eazypizy_eazyman/Models/subService_category.dart';
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/components/Easyman_ServiceCard.dart';
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/ctrl_Eazyman_profile.dart';
 import 'package:eazypizy_eazyman/core/routes.dart';
+import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -108,24 +109,32 @@ class ServicesListWidget extends GetView<ProfileController> {
             //   thickness: 5,
             // ),
             )
-        : Center(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 300,
-                    width: 300,
-                    child: Image.asset(
-                        'assets/createProfile.png')),
-                ElevatedButton(
-                    onPressed: () {
-                      Get.toNamed(
-                        Routes.addEazymenProductScreen,
-                        arguments: mainCategory,
-                      );
-                    },
-                    child: const Text('Add Services')),
-              ],
-            ),
-          );
+        : ListView(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            children: [
+                Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Space.vertical(20.h),
+                      SizedBox(
+                          height: 300.h,
+                          width: 300.r,
+                          child: Image.asset('assets/createProfile.png', )),
+                      Space.vertical(20.h),
+                      EazyButtons.flexWidthElevatedButton(
+                        'Add Services'.tr,
+                        () {
+                          Get.toNamed(
+                            Routes.addEazymenProductScreen,
+                            arguments: mainCategory,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ]);
   }
 }

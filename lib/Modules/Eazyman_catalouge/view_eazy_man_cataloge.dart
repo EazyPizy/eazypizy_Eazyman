@@ -51,10 +51,13 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
                     SliverAppBar(
+                      actions: [
+                        IconButton(onPressed: (){}, icon: Icon(Icons.sort_sharp))
+                      ],
                       surfaceTintColor: EazyColors.white,
                       // backgroundColor: EazyColors.background,
 //automaticallyImplyLeading: false,
-                      title: Text('Catalog'),
+                      title: const Text('Catalog'),
                       pinned: true,
                       expandedHeight: 250.h,
                       flexibleSpace: LayoutBuilder(
@@ -92,7 +95,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                             //   ),
                             // ),
                             background: EasyContainer(
-                              color: EazyColors.white,
+                              color: EazyColors.primary,
                               borderRadius: 0.r,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -249,7 +252,8 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                         // controller: controller.tabController,
                         children: controller.userCategories
                             .map(
-                              (category) => ServicesListWidget(category),
+                              (category) =>
+                                  Expanded(child: ServicesListWidget(category)),
                             )
                             .toList(),
                       ),
@@ -319,7 +323,6 @@ Widget buildImage(Uint8List? bytes) =>
 //         return const DraggableScrollablePanel();
 //       });
 // }
-
 
 Widget inSightCard() {
   return SizedBox(

@@ -68,22 +68,22 @@ class _AccountState extends State<Account> {
                         }, child: const Text('Edit Card')),
                       ],
                     ),
-                    Stack(
-                      children: [
-                        CarouselSlider.builder(
+                    Container(
+                      child: Stack(
+                        children: [CarouselSlider.builder(
                           carouselController: _controller,
                           itemCount: 5,
                           itemBuilder: (BuildContext context, int itemIndex,
-                                  int pageViewIndex) =>
+                              int pageViewIndex) =>
                               WidgetToImage(
-                            builder: (key) {
-                              key1 = key;
-                              return VisitingCard(
-                                eazyMenModel: controller.eazyMen,
-                                colors: colors[itemIndex],
-                              );
-                            },
-                          ),
+                                builder: (key) {
+                                  key1 = key;
+                                  return VisitingCard(
+                                    eazyMenModel: controller.eazyMen,
+                                    colors: colors[itemIndex],
+                                  );
+                                },
+                              ),
                           options: CarouselOptions(
                             autoPlay: false,
                             // disableCenter: true,
@@ -94,36 +94,48 @@ class _AccountState extends State<Account> {
                             initialPage: 1,
                           ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Flexible(
-                              child: IconButton(
-                                onPressed: () => _controller.previousPage(),
-                                color: Colors.white,
-                                icon: Icon(Icons.arrow_back_ios),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Flexible(
+                                child: SizedBox(
+                                  height: 25,
+                                  width: 25,
+                                  child: CircleAvatar(
+                                    backgroundColor: Colors.blue,
+                                    child: Center(
+                                      child: IconButton(
+
+                                        onPressed: () => _controller.previousPage(),
+                                        color: Colors.white,
+
+                                        icon: Icon(Icons.arrow_back_ios, size: 15,),
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                            Flexible(
-                              child: IconButton(
-                                onPressed: () => _controller.nextPage(),
-                                color: Colors.white,
-                                icon: Icon(Icons.arrow_forward_ios),
+
+                              Flexible(
+                                child: IconButton(
+                                  onPressed: () => _controller.nextPage(),
+                                  color: Colors.white,
+                                  icon: Icon(Icons.arrow_forward_ios),
+                                ),
                               ),
-                            ),
-                            // ...Iterable<int>.generate(colors.length).map(
-                            //       (int  itemIndex) => Flexible(
-                            //     child: ElevatedButton(
-                            //       onPressed: () => _controller.animateToPage(itemIndex),
-                            //       child: Text("$itemIndex"),
-                            //     ),
-                            //   ),
-                            // ),
-                          ],
-                        )
-                      ],
+                              // ...Iterable<int>.generate(colors.length).map(
+                              //       (int  itemIndex) => Flexible(
+                              //     child: ElevatedButton(
+                              //       onPressed: () => _controller.animateToPage(itemIndex),
+                              //       child: Text("$itemIndex"),
+                              //     ),
+                              //   ),
+                              // ),
+                            ],
+                          ),
+                     ] ),
                     ),
-                    Space.vertical(10),
                     Row(
                       children: [
                         Flexible(
