@@ -73,7 +73,7 @@ class EazyButtons {
       ),
     );
   }
-  static flexWidthElevatedButton2(String title, VoidCallback onPressed,  ) {
+  static flexWidthElevatedButton2(String title, VoidCallback onPressed, Color borderColor ) {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
@@ -82,9 +82,9 @@ class EazyButtons {
         //background color of button
         // side: BorderSide(width:3, color:Colors.white), //border width and color
         elevation: 1,
-        side: const BorderSide(
+        side:  BorderSide(
         width: 1.0,
-        color: EazyColors.primary,),        //elevation of button
+        color: borderColor,),        //elevation of button
         shape: RoundedRectangleBorder(
             //to set border radius to button
             borderRadius: BorderRadius.circular(6

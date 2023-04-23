@@ -63,7 +63,6 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                       flexibleSpace: LayoutBuilder(
                         builder: (ctx, cons) {
                           top = cons.biggest.height.h;
-
                           return FlexibleSpaceBar(
                             // centerTitle: true,
                             // title: AnimatedOpacity(
@@ -149,7 +148,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                         Column(
                                           children: const [
                                             Text('99'),
-                                            Text('Experiance')
+                                            Text('Experience')
                                           ],
                                         ),
                                         Container(
@@ -160,7 +159,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                         Column(
                                           children: const [
                                             Text('99'),
-                                            Text('Experiance')
+                                            Text('Experience')
                                           ],
                                         ),
                                         Container(
@@ -171,7 +170,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                         Column(
                                           children: const [
                                             Text('99'),
-                                            Text('Experiance')
+                                            Text('Experience')
                                           ],
                                         ),
                                       ],
@@ -270,6 +269,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
               EazyButtons.flexWidthElevatedButton2(
                 'View Profile',
                 () {},
+                EazyColors.white
               ),
               EazyButtons.flexWidthElevatedButton(
                 'Share Profile',

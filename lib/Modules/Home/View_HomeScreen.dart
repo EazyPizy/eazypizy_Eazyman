@@ -12,6 +12,7 @@ import '../../widgets/easy_container.dart';
 import '../View_earned_Commision.dart';
 import '../eazymanRegistration/Compnents/SelectServices_Tile.dart';
 import '../eazymanRegistration/Compnents/personal_Details_1.dart';
+import 'components/setup_Payment_Shortcut.dart';
 import 'components/stepsToCompeleteProfile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -106,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          EazyButtons.flexWidthElevatedButton2('Visit', () {}),
+                          EazyButtons.flexWidthElevatedButton2('Visit', () {}, EazyColors.white),
                           // ElevatedButton(
                           //   onPressed: () {},
                           //   child: const Text("Visit"),
@@ -127,6 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
             statics(),
             Space.vertical(16),
             CompleteYourProfile(),
+            SetupPayment(),
             EasyContainer(
               color: Colors.white,
               borderRadius: 10,

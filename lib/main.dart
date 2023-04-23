@@ -1,9 +1,11 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/core/language.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:eazypizy_eazyman/theme/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,7 +30,12 @@ Future<void> main() async {
   ]);
   // Get.put(CartService());
 
-  runApp(const MyApp());
+  runApp(
+  //     DevicePreview(
+  //   enabled: !kReleaseMode,
+  //   builder: (context) => MyApp(), // Wrap your app
+  // ));
+   const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -42,17 +49,16 @@ class MyApp extends StatelessWidget {
       builder: (context, child) => GetMaterialApp(
         //  title: 'Flutter Demo',
         theme: theme,
-        locale: const Locale('en', 'US'),
+        // useInheritedMediaQuery: true,
+        // locale: DevicePreview.locale(context),
+        // builder: DevicePreview.appBuilder,
+       // locale: const Locale('en', 'US'),
         translations: Language(),
         fallbackLocale: const Locale('en', 'US'),
         // home: ChooseLanguageScreen(),
         // home: initialRoute(),
         initialRoute: initialRoute(),
         getPages: pages,
-
-
-
-
       ),
     );
   }

@@ -20,7 +20,7 @@ class ManageOrders extends StatefulWidget {
   State<ManageOrders> createState() => _ManageOrdersState();
 }
 
-List<String> chipText = ["All", "yesterday", "This Week", "This Month"];
+List<String> chipText = ["New", "Pending", "Upcoming", "Cancelled"];
 bool isloading = false;
 
 class _ManageOrdersState extends State<ManageOrders> {
@@ -40,7 +40,7 @@ class _ManageOrdersState extends State<ManageOrders> {
           ),
         ),
         body: DefaultTabController(
-          length: 3,
+          length: 2,
           child: Column(
             children: [
               const SizedBox(
@@ -66,15 +66,15 @@ class _ManageOrdersState extends State<ManageOrders> {
                       Tab(
                         child: Align(
                           alignment: Alignment.center,
-                          child: Text("Orders"),
+                          child: Text("History"),
                         ),
                       ),
-                      Tab(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text("Estimate"),
-                        ),
-                      ),
+                      // Tab(
+                      //   child: Align(
+                      //     alignment: Alignment.center,
+                      //     child: Text("Estimate"),
+                      //   ),
+                      // ),
                     ]),
               ),
               Expanded(
@@ -96,99 +96,102 @@ class _ManageOrdersState extends State<ManageOrders> {
                       Expanded(
                         child: ListView.builder(
                             itemCount: 10,
-                            itemBuilder: (context, index) => Booking_Card()),
+                            itemBuilder: (context, index) =>
+                                const Booking_Card()),
                       ),
                     ],
                   ),
 
                   /// New ///
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.10,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: chipText.length,
-                            itemBuilder: (context, i) => Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: customChips(chipText[i].toString()),
-                                )),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: ListView.builder(
-                            // shrinkWrap: true,
-                            // physics: const NeverScrollableScrollPhysics(),
-                            itemCount: 10,
-                            itemBuilder: (context, i) => Card(
-                                elevation: 1,
-                                child: Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () async {
-                                        // orderDetail("orderList"[i]);
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(children: [
-                                              Text(
-                                                  "Order # ${"orderList"[i].substring(0, 6)}"),
-                                              const Spacer(),
-                                              const Text(" Date 12/06/22 ")
-                                            ]),
-                                          ),
-                                          ListTile(
-                                            leading: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                color: Colors.white,
-                                                border: Border.all(
-                                                  color: Colors.black54,
-                                                  width: 1,
-                                                ),
-                                              ),
-                                              height: 60,
-                                              width: 60,
-                                              child: Image.asset(
-                                                  "assets/eazymen.jpg"),
-                                            ),
-                                            title: ("orderList"[i]
-                                                        .substring(0, 4) !=
-                                                    null)
-                                                ? Text("orderList"[i]
-                                                    .substring(0, 4))
-                                                : Container(),
-                                            subtitle: const Text("Price"),
-                                          ),
-                                          Divider(),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              children: const [
-                                                Icon(Icons.done),
-                                                SizedBox(
-                                                  width: 10,
-                                                ),
-                                                Text("Booking Status"),
-                                              ],
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Column(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     SizedBox(
+                  //       height: MediaQuery.of(context).size.height * 0.10,
+                  //       child: ListView.builder(
+                  //           scrollDirection: Axis.horizontal,
+                  //           itemCount: chipText.length,
+                  //           itemBuilder: (context, i) => Padding(
+                  //                 padding: const EdgeInsets.all(6.0),
+                  //                 child: customChips(chipText[i].toString()),
+                  //               )),
+                  //     ),
+                  //     Expanded(
+                  //       child: Padding(
+                  //         padding: const EdgeInsets.all(15.0),
+                  //         child: ListView.builder(
+                  //           // shrinkWrap: true,
+                  //           // physics: const NeverScrollableScrollPhysics(),
+                  //           itemCount: 10,
+                  //           itemBuilder: (context, i) => Card(
+                  //               elevation: 1,
+                  //               child: Column(
+                  //                 children: [
+                  //                   InkWell(
+                  //                     onTap: () async {
+                  //                       // orderDetail("orderList"[i]);
+                  //                     },
+                  //                     child: Column(
+                  //                       children: [
+                  //                         Padding(
+                  //                           padding: const EdgeInsets.all(8.0),
+                  //                           child: Row(children: [
+                  //                             Text(
+                  //                                 "Order # ${"orderList"[i].substring(0, 6)}"),
+                  //                             const Spacer(),
+                  //                             const Text(" Date 12/06/22 ")
+                  //                           ]),
+                  //                         ),
+                  //                         ListTile(
+                  //                           leading: Container(
+                  //                             decoration: BoxDecoration(
+                  //                               borderRadius:
+                  //                                   BorderRadius.circular(5),
+                  //                               color: Colors.white,
+                  //                               border: Border.all(
+                  //                                 color: Colors.black54,
+                  //                                 width: 1,
+                  //                               ),
+                  //                             ),
+                  //                             height: 60,
+                  //                             width: 60,
+                  //                             child: Image.asset(
+                  //                                 "assets/eazymen.jpg"),
+                  //                           ),
+                  //                           title: ("orderList"[i]
+                  //                                       .substring(0, 4) !=
+                  //                                   null)
+                  //                               ? Text("orderList"[i]
+                  //                                   .substring(0, 4))
+                  //                               : Container(),
+                  //                           subtitle: const Text("Price"),
+                  //                         ),
+                  //                         Divider(),
+                  //                         Padding(
+                  //                           padding: const EdgeInsets.all(8.0),
+                  //                           child: Row(
+                  //                             children: const [
+                  //                               Icon(Icons.done),
+                  //                               SizedBox(
+                  //                                 width: 10,
+                  //                               ),
+                  //                               Text("Booking Status"),
+                  //                             ],
+                  //                           ),
+                  //                         )
+                  //                       ],
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               )),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  /// New ///
+
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -278,8 +281,6 @@ class Booking_Card extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: EasyContainer(
-
-
         borderRadius: 10,
         width: double.infinity,
         height: 110,
