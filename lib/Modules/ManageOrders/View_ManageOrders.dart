@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eazypizy_eazyman/Modules/ManageOrders/ctrl.manage.orders.dart';
 import 'package:eazypizy_eazyman/Modules/ManageOrders/view_DetailOrder.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 
@@ -31,185 +32,203 @@ class _ManageOrdersState extends State<ManageOrders> {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
     DateTime now2;
-    return Scaffold(
-        appBar: AppBar(
-          //automaticallyImplyLeading: false,
-          title: Text(
-            "Manage Orders",
-            style: Get.textTheme.titleMedium,
-          ),
-        ),
-        body: DefaultTabController(
-          length: 3,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 60,
-                child: TabBar(
-                    // unselectedLabelColor: Colors.redAccent,
-                    labelColor: Colors.blue,
-                    indicatorSize: TabBarIndicatorSize.tab,
-                    indicatorColor: Colors.blue,
-                    labelPadding: EdgeInsets.all(20),
-                    // indicator: BoxDecoration(
-                    //     borderRadius: BorderRadius.only(
-                    //         topRight: Radius.circular(5),
-                    //         topLeft: Radius.circular(5)),
-                    //     color: Colors.redAccent),
-                    tabs: [
-                      Tab(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text("Booking"),
-                        ),
-                      ),
-                      Tab(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text("Orders"),
-                        ),
-                      ),
-                      Tab(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text("Estimate"),
-                        ),
-                      ),
-                    ]),
+    return GetBuilder(
+        init: ManageOrderController(),
+        builder: (controller) {
+          return Scaffold(
+              appBar: AppBar(
+                //automaticallyImplyLeading: false,
+                title: Text(
+                  "Manage Orders",
+                  style: Get.textTheme.titleMedium,
+                ),
               ),
-              Expanded(
-                child: TabBarView(children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.10,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: chipText.length,
-                            itemBuilder: (context, i) => Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: customChips(chipText[i].toString()),
-                                )),
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                            itemCount: 10,
-                            itemBuilder: (context, index) => Booking_Card()),
-                      ),
-                    ],
-                  ),
+              body: DefaultTabController(
+                length: 3,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 60,
+                      child: TabBar(
+                          // unselectedLabelColor: Colors.redAccent,
+                          labelColor: Colors.blue,
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          indicatorColor: Colors.blue,
+                          labelPadding: EdgeInsets.all(20),
+                          // indicator: BoxDecoration(
+                          //     borderRadius: BorderRadius.only(
+                          //         topRight: Radius.circular(5),
+                          //         topLeft: Radius.circular(5)),
+                          //     color: Colors.redAccent),
+                          tabs: [
+                            Tab(
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text("Booking"),
+                              ),
+                            ),
+                            Tab(
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text("Orders"),
+                              ),
+                            ),
+                            Tab(
+                              child: Align(
+                                alignment: Alignment.center,
+                                child: Text("Estimate"),
+                              ),
+                            ),
+                          ]),
+                    ),
+                    Expanded(
+                      child: TabBarView(children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: Get.size.height * 0.10,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: chipText.length,
+                                  itemBuilder: (context, i) => Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child:
+                                            customChips(chipText[i].toString()),
+                                      )),
+                            ),
+                            Expanded(
+                              child: controller.loadingBookings
+                                  ? const Center(
+                                      child: CircularProgressIndicator(),
+                                    )
+                                  : ListView.builder(
+                                      itemCount: 10,
+                                      itemBuilder: (context, index) =>
+                                          Booking_Card(),
+                                    ),
+                            ),
+                          ],
+                        ),
 
-                  /// New ///
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.10,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: chipText.length,
-                            itemBuilder: (context, i) => Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: customChips(chipText[i].toString()),
-                                )),
-                      ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: ListView.builder(
-                            // shrinkWrap: true,
-                            // physics: const NeverScrollableScrollPhysics(),
-                            itemCount: 10,
-                            itemBuilder: (context, i) => Card(
-                                elevation: 1,
-                                child: Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () async {
-                                        // orderDetail("orderList"[i]);
-                                      },
+                        /// New ///
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.10,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: chipText.length,
+                                  itemBuilder: (context, i) => Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child:
+                                            customChips(chipText[i].toString()),
+                                      )),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: ListView.builder(
+                                  // shrinkWrap: true,
+                                  // physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: 10,
+                                  itemBuilder: (context, i) => Card(
+                                      elevation: 1,
                                       child: Column(
                                         children: [
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(children: [
-                                              Text(
-                                                  "Order # ${"orderList"[i].substring(0, 6)}"),
-                                              const Spacer(),
-                                              const Text(" Date 12/06/22 ")
-                                            ]),
-                                          ),
-                                          ListTile(
-                                            leading: Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                                color: Colors.white,
-                                                border: Border.all(
-                                                  color: Colors.black54,
-                                                  width: 1,
+                                          InkWell(
+                                            onTap: () async {
+                                              // orderDetail("orderList"[i]);
+                                            },
+                                            child: Column(
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(children: [
+                                                    Text(
+                                                        "Order # ${"orderList"[i].substring(0, 6)}"),
+                                                    const Spacer(),
+                                                    const Text(
+                                                        " Date 12/06/22 ")
+                                                  ]),
                                                 ),
-                                              ),
-                                              height: 60,
-                                              width: 60,
-                                              child: Image.asset(
-                                                  "assets/eazymen.jpg"),
-                                            ),
-                                            title: ("orderList"[i]
-                                                        .substring(0, 4) !=
-                                                    null)
-                                                ? Text("orderList"[i]
-                                                    .substring(0, 4))
-                                                : Container(),
-                                            subtitle: const Text("Price"),
-                                          ),
-                                          Divider(),
-                                          Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Row(
-                                              children: const [
-                                                Icon(Icons.done),
-                                                SizedBox(
-                                                  width: 10,
+                                                ListTile(
+                                                  leading: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
+                                                      color: Colors.white,
+                                                      border: Border.all(
+                                                        color: Colors.black54,
+                                                        width: 1,
+                                                      ),
+                                                    ),
+                                                    height: 60,
+                                                    width: 60,
+                                                    child: Image.asset(
+                                                        "assets/eazymen.jpg"),
+                                                  ),
+                                                  title: ("orderList"[i]
+                                                              .substring(
+                                                                  0, 4) !=
+                                                          null)
+                                                      ? Text("orderList"[i]
+                                                          .substring(0, 4))
+                                                      : Container(),
+                                                  subtitle: const Text("Price"),
                                                 ),
-                                                Text("Booking Status"),
+                                                Divider(),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Row(
+                                                    children: const [
+                                                      Icon(Icons.done),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      Text("Booking Status"),
+                                                    ],
+                                                  ),
+                                                )
                                               ],
                                             ),
-                                          )
+                                          ),
                                         ],
-                                      ),
-                                    ),
-                                  ],
-                                )),
-                          ),
+                                      )),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.10,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: chipText.length,
-                            itemBuilder: (context, i) => Padding(
-                                  padding: const EdgeInsets.all(6.0),
-                                  child: customChips(chipText[i].toString()),
-                                )),
-                      ),
-                    ],
-                  ),
-                ]),
-              ),
-            ],
-          ),
-        ));
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.10,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: chipText.length,
+                                  itemBuilder: (context, i) => Padding(
+                                        padding: const EdgeInsets.all(6.0),
+                                        child:
+                                            customChips(chipText[i].toString()),
+                                      )),
+                            ),
+                          ],
+                        ),
+                      ]),
+                    ),
+                  ],
+                ),
+              ));
+        });
   }
 
   Widget customChips(String title) {
@@ -278,8 +297,6 @@ class Booking_Card extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: EasyContainer(
-
-
         borderRadius: 10,
         width: double.infinity,
         height: 110,
