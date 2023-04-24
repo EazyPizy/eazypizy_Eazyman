@@ -11,8 +11,7 @@ class MyCustomerModel {
     required this.myCustomerPhone,
   });
 
-  factory MyCustomerModel.fromJson(Map<String, dynamic> json,
-          [SubServiceProductModel? productModel]) =>
+  factory MyCustomerModel.fromJson(Map<String, dynamic> json) =>
       MyCustomerModel(
         myCustomerUID: json['my_CustomerUID'] as String,
         myCustomerName: json['customer_Name'] as String,

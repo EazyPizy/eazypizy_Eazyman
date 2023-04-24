@@ -1,11 +1,17 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eazypizy_eazyman/Modules/ManageOrders/view_DetailOrder.dart';
+import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
+
+import '../../core/routes.dart';
+import '../../theme/app_colors.dart';
 
 class ManageOrders extends StatefulWidget {
   const ManageOrders({super.key});
@@ -14,7 +20,7 @@ class ManageOrders extends StatefulWidget {
   State<ManageOrders> createState() => _ManageOrdersState();
 }
 
-List<String> chipText = ["All", "yesterday", "This Week", "This Month"];
+List<String> chipText = ["New", "Pending", "Upcoming", "Cancelled"];
 bool isloading = false;
 
 class _ManageOrdersState extends State<ManageOrders> {
@@ -22,36 +28,19 @@ class _ManageOrdersState extends State<ManageOrders> {
 
   @override
   Widget build(BuildContext context) {
-    // final orderData = Provider.of<EazymanProvider>(context, listen: true);
-    // final orderList = orderData.myOrderList;
-    // final bookingList = orderData.myBookingList;
-    //
-    // final estimatedCustomerData =
-    //     Provider.of<EstimateProvider>(context, listen: true);
-    // final estimatedCustomer = estimatedCustomerData.estimatedCustomers;
-
-    // final filterList = orderList.where((element) {
-    //   return element.eazymanUID
-    //       .contains(FirebaseAuth.instance.currentUser?.uid);
-    // }).toList();
-    // print(orderList.length);
-
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('yyyy-MM-dd – kk:mm').format(now);
     DateTime now2;
     return Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
-
-          elevation: 0.5,
-
+          //automaticallyImplyLeading: false,
           title: Text(
             "Manage Orders",
             style: Get.textTheme.titleMedium,
           ),
         ),
         body: DefaultTabController(
-          length: 3,
+          length: 2,
           child: Column(
             children: [
               const SizedBox(
@@ -77,279 +66,149 @@ class _ManageOrdersState extends State<ManageOrders> {
                       Tab(
                         child: Align(
                           alignment: Alignment.center,
-                          child: Text("Orders"),
+                          child: Text("History"),
                         ),
                       ),
-                      Tab(
-                        child: Align(
-                          alignment: Alignment.center,
-                          child: Text("Estimate"),
-                        ),
-                      ),
+                      // Tab(
+                      //   child: Align(
+                      //     alignment: Alignment.center,
+                      //     child: Text("Estimate"),
+                      //   ),
+                      // ),
                     ]),
               ),
               Expanded(
-                child: SizedBox(
-                  height: 606,
-                  child: TabBarView(children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: ListView.builder(
-                                // shrinkWrap: true,
-                                // physics: const NeverScrollableScrollPhysics(),
-                                itemCount: 10,
-                                itemBuilder: (context, index) => InkWell(
-                                      onTap: () {
-                                        // bookingDetails(
-                                        //    " bookingID $index");
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            //color: Colors.blue,
-                                            border: Border.all(
-                                              color:
-                                                  Colors.blue.withOpacity(0.25),
-                                              width: 1,
-                                            ),
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              ListTile(
-                                                title: (" bookingN $index" !=
-                                                        null)
-                                                    ? Text(" bookingName $index")
-                                                    : Container(),
-                                                subtitle: const Text("Price"),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: Row(
-                                                  children: const [
-                                                    Icon(Icons.done),
-                                                    SizedBox(
-                                                      width: 10,
-                                                    ),
-                                                    Text("Booking Status"),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    )),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.10,
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: chipText.length,
-                              itemBuilder: (context, i) => Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: customChips(chipText[i].toString()),
-                                  )),
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: ListView.builder(
-                              // shrinkWrap: true,
-                              // physics: const NeverScrollableScrollPhysics(),
-                              itemCount: 10,
-                              itemBuilder: (context, i) => Card(
-                                  elevation: 1,
-                                  child: Column(
-                                    children: [
-                                      InkWell(
-                                        onTap: () async {
-                                          // orderDetail("orderList"[i]);
-                                        },
-                                        child: Column(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(children: [
-                                                Text(
-                                                    "Order # ${"orderList"[i].substring(0, 6)}"),
-                                                const Spacer(),
-                                                const Text(" Date 12/06/22 ")
-                                              ]),
-                                            ),
-                                            ListTile(
-                                              leading: Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  color: Colors.white,
-                                                  border: Border.all(
-                                                    color: Colors.black54,
-                                                    width: 1,
-                                                  ),
-                                                ),
-                                                height: 60,
-                                                width: 60,
-                                                child: Image.asset(
-                                                    "assets/eazymen.jpg"),
-                                              ),
-                                              title: ("orderList"[i]
+                child: TabBarView(children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.10,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: chipText.length,
+                            itemBuilder: (context, i) => Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: customChips(chipText[i].toString()),
+                                )),
+                      ),
+                      Expanded(
+                        child: ListView.builder(
+                            itemCount: 10,
+                            itemBuilder: (context, index) =>
+                                const Booking_Card()),
+                      ),
+                    ],
+                  ),
 
-                                                          .substring(0, 4) !=
-                                                      null)
-                                                  ? Text("orderList"[i]
-                                                      .substring(0, 4))
-                                                  : Container(),
-                                              subtitle: const Text("Price"),
-                                            ),
-                                            Divider(),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Row(
-                                                children: const [
-                                                  Icon(Icons.done),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  Text("Booking Status"),
-                                                ],
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height * 0.10,
-                          child: ListView.builder(
-                              scrollDirection: Axis.horizontal,
-                              itemCount: chipText.length,
-                              itemBuilder: (context, i) => Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: customChips(chipText[i].toString()),
-                                  )),
-                        ),
-                        // Expanded(
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.all(15.0),
-                        //     child: ListView.builder(
-                        //         // shrinkWrap: true,
-                        //         // physics: const NeverScrollableScrollPhysics(),
-                        //         itemCount: 10,
-                        //         itemBuilder: (context, i) => ListTile(
-                        //               onTap: () async {
-                        //                 final file = await PdfApi.loadNetwork(
-                        //                     "https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/PDF%2F3e7406a0-9d4c-11ed-b4e9-6b75a552f2d6?alt=media&token=405316a7-8ba2-493f-960e-074a11cd435f");
-                        //                 openPDF(context, file);
-                        //                 isloading = false;
-                        //               },
-                        //               title: Text(estimatedCustomer[i]
-                        //                   .phoneNumber
-                        //                   .toString()),
-                        //               subtitle: Text(
-                        //                   estimatedCustomer[i].estimatedId),
-                        //             )
-                        //
-                        //         // Card(
-                        //         // elevation: 1,
-                        //         // child: Column(
-                        //         //   children: [
-                        //         //     InkWell(
-                        //         //       onTap: () async {
-                        //         //        // orderDetail(orderList[i].orderID);
-                        //         //         final file = await PdfApi.loadNetwork("https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/PDF%2F3e7406a0-9d4c-11ed-b4e9-6b75a552f2d6?alt=media&token=405316a7-8ba2-493f-960e-074a11cd435f");
-                        //         //         openPDF(context, file);
-                        //         //
-                        //         //       },
-                        //         //       child: Column(
-                        //         //         children: [
-                        //         //           Padding(
-                        //         //             padding: const EdgeInsets.all(8.0),
-                        //         //             child: Row(children: [
-                        //         //               Text(
-                        //         //                   "Order # ${orderList[i].orderID.substring(0, 6)}"),
-                        //         //               const Spacer(),
-                        //         //               const Text(" Date 12/06/22 ")
-                        //         //             ]),
-                        //         //           ),
-                        //         //           ListTile(
-                        //         //             leading: Container(
-                        //         //               decoration: BoxDecoration(
-                        //         //                 borderRadius:
-                        //         //                 BorderRadius.circular(5),
-                        //         //                 color: Colors.white,
-                        //         //                 border: Border.all(
-                        //         //                   color: Colors.black54,
-                        //         //                   width: 1,
-                        //         //                 ),
-                        //         //               ),
-                        //         //               height: 60,
-                        //         //               width: 60,
-                        //         //               child:
-                        //         //               Image.asset("assets/eazymen.jpg"),
-                        //         //             ),
-                        //         //             title: (orderList[i]
-                        //         //                 .orderID
-                        //         //                 .substring(0, 4) !=
-                        //         //                 null)
-                        //         //                 ? Text(orderList[i]
-                        //         //                 .orderID
-                        //         //                 .substring(0, 4))
-                        //         //                 : Container(),
-                        //         //             subtitle: const Text("Price"),
-                        //         //           ),
-                        //         //           Divider(),
-                        //         //           Padding(
-                        //         //             padding: const EdgeInsets.all(8.0),
-                        //         //             child: Row(
-                        //         //               children: const [
-                        //         //                 Icon(Icons.done),
-                        //         //                 SizedBox(
-                        //         //                   width: 10,
-                        //         //                 ),
-                        //         //                 Text("Booking Status"),
-                        //         //               ],
-                        //         //             ),
-                        //         //           )
-                        //         //         ],
-                        //         //       ),
-                        //         //     ),
-                        //         //   ],
-                        //         // )),
-                        //         ),
-                        //   ),
-                        // ),
-                      ],
-                    ),
-                  ]),
-                ),
+                  /// New ///
+                  // Column(
+                  //   mainAxisAlignment: MainAxisAlignment.start,
+                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                  //   children: [
+                  //     SizedBox(
+                  //       height: MediaQuery.of(context).size.height * 0.10,
+                  //       child: ListView.builder(
+                  //           scrollDirection: Axis.horizontal,
+                  //           itemCount: chipText.length,
+                  //           itemBuilder: (context, i) => Padding(
+                  //                 padding: const EdgeInsets.all(6.0),
+                  //                 child: customChips(chipText[i].toString()),
+                  //               )),
+                  //     ),
+                  //     Expanded(
+                  //       child: Padding(
+                  //         padding: const EdgeInsets.all(15.0),
+                  //         child: ListView.builder(
+                  //           // shrinkWrap: true,
+                  //           // physics: const NeverScrollableScrollPhysics(),
+                  //           itemCount: 10,
+                  //           itemBuilder: (context, i) => Card(
+                  //               elevation: 1,
+                  //               child: Column(
+                  //                 children: [
+                  //                   InkWell(
+                  //                     onTap: () async {
+                  //                       // orderDetail("orderList"[i]);
+                  //                     },
+                  //                     child: Column(
+                  //                       children: [
+                  //                         Padding(
+                  //                           padding: const EdgeInsets.all(8.0),
+                  //                           child: Row(children: [
+                  //                             Text(
+                  //                                 "Order # ${"orderList"[i].substring(0, 6)}"),
+                  //                             const Spacer(),
+                  //                             const Text(" Date 12/06/22 ")
+                  //                           ]),
+                  //                         ),
+                  //                         ListTile(
+                  //                           leading: Container(
+                  //                             decoration: BoxDecoration(
+                  //                               borderRadius:
+                  //                                   BorderRadius.circular(5),
+                  //                               color: Colors.white,
+                  //                               border: Border.all(
+                  //                                 color: Colors.black54,
+                  //                                 width: 1,
+                  //                               ),
+                  //                             ),
+                  //                             height: 60,
+                  //                             width: 60,
+                  //                             child: Image.asset(
+                  //                                 "assets/eazymen.jpg"),
+                  //                           ),
+                  //                           title: ("orderList"[i]
+                  //                                       .substring(0, 4) !=
+                  //                                   null)
+                  //                               ? Text("orderList"[i]
+                  //                                   .substring(0, 4))
+                  //                               : Container(),
+                  //                           subtitle: const Text("Price"),
+                  //                         ),
+                  //                         Divider(),
+                  //                         Padding(
+                  //                           padding: const EdgeInsets.all(8.0),
+                  //                           child: Row(
+                  //                             children: const [
+                  //                               Icon(Icons.done),
+                  //                               SizedBox(
+                  //                                 width: 10,
+                  //                               ),
+                  //                               Text("Booking Status"),
+                  //                             ],
+                  //                           ),
+                  //                         )
+                  //                       ],
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               )),
+                  //         ),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  /// New ///
+
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.10,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: chipText.length,
+                            itemBuilder: (context, i) => Padding(
+                                  padding: const EdgeInsets.all(6.0),
+                                  child: customChips(chipText[i].toString()),
+                                )),
+                      ),
+                    ],
+                  ),
+                ]),
               ),
             ],
           ),
@@ -367,114 +226,6 @@ class _ManageOrdersState extends State<ManageOrders> {
       ), //Text
     );
   }
-  //
-  // Future orderDetail(String orderID) {
-  //   return Get.bottomSheet(SizedBox(child: Consumer<EazymanProvider>(
-  //           builder: (context, eazyManProvider, child) {
-  //     return FutureBuilder(
-  //         future: eazyManProvider.getEazyManOrders(orderID),
-  //         builder: (context, snapshot) {
-  //           final orderedItems = eazyManProvider.myEazyManOrders;
-  //           return orderedItems.isNotEmpty
-  //               ? ListView.builder(
-  //                   // shrinkWrap: true,
-  //                   // physics: NeverScrollableScrollPhysics(),
-  //                   itemCount: orderedItems.length,
-  //                   itemBuilder: (ctx, i) => orderCard(
-  //                       orderedItems[i].imageURLs,
-  //                       orderedItems[i].productName,
-  //                       orderedItems[i].sellingPrice,
-  //                       5),
-  //                 )
-  //               : const Center(
-  //                   child: Text("Empty List"),
-  //                 );
-  //         });
-  //   })),
-  //       elevation: 2.0,
-  //       enableDrag: false,
-  //       backgroundColor: Colors.white,
-  //       shape: const RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.only(
-  //         topLeft: Radius.circular(10.0),
-  //         topRight: Radius.circular(10.0),
-  //         // barrierColor: Colors.red[50],
-  //         // isDismissible: false,
-  //       )));
-  // }
-  //
-  // Future bookingDetails(String bookingID) {
-  //   return Get.bottomSheet(
-  //       SizedBox(
-  //         width: 500,
-  //         height: MediaQuery.of(context).size.height * 0.90,
-  //         child: Padding(
-  //           padding: const EdgeInsets.all(8.0),
-  //           child: Column(
-  //             crossAxisAlignment: CrossAxisAlignment.start,
-  //             mainAxisAlignment: MainAxisAlignment.start,
-  //             children: [
-  //               Expanded(
-  //                 child: Consumer<EazymanProvider>(
-  //                     builder: (context, eazyManProvider, child) {
-  //                   return FutureBuilder(
-  //                       future: eazyManProvider.getMyBookingProducts(bookingID),
-  //                       builder: (context, snapshot) {
-  //                         final orderedItems = eazyManProvider.myBookingProduct;
-  //
-  //                         return orderedItems.isNotEmpty
-  //                             ? ListView.builder(
-  //                                 //shrinkWrap: true,
-  //                                 // physics: NeverScrollableScrollPhysics(),
-  //                                 itemCount: orderedItems.length,
-  //                                 itemBuilder: (ctx, i) => ListTile(
-  //                                   title: Text(
-  //                                     orderedItems[i].productName,
-  //                                   ),
-  //                                   subtitle: Text(orderedItems[i]
-  //                                       .sellingPrice
-  //                                       .toString()),
-  //                                 ),
-  //                               )
-  //                             : const Center(
-  //                                 child: Text("Empty List"),
-  //                               );
-  //                       });
-  //                 }),
-  //               ),
-  //               Text("Customer Details"),
-  //               ListTile(
-  //                 title: Text("Amit BAirwa"),
-  //                 subtitle: Text("9023499063"),
-  //                 trailing:
-  //                     IconButton(onPressed: () {}, icon: Icon(Icons.whatshot)),
-  //               ),
-  //               const Text("Customer Address"),
-  //               ListTile(
-  //                 title: const Text("House No C-31"),
-  //                 subtitle: const Text("Ashol Vihar"),
-  //                 trailing:
-  //                     IconButton(onPressed: () {}, icon: Icon(Icons.whatshot_rounded)),
-  //               ),
-  //               panelButtonsChange(_deliveryStatus),
-  //             ],
-  //           ),
-  //         ),
-  //       ),
-  //       elevation: 2.0,
-  //       enableDrag: true,
-  //       ignoreSafeArea: true,
-  //       isScrollControlled: true,
-  //       backgroundColor: Colors.white,
-  //       shape: const RoundedRectangleBorder(
-  //           borderRadius: BorderRadius.only(
-  //         topLeft: Radius.circular(10.0),
-  //         topRight: Radius.circular(10.0),
-  //
-  //         // barrierColor: Colors.red[50],
-  //         // isDismissible: false,
-  //       )));
-  // }
 
   Widget orderCard(String image, String name, double price, int quantity) {
     return Row(
@@ -502,7 +253,7 @@ class _ManageOrdersState extends State<ManageOrders> {
             children: [
               Text(name),
               const Text("Size"),
-              Text(" Quantity ${quantity}")
+              Text(" Quantity $quantity")
             ],
           ),
         ),
@@ -516,59 +267,140 @@ class _ManageOrdersState extends State<ManageOrders> {
     );
   }
 
-  // orderOverView(String bookingID, String customerName) {
-  //   SizedBox(
-  //     height: 150,
-  //     child: Card(
-  //         elevation: 1,
-  //         child: Column(
-  //           children: [
-  //             InkWell(
-  //               onTap: () {
-  //                 bookingDetails(bookingID);
-  //               },
-  //               child: Column(
-  //                 children: [
-  //                   ListTile(
-  //                     title: (customerName != null)
-  //                         ? Text(customerName)
-  //                         : Container(),
-  //                     subtitle: const Text("Price"),
-  //                   ),
-  //                   Padding(
-  //                     padding: EdgeInsets.all(8.0),
-  //                     child: Row(
-  //                       children: const [
-  //                         Icon(Icons.done),
-  //                         SizedBox(
-  //                           width: 10,
-  //                         ),
-  //                         Text("Booking Status"),
-  //                       ],
-  //                     ),
-  //                   )
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         )),
-  //   );
-  // }
-
   final DocumentReference documentReference =
       FirebaseFirestore.instance.collection("users").doc("user1");
+}
 
-  // documentReference.get().then((d) {
-  // if (documentSnapshot.exists && documentSnapshot.data.containsKey("email")) {
-  // // The email field exists
-  // String email = documentSnapshot.data["email"];
-  // print("Email: $email");
-  // } else {
-  // // The email field does not exist
-  // print("Email field does not exist");
-  // }
-  // });
+class Booking_Card extends StatelessWidget {
+  const Booking_Card({
+    super.key,
+  });
 
-
-
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: EasyContainer(
+        borderRadius: 10,
+        width: double.infinity,
+        height: 110,
+        elevation: .5,
+        padding: 4,
+        color: EazyColors.white,
+        showBorder: true,
+        borderColor: Colors.black.withOpacity(0.2),
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const DetailOrder(),
+          ));
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+              flex: 1,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: EasyContainer(
+                  color: EazyColors.white,
+                  height: 75,
+                  width: 150,
+                  child: Image.network(
+                      'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            Flexible(
+              flex: 3,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Fridge",
+                        style: Get.textTheme.titleMedium,
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4.0),
+                        child: Text(
+                          'INR 199',
+                          style: Get.textTheme.titleSmall,
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
+                        ),
+                      ),
+                      // const SizedBox(
+                      //   width: 18,
+                      // ),
+                      Container(
+                        color: Colors.green,
+                        width: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4),
+                        child: Text(
+                          '49 OFF',
+                          style: Get.textTheme.titleSmall,
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      FittedBox(
+                        child: TextButton.icon(
+                          onPressed: () {},
+                          icon: const Icon(
+                            Icons.remove_red_eye_outlined,
+                            size: 13,
+                          ),
+                          label: Text(
+                            'Preview',
+                            style: Get.textTheme.titleSmall,
+                          ),
+                        ),
+                      ),
+                      TextButton.icon(
+                        onPressed: () {
+                          Share.share('AC Service at 499 Only');
+                        },
+                        icon: const Icon(
+                          Icons.share_sharp,
+                          size: 13,
+                        ),
+                        label: Text(
+                          'Share Service',
+                          style: Get.textTheme.titleSmall,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

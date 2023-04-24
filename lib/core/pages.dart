@@ -9,6 +9,8 @@ import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../Modules/ManageOrders/view_DetailOrder.dart';
+
 List<GetPage> pages = [
   GetPage(
     name: Routes.HOME,
@@ -45,5 +47,9 @@ List<GetPage> pages = [
   GetPage(
     name: Routes.addEazymenProductScreen,
     page: () => const AddSubServiceToUserCatalogue(),
+  )
+  ,GetPage(
+    name: Routes.detailOrderScreen,
+    page: () => const DetailOrder(),
   ),
 ];

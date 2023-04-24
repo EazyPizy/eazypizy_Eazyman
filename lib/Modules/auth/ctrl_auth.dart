@@ -4,6 +4,7 @@ import 'package:eazypizy_eazyman/core/logger.dart';
 import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -13,7 +14,7 @@ class AuthenticationController extends GetxController {
 
   final mobileNumberController = TextEditingController();
   final otpController = TextEditingController();
-
+  late bool loading;
   late String _verificationId;
 
   Future<void> verifyOtp() async {
@@ -88,6 +89,7 @@ class AuthenticationController extends GetxController {
         verificationCompleted: (phoneAuthCredential) {
           _log.v('Verification completed');
           _signIn(phoneAuthCredential);
+
         },
         verificationFailed: (error) {
           _log
@@ -117,5 +119,12 @@ class AuthenticationController extends GetxController {
     super.onClose();
     otpController.dispose();
     mobileNumberController.dispose();
+  }
+
+  final _firebaseAuth = FirebaseAuth.instance;
+
+  Future<void> logout() async {
+    await _firebaseAuth.signOut();
+    // TODO: delete from offline storage
   }
 }

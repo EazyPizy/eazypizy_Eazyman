@@ -50,13 +50,14 @@ dependencies:
   cached_network_image: ^3.2.3
   image_picker: ^0.8.5+3
   flutter_adaptive_scaffold: ^0.1.0
-  im_stepper: ^1.0.1+1
   smooth_page_indicator: ^1.0.0+2
   validators: ^3.0.0
   share_plus: ^6.3.1
   contacts_service: ^0.6.3
   permission_handler: ^10.2.0
   uuid: ^3.0.6
+  flip_card: ^0.7.0
+  device_preview: ^1.1.0
 
 
 
@@ -93,9 +94,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/EazymenLogo.png
+    - assets/createProfile.png
+    - assets/Blue Logo PNG.png
+    - assets/eazymen.jpg
     - assets/five.jpg
     - assets/cleaningServices.jpg
     - assets/svg_Icons/Fridge.svg
+    - assets/svg_Icons/createProfile.svg
     - assets/svg_Icons/Fridge-optimized.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see

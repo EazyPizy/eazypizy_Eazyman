@@ -10,6 +10,7 @@ ThemeData theme = ThemeData(
   appBarTheme: const AppBarTheme(
     elevation: 0.5,
     backgroundColor: EazyColors.appBarBG,
+    surfaceTintColor: EazyColors.background,
     iconTheme: IconThemeData(
       color: EazyColors.black,
     ),
@@ -32,10 +33,10 @@ ThemeData theme = ThemeData(
       fontSize: 18.sp,
     ),
     headlineSmall: TextStyle(
-      fontFamily: 'Signika',
-      fontWeight: FontWeight.w100,
-      fontSize: 10.sp,
-    ),
+        fontFamily: 'Signika',
+        fontWeight: FontWeight.w100,
+        fontSize: 12.sp,
+        color: EazyColors.white),
     headlineMedium: TextStyle(
       fontFamily: 'Signika',
       fontWeight: FontWeight.normal,
@@ -43,6 +44,12 @@ ThemeData theme = ThemeData(
       color: EazyColors.black,
     ),
     headlineLarge: TextStyle(
+      fontFamily: 'Signika',
+      fontWeight: FontWeight.normal,
+      fontSize: 40.sp,
+      color: Colors.green,
+    ),
+    displaySmall: TextStyle(
       fontFamily: 'Signika',
       fontWeight: FontWeight.normal,
       fontSize: 40.sp,

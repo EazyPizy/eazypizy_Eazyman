@@ -2,12 +2,15 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:eazypizy_eazyman/Modules/ManageCustomers/ctrl_myCustomers.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../theme/eazy_spaces.dart';
+
 class ADDCustomers extends StatefulWidget {
-  ADDCustomers({Key? key}) : super(key: key);
+  const ADDCustomers({Key? key}) : super(key: key);
 
   @override
   State<ADDCustomers> createState() => _ADDCustomersState();
@@ -32,15 +35,17 @@ class _ADDCustomersState extends State<ADDCustomers> {
         init: MyCustomerController(),
         builder: (controller) {
           return Scaffold(
+
             appBar: AppBar(
-              elevation: .5,
-              title: Text("Add New Customer", style: Get.textTheme.titleMedium),
+              title: Text("Add New Customers", style: Get.textTheme.titleMedium),
             ),
             body: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 // _SearchBar(),
-                const SizedBox(
-                  height: 60,
+                 SizedBox(
+                  height: 60.h,
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: TextField(
@@ -115,7 +120,7 @@ class _ADDCustomersState extends State<ADDCustomers> {
                                     controller.phoneController.clear();
                                     Navigator.pop(context);
                                     EazySnackBar.buildSuccessSnackbar(
-                                        "Customer", "Saved Sucessflly");
+                                        "Customer", "Saved Successfully");
                                   },
                                   child: const Text("Save"),
                                 ),
