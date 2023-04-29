@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eazypizy_eazyman/Models/EazymanModel.dart';
 import 'package:eazypizy_eazyman/core/routes.dart';
+import 'package:eazypizy_eazyman/core/services/notification_service.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -86,6 +87,8 @@ class RegistrationController extends GetxController {
     try {
       _log.v('Updating eazymen details...');
 
+      final token = await NotificationService.instance.getToken();
+
       final eazyman = EazyMenModel(
         eazyManUid: FirebaseAuth.instance.currentUser!.uid,
         phoneNumber: FirebaseAuth.instance.currentUser!.phoneNumber,
@@ -99,6 +102,7 @@ class RegistrationController extends GetxController {
           images: imageURL,
           email: emailS,
         ),
+        fcmToken: token,
       );
       await FirebaseFirestore.instance
           .collection('EazyMen')

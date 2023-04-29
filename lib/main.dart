@@ -1,5 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:eazypizy_eazyman/core/routes.dart';
+import 'package:eazypizy_eazyman/core/services/notification_service.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/core/language.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
@@ -27,15 +28,16 @@ Future<void> main() async {
   await Future.wait([
     Get.putAsync(() => CategoryService().init()),
     Get.putAsync(() => EazyMenService().init()),
+    Get.putAsync(() => NotificationService().init()),
   ]);
   // Get.put(CartService());
 
   runApp(
-  //     DevicePreview(
-  //   enabled: !kReleaseMode,
-  //   builder: (context) => MyApp(), // Wrap your app
-  // ));
-   const MyApp());
+      //     DevicePreview(
+      //   enabled: !kReleaseMode,
+      //   builder: (context) => MyApp(), // Wrap your app
+      // ));
+      const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -52,7 +54,7 @@ class MyApp extends StatelessWidget {
         // useInheritedMediaQuery: true,
         // locale: DevicePreview.locale(context),
         // builder: DevicePreview.appBuilder,
-       // locale: const Locale('en', 'US'),
+        // locale: const Locale('en', 'US'),
         translations: Language(),
         fallbackLocale: const Locale('en', 'US'),
         // home: ChooseLanguageScreen(),

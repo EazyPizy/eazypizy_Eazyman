@@ -20,8 +20,10 @@ class EazyMenModel {
     this.subServices,
     this.subServiceProdcuts,
     this.deviceInfo,
+    this.fcmToken,
   });
   factory EazyMenModel.fromJson(Map<String, dynamic> json) => EazyMenModel(
+        fcmToken: json['fcm_token'],
         personalDetail:
             PersonalDetail.fromJson(json['Personal_Detail'][0] as DynamicMap),
         //  == null
@@ -80,12 +82,14 @@ class EazyMenModel {
   final DateTime? dateOfRegistration;
   final String? lastActive;
   final String? lastStatus;
+  final String? fcmToken;
   final List<String>? mainServices;
   final List<String>? subServices;
   final List<EazymenProductModel>? subServiceProdcuts;
   final List<DeviceInfo>? deviceInfo;
 
   Map<String, dynamic> toJson() => {
+        'fcm_token': fcmToken,
         'Personal_Detail': [personalDetail?.toJson()],
         //  personalDetail == null
         //     ? []
