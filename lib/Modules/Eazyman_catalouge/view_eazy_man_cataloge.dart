@@ -52,7 +52,8 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                   return <Widget>[
                     SliverAppBar(
                       actions: [
-                        IconButton(onPressed: (){}, icon: Icon(Icons.sort_sharp))
+                        IconButton(
+                            onPressed: () {}, icon: Icon(Icons.sort_sharp))
                       ],
                       surfaceTintColor: EazyColors.white,
                       // backgroundColor: EazyColors.background,
@@ -135,7 +136,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                   Space.vertical(
                                     10.h,
                                   ),
-                                  Container(
+                                  EasyContainer(
                                     width: double.infinity,
                                     height: 60.h,
                                     //color: Colors.white,
@@ -267,10 +268,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               EazyButtons.flexWidthElevatedButton2(
-                'View Profile',
-                () {},
-                EazyColors.white
-              ),
+                  'View Profile', () {}, EazyColors.white),
               EazyButtons.flexWidthElevatedButton(
                 'Share Profile',
                 () {},
