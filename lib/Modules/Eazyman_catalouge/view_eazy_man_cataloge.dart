@@ -4,17 +4,13 @@ import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/components/services_l
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/simmerLoader.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../Models/EazymanModel.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/eazy_spaces.dart';
 import '../../widgets/easy_container.dart';
-import '../../widgets/widget_to_image.dart';
-import '../eazymanRegistration/Compnents/SelectServices_Tile.dart';
-import '../eazymanRegistration/Compnents/personal_Details_1.dart';
+
 import 'components/CustomerRivewTile.dart';
 import 'ctrl_Eazyman_profile.dart';
 
@@ -57,7 +53,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                       ],
                       surfaceTintColor: EazyColors.white,
                       // backgroundColor: EazyColors.background,
-//automaticallyImplyLeading: false,
+                      //automaticallyImplyLeading: false,
                       title: const Text('Catalog'),
                       pinned: true,
                       expandedHeight: 250.h,
@@ -95,7 +91,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                             //   ),
                             // ),
                             background: EasyContainer(
-                              color: EazyColors.primary,
+                              color: EazyColors.white,
                               borderRadius: 0.r,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
@@ -108,7 +104,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                     child: SizedBox(
                                       height: 75.h,
                                       width: 75.w,
-                                      child: CircleAvatar(),
+                                      child: const CircleAvatar(),
                                     ),
                                   ),
                                   Center(
@@ -123,7 +119,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                   Center(
                                     child: EasyContainer(
                                       elevation: 1,
-                                      width: 70.h,
+                                      width: 70.w,
                                       color: Colors.orange,
                                       //height: 10,
 

@@ -120,7 +120,7 @@ class ServicesListWidget extends GetView<ProfileController> {
                       Space.vertical(20.h),
                       SizedBox(
                           height: 300.h,
-                          width: 300.r,
+                          width: 300.w,
                           child: Image.asset('assets/createProfile.png', )),
                       Space.vertical(20.h),
                       EazyButtons.flexWidthElevatedButton(

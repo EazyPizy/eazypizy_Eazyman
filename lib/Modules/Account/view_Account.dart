@@ -118,15 +118,15 @@ class _AccountState extends State<Account> {
                           initialPage: 1,
                         ),
                       ),
-                      Space.vertical(10),
+                      Space.vertical(10.h),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Flexible(
                             child: SizedBox(
-                              height: 25,
-                              width: 25,
+                              height: 25.h,
+                              width: 25.r,
                               child: CircleAvatar(
                                 backgroundColor: Colors.blue,
                                 child: Center(
@@ -161,7 +161,7 @@ class _AccountState extends State<Account> {
                         ],
                       ),
                     ]),
-                    Space.vertical(10),
+                    Space.vertical(10.h),
                     Row(
                       children: [
                         Flexible(
@@ -179,7 +179,7 @@ class _AccountState extends State<Account> {
                             },
                           ),
                         ),
-                        Space.horizontal(10),
+                        Space.horizontal(10.w),
                         Flexible(
                           flex: 1,
                           child: EasyContainer(
@@ -193,7 +193,7 @@ class _AccountState extends State<Account> {
                     ),
                     Space.vertical(10),
                     EasyContainer(
-                      borderRadius: 10,
+                      borderRadius: 10.r,
                       padding: 10,
                       color: EazyColors.white,
                       child: Column(
