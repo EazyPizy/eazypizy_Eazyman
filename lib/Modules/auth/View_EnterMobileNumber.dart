@@ -104,7 +104,7 @@ class InputMobileNumberScreen extends StatelessWidget {
                         'Get OTP'.tr,
                         () {
                           controller.sendOtp();
-                        },
+                        },40
                       ),
                     ),
                     Space.vertical(50.h),

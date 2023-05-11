@@ -215,7 +215,7 @@ class _AccountState extends State<Account> {
                                   'View Profile', () {}, EazyColors.primary),
                               EazyButtons.flexWidthElevatedButton(
                                 'Share Profile',
-                                () {},
+                                () {},40
                               ),
                             ],
                           ),
@@ -461,7 +461,7 @@ class _AccountState extends State<Account> {
                     ],
                     text: 'Check out this image!',
                   );
-                },
+                },40
               ),
             )
           ],

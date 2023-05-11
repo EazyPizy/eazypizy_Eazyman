@@ -50,7 +50,7 @@ class EazyButtons {
     );
   }
 
-  static flexWidthElevatedButton(String title, VoidCallback onPressed,  ) {
+  static flexWidthElevatedButton(String title, VoidCallback onPressed, double padding ) {
 
 
     return ElevatedButton(
@@ -64,8 +64,8 @@ class EazyButtons {
         shape: RoundedRectangleBorder(
             //to set border radius to button
             borderRadius: BorderRadius.circular(6)),
-        padding: const EdgeInsets.only(
-            left: 40, right: 40) //content padding inside button
+        padding:  EdgeInsets.only(
+            left: padding, right: padding) //content padding inside button
       ),
       child: Text(
         title,

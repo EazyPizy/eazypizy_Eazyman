@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eazypizy_eazyman/Modules/ManageOrders/ctrl.manage.orders.dart';
 import 'package:eazypizy_eazyman/Modules/ManageOrders/view_DetailOrder.dart';
+import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -52,6 +53,7 @@ class _ManageOrdersState extends State<ManageOrders> {
                     SizedBox(
                       height: 60.h,
                       child: const TabBar(
+
                           // unselectedLabelColor: Colors.redAccent,
                           labelColor: Colors.blue,
                           indicatorSize: TabBarIndicatorSize.tab,
@@ -61,7 +63,7 @@ class _ManageOrdersState extends State<ManageOrders> {
                           //     borderRadius: BorderRadius.only(
                           //         topRight: Radius.circular(5),
                           //         topLeft: Radius.circular(5)),
-                          //     color: Colors.redAccent),
+                          //     color: Colors.white),
                           tabs: [
                             Tab(
                               child: Align(
@@ -111,7 +113,7 @@ class _ManageOrdersState extends State<ManageOrders> {
                                   : ListView.builder(
                                       itemCount: 10,
                                       itemBuilder: (context, index) =>
-                                          const BookingCard(),
+                                          BookingCard(),
                                     ),
                             ),
                           ],
@@ -276,7 +278,7 @@ class _ManageOrdersState extends State<ManageOrders> {
 }
 
 class BookingCard extends StatelessWidget {
-  const BookingCard({
+  BookingCard({
     super.key,
   });
 
@@ -300,69 +302,37 @@ class BookingCard extends StatelessWidget {
               ));
             },
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8),
-                          child: EasyContainer(
-                            showBorder: true,
-                            color: EazyColors.white,
-                            height: 75.h,
-                            width: 150.w,
-                            child: Image.network(
-                                'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
-                          ),
-                        ),
-                      ),
-                      Space.horizontal(8.w),
-                      Flexible(
-                        flex: 3,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Inverter Servicing",
-                                  style: Get.textTheme.titleLarge,
-                                  softWrap: true,
-                                  overflow: TextOverflow.fade,
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 4.0),
-                              child: Text(
-                                'Tue 9 Nov at 09:00 AM',
-                                style: Get.textTheme.titleSmall,
-                                softWrap: true,
-                                overflow: TextOverflow.fade,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Text('999'),
-                    ],
+                ListTile(
+                  leading: EasyContainer(
+                    showBorder: true,
+                    color: EazyColors.white,
+                    height: 100.h,
+                    width: 75.w,
+                    child: Image.network(
+                        'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
                   ),
+                  title: Text(
+                    "Inverter Servicing",
+                    style: Get.textTheme.titleLarge,
+                    softWrap: true,
+                    overflow: TextOverflow.fade,
+                  ),
+                  subtitle: Text(
+                    'Tue 9 Nov at 09:00 AM',
+                    style: Get.textTheme.titleSmall,
+                    softWrap: true,
+                    overflow: TextOverflow.fade,
+                  ),
+                  trailing: const Text('999'),
                 ),
+                Spacer(),
                 EasyContainer(
                     customBorderRadius: const BorderRadius.only(
                         topRight: Radius.circular(0),
                         topLeft: Radius.circular(0)),
-                    color: Colors.orange,
+                    color: Colors.orange.shade50,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
@@ -379,8 +349,70 @@ class BookingCard extends StatelessWidget {
                     ))
               ],
             ),
-          ),
+            // child: Column(
+            //   crossAxisAlignment: CrossAxisAlignment.end,
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Row(
+            //         mainAxisAlignment: MainAxisAlignment.start,
+            //         crossAxisAlignment: CrossAxisAlignment.start,
+            //         children: [
+            //           Flexible(
+            //             flex: 1,
+            //             child: Padding(
+            //               padding: const EdgeInsets.only(left: 8),
+            //               child: EasyContainer(
+            //                 showBorder: true,
+            //                 color: EazyColors.white,
+            //                 height: 75.h,
+            //                 width: 150.w,
+            //                 child: Image.network(
+            //                     'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
+            //               ),
+            //             ),
+            //           ),
+            //           Space.horizontal(8.w),
+            // Flexible(
+            //   flex: 3,
+            //             child: Column(
+            //               crossAxisAlignment: CrossAxisAlignment.start,
+            //               mainAxisAlignment: MainAxisAlignment.start,
+            //               children: [
+            //                 Row(
+            //                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //                   children: [
+            //                     Text(
+            //                       "Inverter Servicing",
+            //                       style: Get.textTheme.titleLarge,
+            //                       softWrap: true,
+            //                       overflow: TextOverflow.fade,
+            //                     ),
+            //                   ],
+            //                 ),
+            //                 Padding(
+            //                   padding: const EdgeInsets.only(top: 4.0),
+            //                   child: Text(
+            //                     'Tue 9 Nov at 09:00 AM',
+            //                     style: Get.textTheme.titleSmall,
+            //                     softWrap: true,
+            //                     overflow: TextOverflow.fade,
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //           const Text('999'),
+            //         ],
+            //       ),
+            //     ),
 
+            // ],
+            //            ),
+            //          ),
+          ),
           const Align(
               alignment: Alignment.topRight,
               child: EasyContainer(
@@ -397,3 +429,5 @@ class BookingCard extends StatelessWidget {
     );
   }
 }
+
+

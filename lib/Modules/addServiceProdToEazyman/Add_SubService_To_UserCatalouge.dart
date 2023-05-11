@@ -169,7 +169,7 @@ class AddSubServiceToUserCatalogueState
           child: EazyButtons.flexWidthElevatedButton(
             'Save Products', () {
               controller.updateProducts();
-            },
+            },40
           ),
         )
       ]),

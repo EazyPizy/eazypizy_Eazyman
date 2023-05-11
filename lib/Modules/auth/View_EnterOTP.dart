@@ -78,7 +78,7 @@ class VerifyOTPScreen extends StatelessWidget {
                       //   ),
                       // );
                       controller.verifyOtp();
-                    },
+                    },40
                   ),
                 ),
 

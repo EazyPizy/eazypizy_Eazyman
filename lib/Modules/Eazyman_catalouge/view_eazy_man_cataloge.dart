@@ -267,7 +267,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                   'View Profile', () {}, EazyColors.white),
               EazyButtons.flexWidthElevatedButton(
                 'Share Profile',
-                () {},
+                () {} ,40,
               ),
             ],
           ),

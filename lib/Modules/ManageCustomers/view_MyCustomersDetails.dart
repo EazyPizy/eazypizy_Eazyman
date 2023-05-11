@@ -16,6 +16,7 @@ class MyCustomerDetails extends StatefulWidget {
 }
 List<String> chipText = ["All", "yesterday", "This Week", "This Month"];
 
+
 class _MyCustomerDetailsState extends State<MyCustomerDetails> {
   @override
   Widget build(BuildContext context) {
@@ -132,7 +133,7 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
                             Expanded(
                               child: ListView.builder(
                                   itemCount: 10,
-                                  itemBuilder: (context, index) => const BookingCard()),
+                                  itemBuilder: (context, index) =>  BookingCard()),
                             ),
                           ],
                         ),

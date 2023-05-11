@@ -130,7 +130,7 @@ class ServicesListWidget extends GetView<ProfileController> {
                             Routes.addEazymenProductScreen,
                             arguments: mainCategory,
                           );
-                        },
+                        }, 40
                       ),
                     ],
                   ),

@@ -8,9 +8,15 @@ import 'package:get/get.dart';
 import '../../theme/eazy_spaces.dart';
 import '../../widgets/EasyButtons.dart';
 
-class DetailOrder extends StatelessWidget {
+class DetailOrder extends StatefulWidget {
   const DetailOrder({Key? key}) : super(key: key);
 
+  @override
+  State<DetailOrder> createState() => _DetailOrderState();
+}
+
+String? status = "";
+class _DetailOrderState extends State<DetailOrder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,13 +45,13 @@ class DetailOrder extends StatelessWidget {
                         Spacer(),
                         IconButton(
                             onPressed: () {},
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.whatshot,
                               color: Colors.green,
                             )),
                         IconButton(
                             onPressed: () {},
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.phone,
                               color: Colors.blueAccent,
                             ))
@@ -65,19 +71,19 @@ class DetailOrder extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Locality/Area'),
+                            const Text('Locality/Area'),
                             Text(
-                              'AshokVihar',
+                              'Ashok Vihar',
                               style: Get.textTheme.titleSmall,
                             ),
                           ],
                         ),
                         Spacer(),
                         Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('Landmark'),
+                            const Text('Landmark'),
                             Text(
                               'Hanuman Mandir',
                               style: Get.textTheme.titleSmall,
@@ -95,19 +101,19 @@ class DetailOrder extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('City'),
+                            const Text('City'),
                             Text(
                               'Gurgaon',
                               style: Get.textTheme.titleSmall,
                             ),
                           ],
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Pincode'),
+                            const Text('Pincode'),
                             Text(
                               '122001',
                               style: Get.textTheme.titleSmall,
@@ -121,7 +127,7 @@ class DetailOrder extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('State'),
+                        const Text('State'),
                         Text(
                           'Haryana',
                           style: Get.textTheme.titleSmall,
@@ -140,8 +146,8 @@ class DetailOrder extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Text('Item Details'),
-                        Spacer(),
+                        const Text('Item Details'),
+                        const Spacer(),
                         Text(
                           'Quantity 8',
                           style: Get.textTheme.titleSmall,
@@ -153,7 +159,7 @@ class DetailOrder extends StatelessWidget {
                       ],
                     ),
                     ListTile(
-                      contentPadding: EdgeInsets.all(0),
+                      contentPadding: const EdgeInsets.all(0),
                       isThreeLine: true,
                       leading: EasyContainer(
                           borderRadius: 20,
@@ -209,7 +215,7 @@ class DetailOrder extends StatelessWidget {
                 borderRadius: 10,
                 child: Column(
                   children: [
-                    Text('Bill Details'),
+                    const Text('Bill Details'),
                     Row(
                       children: [
                         Column(
@@ -255,29 +261,98 @@ class DetailOrder extends StatelessWidget {
         color: EazyColors.white,
         child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: EazyButtons.fullWidthElevatedButton('Accept Order', () {
-              EazySnackBar.buildSuccessSnackbar('Success', "message");
-            })
-
-            // ElevatedButton(
-            //     style: ElevatedButton.styleFrom(
-            //         minimumSize: const Size.fromHeight(50),
-            //         backgroundColor: Colors.green,
-            //         //background color of button
-            //         // side: BorderSide(width:3, color:Colors.white), //border width and color
-            //         elevation: 3,
-            //         //elevation of button
-            //         shape: RoundedRectangleBorder(
-            //           //to set border radius to button
-            //             borderRadius: BorderRadius.circular(10)),
-            //         padding: const EdgeInsets.only(
-            //             left: 40, right: 40) //content padding inside button
-            //     ),
-            //     onPressed: () {},
-            //     child: const Text('Accept Order',
-            //         style: TextStyle(color: Colors.white)))
-            ),
+            child: EazyButtons.fullWidthElevatedButton('Accept Order',() {
+              setState(() {
+                status = ButtonStatus.accepted as String?;
+              });
+              print(status);
+              // confirmAcceptOrder(context);
+            })),
       ),
     );
   }
 }
+
+Future<void> confirmAcceptOrder(BuildContext context) {
+  return Get.bottomSheet(
+    EasyContainer(
+      height: 250,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(
+                    Icons.cancel,
+                    size: 20,
+                    color: EazyColors.primary,
+                  )),
+            ),
+            Text(
+              'Accept Order',
+              style: Get.textTheme.titleLarge,
+              textScaleFactor: 1.5,
+            ),
+
+            Text(
+              'Do You want to accept this new order',
+              style: Get.textTheme.titleSmall,
+             // textScaleFactor: 1.5,
+            ),
+            const Spacer(),
+            EazyButtons.flexWidthElevatedButton('Yes,Accept Order', () {
+
+
+EazySnackBar.buildSuccessSnackbar('Success',"message");
+            }, 40),
+          ],
+        ),
+      ),
+    ),
+    backgroundColor: EazyColors.white,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(15),
+    ),
+    // shape: RoundedRectangleBorder(
+    //   borderRadius: BorderRadius.circular(15.r),
+    // ),
+  );
+}
+
+
+
+// Widget submitButton() {
+//   if (ButtonStatus.accepted) {
+//     return CartSubmitButton(
+//       onPressed: () {
+//         CartService.instance.checkout();
+//       },
+//       label: 'Login',
+//     );
+//   }
+//   if (!_customerService.customer!.isApplicable()) {
+//     return const CartSubmitButton(
+//       onPressed: _addDeliveryAddress,
+//       label: 'Add Details',
+//     );
+//   }
+//   // if (!_customerService.customer!.isNotApplicable()) {
+//   //   return const CartSubmitButton(
+//   //     onPressed: _showSavedAddress,
+//   //     label: 'Select Address',
+//   //   );
+//   // }
+//   return CartSubmitButton(
+//     onPressed: () {
+//       Get.to(const SelectServiceSlotView());
+//     },
+//     label: 'Select Slot',
+//   );
+// }
+
+enum ButtonStatus { accepted, started, reached, complete }

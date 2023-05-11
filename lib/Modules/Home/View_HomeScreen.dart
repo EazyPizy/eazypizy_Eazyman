@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           //   child: const Text("Visit"),
                           // ),
                           const SizedBox(width: 10),
-                          EazyButtons.flexWidthElevatedButton('Share', () {}),
+                          EazyButtons.flexWidthElevatedButton('Share', () {} ,20),
                         ]),
                   ),
                 ],
