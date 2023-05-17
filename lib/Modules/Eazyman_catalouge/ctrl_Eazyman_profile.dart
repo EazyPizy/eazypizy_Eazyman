@@ -23,7 +23,7 @@ class ProfileController extends GetxController {
   final Logger _log = getLogger('Profile Controller');
 
   late final EazyMenModel eazyMen;
-  final GlobalKey _globalKey =  GlobalKey();
+  final GlobalKey _globalKey = GlobalKey();
 
   final List<MainCategoryModel> userCategories = [];
   final List<SubServiceModel> userSubServiceCategories = [];
@@ -72,11 +72,6 @@ class ProfileController extends GetxController {
               data.firstWhere((_) => _.serviceProductId == element.productId),
         ),
       );
-      // userSubServiceProducts.add(
-      //   data.firstWhere(
-      //     (serviceProduct) => serviceProduct.serviceProductId == element,
-      //   ),
-      // );
     }
     print(userSubServiceProducts);
     update();
@@ -95,9 +90,6 @@ class ProfileController extends GetxController {
     print(userCategories);
     update();
   }
-
-
-
 
   @override
   void onInit() {

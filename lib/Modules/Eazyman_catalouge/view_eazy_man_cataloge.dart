@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/components/services_list.dart';
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/simmerLoader.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
+import 'package:eazypizy_eazyman/widgets/eazy_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -49,11 +50,11 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                     SliverAppBar(
                       actions: [
                         IconButton(
-                            onPressed: () {}, icon: Icon(Icons.sort_sharp))
+                          onPressed: () {},
+                          icon: Icon(Icons.sort_sharp),
+                        )
                       ],
                       surfaceTintColor: EazyColors.white,
-                      // backgroundColor: EazyColors.background,
-                      //automaticallyImplyLeading: false,
                       title: const Text('Catalog'),
                       pinned: true,
                       expandedHeight: 250.h,
@@ -61,35 +62,6 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                         builder: (ctx, cons) {
                           top = cons.biggest.height.h;
                           return FlexibleSpaceBar(
-                            // centerTitle: true,
-                            // title: AnimatedOpacity(
-                            //   duration: const Duration(milliseconds: 100),
-                            //   opacity: top <= 130 ? 1.0 : 0.0,
-                            //   child: Row(
-                            //     children: [
-                            //       SizedBox(
-                            //         width: 15.w,
-                            //       ),
-                            //       const CircleAvatar(
-                            //         backgroundImage: NetworkImage(
-                            //           'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29',
-                            //         ),
-                            //       ),
-                            //       SizedBox(
-                            //         width: 12.w,
-                            //       ),
-                            //       InkWell(
-                            //         onTap: controller.getUserSubServices,
-                            //         child: Text(
-                            //           controller.eazyMen.personalDetail
-                            //                   ?.firstName ??
-                            //               '',
-                            //           style: Get.textTheme.headlineMedium,
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
                             background: EasyContainer(
                               color: EazyColors.white,
                               borderRadius: 0.r,
@@ -267,7 +239,8 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                   'View Profile', () {}, EazyColors.white),
               EazyButtons.flexWidthElevatedButton(
                 'Share Profile',
-                () {} ,40,
+                () {},
+                40,
               ),
             ],
           ),
