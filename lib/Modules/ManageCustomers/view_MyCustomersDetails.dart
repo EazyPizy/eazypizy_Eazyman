@@ -1,3 +1,4 @@
+import 'package:eazypizy_eazyman/Modules/orderDetail/model/mdl.booking.detail.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -14,8 +15,8 @@ class MyCustomerDetails extends StatefulWidget {
   @override
   State<MyCustomerDetails> createState() => _MyCustomerDetailsState();
 }
-List<String> chipText = ["All", "yesterday", "This Week", "This Month"];
 
+List<String> chipText = ["All", "yesterday", "This Week", "This Month"];
 
 class _MyCustomerDetailsState extends State<MyCustomerDetails> {
   @override
@@ -28,10 +29,8 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
           elevation: 0.5,
           actions: [
             IconButton(onPressed: () {}, icon: const Icon(Icons.abc)),
-            IconButton(
-                onPressed: () {}, icon: const Icon(Icons.abc_outlined)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.abc_outlined)),
           ],
-
           title: Text(
             "Customers",
             style: Get.textTheme.titleMedium,
@@ -42,8 +41,8 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             EasyContainer(
-              color: EazyColors.white,
-               // margin: 8,
+                color: EazyColors.white,
+                // margin: 8,
                 padding: 16,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -51,23 +50,23 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
                   children: [
                     Row(
                       children: [
-                        Text('Amit Bairwa'),
-                        Spacer(),
+                        const Text('Amit Bairwa'),
+                        const Spacer(),
                         IconButton(
                             onPressed: () {},
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.whatshot,
                               color: Colors.green,
                             )),
                         IconButton(
                             onPressed: () {},
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.phone,
                               color: Colors.blueAccent,
                             ))
                       ],
                     ),
-                    Text('+91-9023499063'),
+                    const Text('+91-9023499063'),
                     Text(
                       'Email : Adibairwa01@gmail.com',
                       style: Get.textTheme.titleSmall,
@@ -76,10 +75,12 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
                     Align(
                       alignment: Alignment.bottomRight,
                       child: Column(
-                          children: const [
+                        children: const [
                           Text('Totel Sales'),
-                      Text('+1999',
-                        style: TextStyle(color: Colors.green, fontSize: 15),)
+                          Text(
+                            '+1999',
+                            style: TextStyle(color: Colors.green, fontSize: 15),
+                          )
                         ],
                       ),
                     ),
@@ -93,7 +94,7 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
                     const SizedBox(
                       height: 60,
                       child: TabBar(
-                        // unselectedLabelColor: Colors.redAccent,
+                          // unselectedLabelColor: Colors.redAccent,
                           labelColor: Colors.blue,
                           indicatorSize: TabBarIndicatorSize.tab,
                           indicatorColor: Colors.blue,
@@ -132,8 +133,11 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
                           children: [
                             Expanded(
                               child: ListView.builder(
-                                  itemCount: 10,
-                                  itemBuilder: (context, index) =>  BookingCard()),
+                                itemCount: 10,
+                                itemBuilder: (context, index) => BookingCard(
+                                  BookingDetailModel(),
+                                ),
+                              ),
                             ),
                           ],
                         ),
@@ -149,9 +153,10 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: chipText.length,
                                   itemBuilder: (context, i) => Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: customChips(chipText[i].toString()),
-                                  )),
+                                        padding: const EdgeInsets.all(6.0),
+                                        child:
+                                            customChips(chipText[i].toString()),
+                                      )),
                             ),
                             Expanded(
                               child: Padding(
@@ -171,19 +176,22 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
                                             child: Column(
                                               children: [
                                                 Padding(
-                                                  padding: const EdgeInsets.all(8.0),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: Row(children: [
                                                     Text(
                                                         "Order # ${"orderList"[i].substring(0, 6)}"),
                                                     const Spacer(),
-                                                    const Text(" Date 12/06/22 ")
+                                                    const Text(
+                                                        " Date 12/06/22 ")
                                                   ]),
                                                 ),
                                                 ListTile(
                                                   leading: Container(
                                                     decoration: BoxDecoration(
                                                       borderRadius:
-                                                      BorderRadius.circular(5),
+                                                          BorderRadius.circular(
+                                                              5),
                                                       color: Colors.white,
                                                       border: Border.all(
                                                         color: Colors.black54,
@@ -196,15 +204,17 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
                                                         "assets/eazymen.jpg"),
                                                   ),
                                                   title: ("orderList"[i]
-                                                      .substring(0, 4) !=
-                                                      null)
+                                                              .substring(
+                                                                  0, 4) !=
+                                                          null)
                                                       ? Text("orderList"[i]
-                                                      .substring(0, 4))
+                                                          .substring(0, 4))
                                                       : Container(),
                                                   subtitle: const Text("Price"),
                                                 ),
                                                 Padding(
-                                                  padding: const EdgeInsets.all(8.0),
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
                                                   child: Row(
                                                     children: const [
                                                       Icon(Icons.done),
@@ -235,11 +245,11 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: chipText.length,
                                   itemBuilder: (context, i) => Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: customChips(chipText[i].toString()),
-                                  )),
+                                        padding: const EdgeInsets.all(6.0),
+                                        child:
+                                            customChips(chipText[i].toString()),
+                                      )),
                             ),
-
                           ],
                         ),
                       ]),
@@ -248,7 +258,6 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
                 ),
               ),
             )
-
 
             // the tab bar with two items
             // SizedBox(
@@ -300,6 +309,7 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
       ),
     );
   }
+
   Widget customChips(String title) {
     return Chip(
       elevation: 1,
@@ -311,5 +321,4 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
       ), //Text
     );
   }
-
 }
