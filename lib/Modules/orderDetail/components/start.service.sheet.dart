@@ -1,7 +1,7 @@
 import 'package:eazypizy_eazyman/Modules/orderDetail/ctrl.booking.detail.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
-import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
+import 'package:eazypizy_eazyman/widgets/EazyTextField.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 import 'package:eazypizy_eazyman/widgets/eazy_loading.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +34,10 @@ Future<void> startServiceConfirmationSheet() {
                 'Start Service',
                 style: Get.textTheme.titleLarge,
                 textScaleFactor: 1.5,
+              ),
+              EazyTextField.fullWidthTextField(
+                'Enter starting code',
+                controller: controller.codeController,
               ),
               Text(
                 'Do You want to start this service',

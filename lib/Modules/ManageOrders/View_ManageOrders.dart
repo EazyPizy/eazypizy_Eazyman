@@ -232,19 +232,22 @@ class _ManageOrdersState extends State<ManageOrders> {
                   ),
                 ),
                 Expanded(
-                  child: controller.loadingBookings
-                      ? const Center(
-                          child: EazyLoadingWidget(),
-                        )
-                      : controller.bookings.isEmpty
-                          ? const Center(
-                              child: Text('No Bookings Available'),
-                            )
-                          : ListView.builder(
-                              itemCount: controller.bookings.length,
-                              itemBuilder: (context, index) =>
-                                  BookingCard(controller.bookings[index]),
-                            ),
+                  child: RefreshIndicator(
+                    onRefresh: () => controller.getBookings(),
+                    child: controller.loadingBookings
+                        ? const Center(
+                            child: EazyLoadingWidget(),
+                          )
+                        : controller.bookings.isEmpty
+                            ? const Center(
+                                child: Text('No Bookings Available'),
+                              )
+                            : ListView.builder(
+                                itemCount: controller.bookings.length,
+                                itemBuilder: (context, index) =>
+                                    BookingCard(controller.bookings[index]),
+                              ),
+                  ),
                 )
               ],
             ),

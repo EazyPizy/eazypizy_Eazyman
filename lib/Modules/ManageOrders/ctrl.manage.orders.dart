@@ -16,6 +16,7 @@ class ManageOrderController extends GetxController {
   VoidFuture getBookings() async {
     final eazymen = EazyMenService.instance.eazyMen;
     loadingBookings = true;
+    update();
     _log.v('Getting bookings...');
     try {
       final data = await FirebaseFirestore.instance
@@ -52,6 +53,8 @@ class ManageOrderController extends GetxController {
         return 'Working';
       case 3:
         return 'Done';
+      case 4:
+        return 'Canceled';
       default:
         return 'Pending';
     }

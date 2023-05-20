@@ -1,27 +1,11 @@
 import 'package:eazypizy_eazyman/core/typedefs.dart';
 
 class BookingDetailModel {
-  final String? eazymen_id;
-  final String? eazymen_name;
-  final String? eazymen_location;
-  final String? eazymen_fcm_token;
-  final double? payment_tax;
-  final double? payment_items_total;
-  final double? payment_discount;
-  final double? payment_total;
-  final String? customer_id;
-  final String? customer_name;
-  final String? customer_address;
-  final String? customer_phone;
-  final String? customer_pincode;
-  final String? customer_fcm_token;
-  final String? customer_landmark;
-  final String? booking_date;
-  final String? booking_time;
-  final String? booking_id;
-  final int? booking_status;
-
   BookingDetailModel({
+    this.canceled_by,
+    this.cancel_reason,
+    this.service_start_code,
+    this.service_end_code,
     this.eazymen_id,
     this.eazymen_name,
     this.eazymen_location,
@@ -42,29 +26,55 @@ class BookingDetailModel {
     this.booking_id,
     this.booking_status,
   });
-
   factory BookingDetailModel.fromMap(DynamicMap doc, String booking_id) =>
       BookingDetailModel(
-        eazymen_id: doc['eazymen_id'],
-        eazymen_name: doc['eazymen_name'],
-        eazymen_location: doc['eazymen_location'],
-        eazymen_fcm_token: doc['eazymen_fcm_token'],
-        payment_tax: doc['payment_tax'],
-        payment_items_total: doc['payment_items_total'],
-        payment_discount: doc['payment_discount'],
-        payment_total: doc['payment_total'],
-        customer_id: doc['customer_id'],
-        customer_name: doc['customer_name'],
-        customer_address: doc['customer_address'],
-        customer_phone: doc['customer_phone'],
-        customer_pincode: doc['customer_pincode'],
-        customer_fcm_token: doc['customer_fcm_token'],
-        customer_landmark: doc['customer_landmark'],
-        booking_date: doc['booking_date'],
-        booking_time: doc['booking_time'],
+        eazymen_id: doc['eazymen_id'] as String?,
+        eazymen_name: doc['eazymen_name'] as String?,
+        eazymen_location: doc['eazymen_location'] as String?,
+        eazymen_fcm_token: doc['eazymen_fcm_token'] as String?,
+        payment_tax: doc['payment_tax'] as int?,
+        payment_items_total: doc['payment_items_total'] as int?,
+        payment_discount: doc['payment_discount'] as int?,
+        payment_total: doc['payment_total'] as int?,
+        customer_id: doc['customer_id'] as String?,
+        customer_name: doc['customer_name'] as String?,
+        customer_address: doc['customer_address'] as String?,
+        customer_phone: doc['customer_phone'] as String?,
+        customer_pincode: doc['customer_pincode'] as String?,
+        customer_fcm_token: doc['customer_fcm_token'] as String?,
+        customer_landmark: doc['customer_landmark'] as String?,
+        booking_date: doc['booking_date'] as String?,
+        booking_time: doc['booking_time'] as String?,
         booking_id: booking_id,
-        booking_status: doc['booking_status'],
+        booking_status: doc['booking_status'] as int?,
+        cancel_reason: doc['cancel_reason'] as String?,
+        canceled_by: doc['canceled_by'] as int?,
+        service_end_code: doc['service_end_code'] as int?,
+        service_start_code: doc['service_start_code'] as int?,
       );
+  final String? eazymen_id;
+  final String? eazymen_name;
+  final String? eazymen_location;
+  final String? eazymen_fcm_token;
+  final int? payment_tax;
+  final int? payment_items_total;
+  final int? payment_discount;
+  final int? payment_total;
+  final String? customer_id;
+  final String? customer_name;
+  final String? customer_address;
+  final String? customer_phone;
+  final String? customer_pincode;
+  final String? customer_fcm_token;
+  final String? customer_landmark;
+  final String? booking_date;
+  final String? booking_time;
+  final String? booking_id;
+  final int? booking_status;
+  final int? canceled_by;
+  final String? cancel_reason;
+  final int? service_start_code;
+  final int? service_end_code;
 
   DynamicMap toMap() => {
         'eazymen_id': eazymen_id,
@@ -85,6 +95,10 @@ class BookingDetailModel {
         'booking_date': booking_date,
         'booking_time': booking_time,
         'booking_status': booking_status,
+        'canceled_by': canceled_by,
+        'cancel_reason': cancel_reason,
+        'service_start_code': service_start_code,
+        'service_end_code': service_end_code,
       };
 }
 

@@ -27,238 +27,241 @@ class _DetailOrderViewState extends State<DetailOrderView> {
             appBar: AppBar(
               title: const Text('Order ID #12345'),
             ),
-            body: SingleChildScrollView(
-              padding: Space.scaffoldPadding,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Space.vertical(8),
-                  EasyContainer(
-                      // height: 150.h,
-                      borderRadius: 10,
-                      padding: 8,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('Customer Details'),
-                          Row(
-                            children: [
-                              const Text('Amit Bairwa'),
-                              const Spacer(),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.whatshot,
-                                    color: Colors.green,
+            body: RefreshIndicator(
+              onRefresh: () => controller.getBookingDetails(),
+              child: SingleChildScrollView(
+                padding: Space.scaffoldPadding,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Space.vertical(8),
+                    EasyContainer(
+                        // height: 150.h,
+                        borderRadius: 10,
+                        padding: 8,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text('Customer Details'),
+                            Row(
+                              children: [
+                                const Text('Amit Bairwa'),
+                                const Spacer(),
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.whatshot,
+                                      color: Colors.green,
+                                    )),
+                                IconButton(
+                                    onPressed: () {},
+                                    icon: const Icon(
+                                      Icons.phone,
+                                      color: Colors.blueAccent,
+                                    ))
+                              ],
+                            ),
+                            const Text('+91-9023499063'),
+                            Text(
+                              'Email : Adibairwa01@gmail.com',
+                              style: Get.textTheme.titleSmall,
+                            ),
+                            Space.vertical(8),
+                            const Text('Address'),
+                            Space.vertical(8),
+                            Row(
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('Locality/Area'),
+                                    Text(
+                                      'Ashok Vihar',
+                                      style: Get.textTheme.titleSmall,
+                                    ),
+                                  ],
+                                ),
+                                const Spacer(),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    const Text('Landmark'),
+                                    Text(
+                                      'Hanuman Mandir',
+                                      style: Get.textTheme.titleSmall,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Space.vertical(8),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('City'),
+                                    Text(
+                                      'Gurgaon',
+                                      style: Get.textTheme.titleSmall,
+                                    ),
+                                  ],
+                                ),
+                                const Spacer(),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('Pincode'),
+                                    Text(
+                                      '122001',
+                                      style: Get.textTheme.titleSmall,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Space.vertical(8),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Text('State'),
+                                Text(
+                                  'Haryana',
+                                  style: Get.textTheme.titleSmall,
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Space.vertical(8),
+                    EasyContainer(
+                        padding: 8,
+                        borderRadius: 10,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Row(
+                              children: [
+                                const Text('Item Details'),
+                                const Spacer(),
+                                Text(
+                                  'Quantity 8',
+                                  style: Get.textTheme.titleSmall,
+                                ),
+                                Text(
+                                  'Item Count 16',
+                                  style: Get.textTheme.titleSmall,
+                                ),
+                              ],
+                            ),
+                            ListTile(
+                              contentPadding: const EdgeInsets.all(0),
+                              isThreeLine: true,
+                              leading: EasyContainer(
+                                  borderRadius: 20,
+                                  height: 75,
+                                  width: 60,
+                                  child: Image.asset(
+                                    'assets/eazymen.jpg',
+                                    fit: BoxFit.cover,
                                   )),
-                              IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(
-                                    Icons.phone,
-                                    color: Colors.blueAccent,
-                                  ))
-                            ],
-                          ),
-                          const Text('+91-9023499063'),
-                          Text(
-                            'Email : Adibairwa01@gmail.com',
-                            style: Get.textTheme.titleSmall,
-                          ),
-                          Space.vertical(8),
-                          const Text('Address'),
-                          Space.vertical(8),
-                          Row(
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text('Locality/Area'),
-                                  Text(
-                                    'Ashok Vihar',
-                                    style: Get.textTheme.titleSmall,
-                                  ),
-                                ],
+                              title: Text(
+                                'Window AC Service',
+                                style: Get.textTheme.titleMedium,
                               ),
-                              const Spacer(),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  const Text('Landmark'),
-                                  Text(
-                                    'Hanuman Mandir',
-                                    style: Get.textTheme.titleSmall,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Space.vertical(8),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text('City'),
-                                  Text(
-                                    'Gurgaon',
-                                    style: Get.textTheme.titleSmall,
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text('Pincode'),
-                                  Text(
-                                    '122001',
-                                    style: Get.textTheme.titleSmall,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Space.vertical(8),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text('State'),
-                              Text(
-                                'Haryana',
+                              subtitle: Text(
+                                '499Rs x 2',
                                 style: Get.textTheme.titleSmall,
                               ),
-                            ],
-                          ),
-                        ],
-                      )),
-                  Space.vertical(8),
-                  EasyContainer(
-                      padding: 8,
-                      borderRadius: 10,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Row(
-                            children: [
-                              const Text('Item Details'),
-                              const Spacer(),
-                              Text(
-                                'Quantity 8',
+                              trailing: Text(
+                                '998',
+                                style: Get.textTheme.titleMedium,
+                              ),
+                            ),
+                            const Divider(),
+                            ListTile(
+                              contentPadding: const EdgeInsets.all(0),
+                              isThreeLine: true,
+                              leading: EasyContainer(
+                                  borderRadius: 20,
+                                  height: 75,
+                                  width: 60,
+                                  child: Image.asset(
+                                    'assets/eazymen.jpg',
+                                    fit: BoxFit.cover,
+                                  )),
+                              title: Text(
+                                'Window AC Service',
+                                style: Get.textTheme.titleMedium,
+                              ),
+                              subtitle: Text(
+                                '499Rs x 2',
                                 style: Get.textTheme.titleSmall,
                               ),
-                              Text(
-                                'Item Count 16',
-                                style: Get.textTheme.titleSmall,
+                              trailing: Text(
+                                '998',
+                                style: Get.textTheme.titleMedium,
                               ),
-                            ],
-                          ),
-                          ListTile(
-                            contentPadding: const EdgeInsets.all(0),
-                            isThreeLine: true,
-                            leading: EasyContainer(
-                                borderRadius: 20,
-                                height: 75,
-                                width: 60,
-                                child: Image.asset(
-                                  'assets/eazymen.jpg',
-                                  fit: BoxFit.cover,
-                                )),
-                            title: Text(
-                              'Window AC Service',
-                              style: Get.textTheme.titleMedium,
-                            ),
-                            subtitle: Text(
-                              '499Rs x 2',
-                              style: Get.textTheme.titleSmall,
-                            ),
-                            trailing: Text(
-                              '998',
-                              style: Get.textTheme.titleMedium,
-                            ),
-                          ),
-                          const Divider(),
-                          ListTile(
-                            contentPadding: const EdgeInsets.all(0),
-                            isThreeLine: true,
-                            leading: EasyContainer(
-                                borderRadius: 20,
-                                height: 75,
-                                width: 60,
-                                child: Image.asset(
-                                  'assets/eazymen.jpg',
-                                  fit: BoxFit.cover,
-                                )),
-                            title: Text(
-                              'Window AC Service',
-                              style: Get.textTheme.titleMedium,
-                            ),
-                            subtitle: Text(
-                              '499Rs x 2',
-                              style: Get.textTheme.titleSmall,
-                            ),
-                            trailing: Text(
-                              '998',
-                              style: Get.textTheme.titleMedium,
-                            ),
-                          )
-                        ],
-                      )),
-                  Space.vertical(8),
-                  EasyContainer(
-                      height: 150.h,
-                      borderRadius: 10,
-                      child: Column(
-                        children: [
-                          const Text('Bill Details'),
-                          Row(
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text('Item Total'),
-                                  const Text('Discount'),
-                                  Space.vertical(4),
-                                  const Text('Taxes And Fee'),
-                                  const Divider(),
-                                  Text(
-                                    'Total Items',
-                                    style: Get.textTheme.titleLarge,
-                                  ),
-                                ],
-                              ),
-                              const Spacer(),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  const Text('899'),
-                                  const Text('50'),
-                                  Space.vertical(4),
-                                  const Text('149'),
-                                  const Divider(),
-                                  Text(
-                                    '1199',
-                                    style: Get.textTheme.titleLarge,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )
-                        ],
-                      ))
-                ],
+                            )
+                          ],
+                        )),
+                    Space.vertical(8),
+                    EasyContainer(
+                        height: 150.h,
+                        borderRadius: 10,
+                        child: Column(
+                          children: [
+                            const Text('Bill Details'),
+                            Row(
+                              children: [
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text('Item Total'),
+                                    const Text('Discount'),
+                                    Space.vertical(4),
+                                    const Text('Taxes And Fee'),
+                                    const Divider(),
+                                    Text(
+                                      'Total Items',
+                                      style: Get.textTheme.titleLarge,
+                                    ),
+                                  ],
+                                ),
+                                const Spacer(),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    const Text('899'),
+                                    const Text('50'),
+                                    Space.vertical(4),
+                                    const Text('149'),
+                                    const Divider(),
+                                    Text(
+                                      '1199',
+                                      style: Get.textTheme.titleLarge,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            )
+                          ],
+                        ))
+                  ],
+                ),
               ),
             ),
             bottomNavigationBar: EasyContainer(

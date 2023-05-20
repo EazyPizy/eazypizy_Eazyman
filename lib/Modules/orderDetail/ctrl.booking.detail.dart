@@ -7,13 +7,15 @@ import 'package:eazypizy_eazyman/constant/firebase_collections.dart';
 import 'package:eazypizy_eazyman/core/logger.dart';
 import 'package:eazypizy_eazyman/core/typedefs.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class BookingDetailController extends GetxController {
   final _log = getLogger('OrderDetail Controller');
 
-  late final BookingDetailModel bookingDetail;
+  late BookingDetailModel bookingDetail;
   bool loading = false;
+  final TextEditingController codeController = TextEditingController();
   @override
   void onInit() {
     // TODO: implement onInit
@@ -42,15 +44,35 @@ class BookingDetailController extends GetxController {
   }
 
   void confirmStartService() {
+    if (codeController.text.isEmpty) {
+      EazySnackBar.buildErronSnackbar(
+          'Empty', 'Enter Stating code to start service');
+      return;
+    }
+    if (int.parse(codeController.text) != bookingDetail.service_start_code) {
+      EazySnackBar.buildErronSnackbar(
+          'Empty', 'Enter valid Stating code to start service');
+      return;
+    }
     updateBookingStatus(2);
   }
 
   void confirmCompleteService() {
+    if (codeController.text.isEmpty) {
+      EazySnackBar.buildErronSnackbar(
+          'Empty', 'Enter Ending code to end service');
+      return;
+    }
+    if (int.parse(codeController.text) != bookingDetail.service_start_code) {
+      EazySnackBar.buildErronSnackbar(
+          'Empty', 'Enter valid Ending code to end service');
+      return;
+    }
     updateBookingStatus(3);
   }
 
   VoidFuture updateBookingStatus(int status) async {
-    _log.v('Accepting booking...');
+    _log.v('updating booking...');
     loading = true;
     update();
     try {
@@ -60,11 +82,36 @@ class BookingDetailController extends GetxController {
           .update({
         'booking_status': status,
       });
-
+      getBookingDetails();
       EazySnackBar.buildSuccessSnackbar('Success', 'Booking Updated');
     } catch (e) {
       _log.e(e);
       EazySnackBar.buildErronSnackbar('Error', 'Something went wrong');
+    } finally {
+      loading = false;
+      update();
+    }
+  }
+
+  VoidFuture getBookingDetails() async {
+    _log.v('Getting booking details...');
+    loading = true;
+    update();
+    try {
+      final response = await FirebaseFirestore.instance
+          .collection(FirestoreCollections.bookings)
+          .doc(bookingDetail.booking_id)
+          .get();
+
+      bookingDetail = BookingDetailModel.fromMap(response.data()!, response.id);
+
+      // EazySnackBar.buildSuccessSnackbar('Success', 'Booking Updated');
+    } catch (e) {
+      _log.e(e);
+      EazySnackBar.buildErronSnackbar(
+        'Error',
+        'Something went wrong while fetching details',
+      );
     } finally {
       loading = false;
       update();
