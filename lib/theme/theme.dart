@@ -7,6 +7,11 @@ ThemeData theme = ThemeData(
   useMaterial3: true,
   scaffoldBackgroundColor: EazyColors.background,
   // primaryColor: EazyColors.primary,
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    iconSize: 32,
+    backgroundColor: EazyColors.primary,
+    foregroundColor: EazyColors.background,
+  ),
   appBarTheme: const AppBarTheme(
     elevation: 0.5,
     backgroundColor: EazyColors.appBarBG,

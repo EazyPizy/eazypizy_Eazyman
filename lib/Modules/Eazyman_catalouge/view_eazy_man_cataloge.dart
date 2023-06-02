@@ -1,18 +1,16 @@
-import 'dart:io';
 import 'dart:typed_data';
+
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/components/services_list.dart';
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/simmerLoader.dart';
-import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
-import 'package:eazypizy_eazyman/widgets/eazy_loading.dart';
+import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import '../../theme/app_colors.dart';
 import '../../theme/eazy_spaces.dart';
 import '../../widgets/easy_container.dart';
-
-import 'components/CustomerRivewTile.dart';
 import 'ctrl_Eazyman_profile.dart';
 
 class EazyManCatalogScreen extends StatefulWidget {
@@ -48,16 +46,20 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
                     SliverAppBar(
-                      actions: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.sort_sharp),
-                        )
-                      ],
+                      // actions: [
+                      //   IconButton(
+                      //     onPressed: () {},
+                      //     icon: const Icon(Icons.sort_sharp),
+                      //   )
+                      // ],
                       surfaceTintColor: EazyColors.white,
-                      title: const Text('Catalog'),
+                      title: Text(
+                        'Catalogue',
+                        style: Get.textTheme.headlineMedium!,
+                      ),
+                      centerTitle: true,
                       pinned: true,
-                      expandedHeight: 250.h,
+                      expandedHeight: 275.h,
                       flexibleSpace: LayoutBuilder(
                         builder: (ctx, cons) {
                           top = cons.biggest.height.h;
@@ -79,22 +81,19 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                       child: const CircleAvatar(),
                                     ),
                                   ),
+                                  Space.vertical(10.h),
                                   Center(
-                                    child: SizedBox(
-                                      //height: 50,
-                                      child: Text(
-                                        'Amit Bairwa',
-                                        style: Get.textTheme.titleLarge,
-                                      ),
+                                    child: Text(
+                                      'Amit Bairwa',
+                                      style: Get.textTheme.titleLarge,
                                     ),
                                   ),
+                                  Space.vertical(10.h),
                                   Center(
                                     child: EasyContainer(
                                       elevation: 1,
                                       width: 70.w,
                                       color: Colors.orange,
-                                      //height: 10,
-
                                       child: Text(
                                         'Plumber',
                                         style: Get.textTheme.titleLarge,
@@ -115,9 +114,13 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Column(
-                                          children: const [
-                                            Text('99'),
-                                            Text('Experience')
+                                          children: [
+                                            Text(
+                                              controller
+                                                  .userSubServiceProducts.length
+                                                  .toString(),
+                                            ),
+                                            const Text('Products')
                                           ],
                                         ),
                                         Container(
@@ -126,9 +129,12 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                           color: Colors.blue,
                                         ),
                                         Column(
-                                          children: const [
-                                            Text('99'),
-                                            Text('Experience')
+                                          children: [
+                                            Text(
+                                              controller.userCategories.length
+                                                  .toString(),
+                                            ),
+                                            const Text('Categories')
                                           ],
                                         ),
                                         Container(
@@ -137,9 +143,12 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                           color: Colors.blue,
                                         ),
                                         Column(
-                                          children: const [
-                                            Text('99'),
-                                            Text('Experience')
+                                          children: [
+                                            Text(
+                                              controller.bookingsCount
+                                                  .toString(),
+                                            ),
+                                            const Text('Bookings')
                                           ],
                                         ),
                                       ],
@@ -161,45 +170,46 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                         },
                       ),
                     ),
-                    SliverToBoxAdapter(
-                      child: EasyContainer(
-                        color: EazyColors.white,
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8, right: 8),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: const [
-                                  Text('Top Reviews'),
-                                  TextButton(
-                                    onPressed: viewAllReviews,
-                                    child: Text('View All'),
-                                  )
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 65.h,
-                              //child: buildImage(bytes1)
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: 10,
-                                itemBuilder: (context, i) => CustomerReviewTile(
-                                  index: i,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                    // SliverToBoxAdapter(
+                    //   child: EasyContainer(
+                    //     color: EazyColors.white,
+                    //     child: Column(
+                    //       children: [
+                    //         Padding(
+                    //           padding: const EdgeInsets.only(left: 8, right: 8),
+                    //           child: Row(
+                    //             mainAxisAlignment:
+                    //                 MainAxisAlignment.spaceBetween,
+                    //             children: const [
+                    //               Text('Top Reviews'),
+                    //               TextButton(
+                    //                 onPressed: viewAllReviews,
+                    //                 child: Text('View All'),
+                    //               )
+                    //             ],
+                    //           ),
+                    //         ),
+                    //         SizedBox(
+                    //           height: 65.h,
+                    //           //child: buildImage(bytes1)
+                    //           child: ListView.builder(
+                    //             scrollDirection: Axis.horizontal,
+                    //             itemCount: 10,
+                    //             itemBuilder: (context, i) => CustomerReviewTile(
+                    //               index: i,
+                    //             ),
+                    //           ),
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                     SliverPersistentHeader(
                       pinned: true,
                       delegate: _SliverAppBarDelegate(
                         TabBar(
                           labelColor: EazyColors.primary,
+                          labelStyle: Get.textTheme.titleMedium,
                           unselectedLabelColor: Colors.grey,
                           indicatorColor: EazyColors.primary,
                           tabs: controller.userCategories
@@ -229,22 +239,35 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
             );
           },
         ),
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              EazyButtons.flexWidthElevatedButton2(
-                  'View Profile', () {}, EazyColors.white),
-              EazyButtons.flexWidthElevatedButton(
-                'Share Profile',
-                () {},
-                40,
-              ),
-            ],
-          ),
-        ),
+        floatingActionButton:
+            GetBuilder<ProfileController>(builder: (controller) {
+          return FloatingActionButton(
+            tooltip: 'Add Product',
+            child: const Icon(Icons.add),
+            onPressed: () {
+              Get.toNamed(
+                Routes.addEazymenProductScreen,
+                arguments: controller.userCategories[0],
+              );
+            },
+          );
+        }),
+        // bottomNavigationBar: Padding(
+        //   padding: const EdgeInsets.only(bottom: 8.0),
+        //   child: Row(
+        //     crossAxisAlignment: CrossAxisAlignment.start,
+        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        //     children: [
+        //       EazyButtons.flexWidthElevatedButton2(
+        //           'View Profile', () {}, EazyColors.white),
+        //       EazyButtons.flexWidthElevatedButton(
+        //         'Share Profile',
+        //         () {},
+        //         40,
+        //       ),
+        //     ],
+        //   ),
+        // ),
       )
     ]);
   }

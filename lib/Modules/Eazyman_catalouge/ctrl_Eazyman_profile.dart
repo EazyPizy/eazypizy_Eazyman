@@ -1,22 +1,18 @@
-import 'dart:typed_data';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eazypizy_eazyman/Models/eazymen_product.dart';
+import 'package:eazypizy_eazyman/constant/firebase_collections.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
+import 'package:eazypizy_eazyman/core/typedefs.dart';
+import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:logger/logger.dart';
 
 import '../../Models/EazymanModel.dart';
 import '../../Models/main_service_category.dart';
-import '../../Models/model_subService_product.dart';
 import '../../Models/subService_category.dart';
 import '../../core/logger.dart';
 import '../../core/services/category_services.dart';
-import 'dart:async';
-import 'dart:convert';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 
 class ProfileController extends GetxController {
   ProfileController();
@@ -28,6 +24,8 @@ class ProfileController extends GetxController {
   final List<MainCategoryModel> userCategories = [];
   final List<SubServiceModel> userSubServiceCategories = [];
   final List<EazymenProductModel> userSubServiceProducts = [];
+
+  int bookingsCount = 0;
 
   bool loading = false;
 
@@ -78,17 +76,42 @@ class ProfileController extends GetxController {
   }
 
   void getUserMainCategories() {
-    final _mainCategories = CategoryService.instance.mainServiceCategories;
+    final mainCategories = CategoryService.instance.mainServiceCategories;
 
     for (final element in eazyMen.mainServices ?? []) {
       userCategories.add(
-        _mainCategories.firstWhere(
+        mainCategories.firstWhere(
           (serviceProduct) => serviceProduct.serviceId == element,
         ),
       );
     }
     print(userCategories);
     update();
+  }
+
+  VoidFuture getBookingsCount() async {
+    final eazymen = EazyMenService.instance.eazyMen;
+    loading = true;
+    update();
+    _log.v('Getting bookings count...');
+    try {
+      final data = await FirebaseFirestore.instance
+          .collection(FirestoreCollections.bookings)
+          .where('eazymen_id', isEqualTo: eazymen!.eazyManUid)
+          .count()
+          .get();
+      bookingsCount = data.count;
+    } catch (e) {
+      _log.e(e);
+
+      EazySnackBar.buildErronSnackbar(
+        'Failed',
+        'Failed to fetch data. Please check your connection and try again!',
+      );
+    } finally {
+      loading = false;
+      update();
+    }
   }
 
   @override
@@ -98,5 +121,6 @@ class ProfileController extends GetxController {
     getUserMainCategories();
     getUserSubServices();
     getUserServiceProducts();
+    getBookingsCount();
   }
 }
