@@ -4,6 +4,7 @@ import 'package:eazypizy_eazyman/constant/firebase_collections.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/core/typedefs.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
+import 'package:eazypizy_eazyman/widgets/pop_ups.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -121,34 +122,44 @@ class ProfileController extends GetxController {
     newProductList.removeWhere(
       (element) => element.productId == productId,
     );
-    late final List<String> newSubServiceList;
+
+    final List<String> newSubServiceIdsList = [...eazyMen.subServices!];
+    final newSubServicesList = [...userSubServiceCategories];
 
     /// to check if any other product with same subServiceId exists
     /// if does not exist than remove that subServiceId too
     if (newProductList.firstWhereOrNull(
             (element) => element.subServiceId == product.subServiceId) ==
         null) {
-      newSubServiceList = [...eazyMen.subServices!];
-      newSubServiceList.remove(product.subServiceId);
+      newSubServiceIdsList.remove(product.subServiceId);
+      newSubServicesList.removeWhere(
+          (element) => element.subServiceId == product.subServiceId);
     }
 
-    // newSubServiceList.firstWhereOrNull((element) => element.subServiceId)
     try {
       _log.v('Deleting product...');
       await FirebaseFirestore.instance
           .collection('EazyMen')
           .doc(EazyMenService.instance.eazyMen!.eazyManUid)
           .update({
-        'Sub_Services': newSubServiceList,
+        'Sub_Services': newSubServiceIdsList,
         "Service_Product": newProductList.map((e) => e.toJson()).toList()
       });
       userSubServiceProducts.clear();
       userSubServiceProducts.addAll(newProductList);
+
       eazyMen.subServices?.clear();
-      eazyMen.subServices?.addAll(newSubServiceList);
-      userSubServiceCategories.removeWhere(
-          (element) => element.subServiceId == product.subServiceId);
+      eazyMen.subServices?.addAll(newSubServiceIdsList);
+      eazyMen.subServiceProdcuts?.clear();
+      eazyMen.subServiceProdcuts?.addAll(newProductList);
+
+      userSubServiceCategories.clear();
+      userSubServiceCategories.addAll(newSubServicesList);
       Get.back();
+      successPopUp(
+        'Product Deleted from Catalogue.',
+        title: 'Deleted!',
+      );
       update();
     } catch (e) {
       _log.e(e);

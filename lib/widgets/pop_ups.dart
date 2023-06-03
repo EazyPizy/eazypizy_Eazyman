@@ -41,7 +41,7 @@ Future warningPopUp(
       animType: QuickAlertAnimType.scale,
       context: Get.context!,
       type: QuickAlertType.warning,
-      confirmBtnColor: Colors.green,
+      confirmBtnColor: EazyColors.primary,
       showCancelBtn: onCancel != null,
       confirmBtnText: 'Confirm',
       barrierDismissible: false,
@@ -51,20 +51,21 @@ Future warningPopUp(
         color: EazyColors.white,
       ),
       onConfirmBtnTap: onConfirm,
-      cancelBtnTextStyle:
-          Get.textTheme.bodyMedium?.copyWith(color: Colors.redAccent),
+      cancelBtnTextStyle: Get.textTheme.bodyMedium?.copyWith(color: Colors.red),
       onCancelBtnTap: onCancel,
     );
 
 Future successPopUp(
   String msg, {
+  String? title,
   VoidCallback? onConfirm,
 }) async =>
     await QuickAlert.show(
       context: Get.context!,
       type: QuickAlertType.success,
-      confirmBtnColor: EazyColors.secondary,
+      confirmBtnColor: EazyColors.primary,
       text: msg,
+      title: title,
       confirmBtnTextStyle:
           Get.textTheme.bodyMedium?.copyWith(color: Colors.white),
       onConfirmBtnTap: onConfirm,
