@@ -5,7 +5,7 @@ import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/core/typedefs.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 import '../../Models/EazymanModel.dart';
@@ -111,6 +111,51 @@ class ProfileController extends GetxController {
     } finally {
       loading = false;
       update();
+    }
+  }
+
+  VoidFuture deleteProduct(String productId) async {
+    final newProductList = [...userSubServiceProducts];
+    final product =
+        newProductList.firstWhere((element) => element.productId == productId);
+    newProductList.removeWhere(
+      (element) => element.productId == productId,
+    );
+    late final List<String> newSubServiceList;
+
+    /// to check if any other product with same subServiceId exists
+    /// if does not exist than remove that subServiceId too
+    if (newProductList.firstWhereOrNull(
+            (element) => element.subServiceId == product.subServiceId) ==
+        null) {
+      newSubServiceList = [...eazyMen.subServices!];
+      newSubServiceList.remove(product.subServiceId);
+    }
+
+    // newSubServiceList.firstWhereOrNull((element) => element.subServiceId)
+    try {
+      _log.v('Deleting product...');
+      await FirebaseFirestore.instance
+          .collection('EazyMen')
+          .doc(EazyMenService.instance.eazyMen!.eazyManUid)
+          .update({
+        'Sub_Services': newSubServiceList,
+        "Service_Product": newProductList.map((e) => e.toJson()).toList()
+      });
+      userSubServiceProducts.clear();
+      userSubServiceProducts.addAll(newProductList);
+      eazyMen.subServices?.clear();
+      eazyMen.subServices?.addAll(newSubServiceList);
+      userSubServiceCategories.removeWhere(
+          (element) => element.subServiceId == product.subServiceId);
+      Get.back();
+      update();
+    } catch (e) {
+      _log.e(e);
+      EazySnackBar.buildErronSnackbar(
+        'Failed',
+        'Something went wrong while deleting product',
+      );
     }
   }
 

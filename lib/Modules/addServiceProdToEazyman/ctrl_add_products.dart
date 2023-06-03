@@ -85,14 +85,15 @@ class AddSubServiceProductsController extends GetxController {
             .collection('EazyMen')
             .doc(EazyMenService.instance.eazyMen!.eazyManUid)
             .update({
+          'Sub_Services': subServices,
           "Service_Product": eazymenProducts.map((e) => e.toJson()).toList()
         }),
-        FirebaseFirestore.instance
-            .collection('EazyMen')
-            .doc(EazyMenService.instance.eazyMen!.eazyManUid)
-            .update({
-          'Sub_Services': subServices,
-        }),
+        // FirebaseFirestore.instance
+        //     .collection('EazyMen')
+        //     .doc(EazyMenService.instance.eazyMen!.eazyManUid)
+        //     .update({
+        //   'Sub_Services': subServices,
+        // }),
       ]);
       // Get.back();
       EazySnackBar.buildSuccessSnackbar('Done!', 'Products Updated!');

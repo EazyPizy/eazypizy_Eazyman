@@ -1,7 +1,8 @@
 import 'package:eazypizy_eazyman/Models/eazymen_product.dart';
+import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/ctrl_Eazyman_profile.dart';
 import 'package:eazypizy_eazyman/theme/eazy_spaces.dart';
-import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:eazypizy_eazyman/widgets/eazy_networkimage.dart';
+import 'package:eazypizy_eazyman/widgets/pop_ups.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -141,7 +142,9 @@ class EazymanServiceCard extends StatelessWidget {
                         // ),
                       ],
                     ),
-                    const PopupMenuExample()
+                    PopupMenuExample(
+                      prodId: product.productId,
+                    )
                   ],
                 ),
               ),
@@ -220,7 +223,9 @@ class _SwitchExampleState extends State<SwitchExample> {
 }
 
 class PopupMenuExample extends StatefulWidget {
-  const PopupMenuExample({super.key});
+  const PopupMenuExample({super.key, required this.prodId});
+
+  final String prodId;
 
   @override
   State<PopupMenuExample> createState() => _PopupMenuExampleState();
@@ -231,16 +236,11 @@ class _PopupMenuExampleState extends State<PopupMenuExample> {
 
   @override
   Widget build(BuildContext context) {
+    SampleItem? selectedMenu;
     return PopupMenuButton<SampleItem>(
       initialValue: selectedMenu, padding: EdgeInsets.zero,
       // Callback that sets the selected popup menu item.
-      onSelected: (SampleItem item) {
-        setState(() {
-          selectedMenu = item;
-          EazySnackBar.buildSnackbar('Added Successfully',
-              'your product is added successfully to your cart');
-        });
-      },
+      onSelected: (SampleItem item) {},
       itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleItem>>[
         PopupMenuItem<SampleItem>(
           value: SampleItem.edit,
@@ -270,7 +270,18 @@ class _PopupMenuExampleState extends State<PopupMenuExample> {
         PopupMenuItem<SampleItem>(
           value: SampleItem.delete,
           child: const Text('Delete'),
-          onTap: () {},
+          onTap: () {
+            print('object');
+            Future(
+              () => warningPopUp(
+                'Are you sure want to delete this product from your catalogue?',
+                title: 'Delete Product?',
+                onCancel: Get.back,
+                onConfirm: () =>
+                    Get.find<ProfileController>().deleteProduct(widget.prodId),
+              ),
+            );
+          },
         ),
       ],
     );
