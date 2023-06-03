@@ -59,7 +59,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                       ),
                       centerTitle: true,
                       pinned: true,
-                      expandedHeight: 275.h,
+                      expandedHeight: 250.h,
                       flexibleSpace: LayoutBuilder(
                         builder: (ctx, cons) {
                           top = cons.biggest.height.h;
@@ -84,29 +84,29 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                   Space.vertical(10.h),
                                   Center(
                                     child: Text(
-                                      'Amit Bairwa',
+                                      '${controller.eazyMen.personalDetail?.firstName} ${controller.eazyMen.personalDetail?.lastName}',
                                       style: Get.textTheme.titleLarge,
                                     ),
                                   ),
                                   Space.vertical(10.h),
-                                  Center(
-                                    child: EasyContainer(
-                                      elevation: 1,
-                                      width: 70.w,
-                                      color: Colors.orange,
-                                      child: Text(
-                                        'Plumber',
-                                        style: Get.textTheme.titleLarge,
-                                      ),
-                                    ),
-                                  ),
+                                  // Center(
+                                  //   child: EasyContainer(
+                                  //     elevation: 1,
+                                  //     width: 70.w,
+                                  //     color: Colors.orange,
+                                  //     child: Text(
+                                  //       'Plumber',
+                                  //       style: Get.textTheme.titleLarge,
+                                  //     ),
+                                  //   ),
+                                  // ),
                                   Space.vertical(
                                     10.h,
                                   ),
                                   EasyContainer(
                                     width: double.infinity,
                                     height: 60.h,
-                                    //color: Colors.white,
+                                    color: EazyColors.white,
                                     child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -123,10 +123,10 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                             const Text('Products')
                                           ],
                                         ),
-                                        Container(
-                                          width: 1.w,
-                                          height: 40.h,
-                                          color: Colors.blue,
+                                        const VerticalDivider(
+                                          width: 1,
+                                          // height: 40.h,
+                                          color: EazyColors.primary,
                                         ),
                                         Column(
                                           children: [
@@ -137,10 +137,10 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                             const Text('Categories')
                                           ],
                                         ),
-                                        Container(
+                                        const VerticalDivider(
                                           width: 1,
-                                          height: 40.h,
-                                          color: Colors.blue,
+                                          // height: 40.h,
+                                          color: EazyColors.primary,
                                         ),
                                         Column(
                                           children: [

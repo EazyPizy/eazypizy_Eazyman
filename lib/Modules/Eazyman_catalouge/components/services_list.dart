@@ -27,7 +27,8 @@ class ServicesListWidget extends GetView<ProfileController> {
             )
             .toList();
     return subServices.isNotEmpty
-        ? ListView.builder(
+        ? ListView.separated(
+            separatorBuilder: (context, index) => Space.vertical(8.h),
             shrinkWrap: true,
             itemCount: subServices.length,
             itemBuilder: (context, index) => Column(
@@ -83,22 +84,25 @@ class ServicesListWidget extends GetView<ProfileController> {
                         //   );
                         // }
                         return EazymanServiceCard(
-                          serviceProdName: controller
-                                  .getSubServiceProduct(
-                                    subServices[index],
-                                  )[_]
-                                  .productDetails!
-                                  .serviceProductName ??
-                              '',
-                          price: controller
-                              .getSubServiceProduct(
-                                subServices[index],
-                              )[_]
-                              .price,
+                          product: controller.getSubServiceProduct(
+                            subServices[index],
+                          )[_],
+                          // serviceProdName: controller
+                          //         .getSubServiceProduct(
+                          //           subServices[index],
+                          //         )[_]
+                          //         .productDetails!
+                          //         .serviceProductName ??
+                          //     '',
+                          // price: controller
+                          //     .getSubServiceProduct(
+                          //       subServices[index],
+                          //     )[_]
+                          //     .price,
                         );
                       },
                       separatorBuilder: (BuildContext context, int index) =>
-                          Space.vertical(8.h),
+                          Space.vertical(12.h),
                     ),
                   ],
                 )

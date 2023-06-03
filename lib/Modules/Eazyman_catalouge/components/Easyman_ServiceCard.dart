@@ -1,3 +1,4 @@
+import 'package:eazypizy_eazyman/Models/eazymen_product.dart';
 import 'package:eazypizy_eazyman/theme/eazy_spaces.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:eazypizy_eazyman/widgets/eazy_networkimage.dart';
@@ -15,16 +16,12 @@ enum SampleItem {
 }
 
 class EazymanServiceCard extends StatelessWidget {
-  const EazymanServiceCard({
-    super.key,
-    required this.serviceProdName,
-    required this.price,
-  });
+  const EazymanServiceCard({super.key, required this.product});
 
-  // final ProductModel product;
+  final EazymenProductModel product;
 
-  final String serviceProdName;
-  final int price;
+  // final String serviceProdName;
+  // final int price;
 
   // final String serviceProdID;
   final bool isSwitchOn = false;
@@ -77,7 +74,7 @@ class EazymanServiceCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              serviceProdName,
+                              product.productDetails!.serviceProductName!,
                               style: Get.textTheme.titleLarge,
                               softWrap: true,
                               overflow: TextOverflow.fade,
@@ -92,7 +89,7 @@ class EazymanServiceCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
-                              '₹199',
+                              '₹${product.price}',
                               style: Get.textTheme.bodyMedium,
                               softWrap: true,
                               overflow: TextOverflow.fade,
@@ -270,9 +267,10 @@ class _PopupMenuExampleState extends State<PopupMenuExample> {
                 )));
           },
         ),
-        const PopupMenuItem<SampleItem>(
+        PopupMenuItem<SampleItem>(
           value: SampleItem.delete,
-          child: Text('Delete'),
+          child: const Text('Delete'),
+          onTap: () {},
         ),
       ],
     );
