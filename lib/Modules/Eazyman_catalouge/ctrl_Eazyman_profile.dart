@@ -116,6 +116,8 @@ class ProfileController extends GetxController {
   }
 
   VoidFuture deleteProduct(String productId) async {
+    loading = true;
+    update();
     final newProductList = [...userSubServiceProducts];
     final product =
         newProductList.firstWhere((element) => element.productId == productId);
@@ -167,6 +169,9 @@ class ProfileController extends GetxController {
         'Failed',
         'Something went wrong while deleting product',
       );
+    } finally {
+      loading = false;
+      update();
     }
   }
 

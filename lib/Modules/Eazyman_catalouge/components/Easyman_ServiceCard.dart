@@ -277,8 +277,10 @@ class _PopupMenuExampleState extends State<PopupMenuExample> {
                 'Are you sure want to delete this product from your catalogue?',
                 title: 'Delete Product?',
                 onCancel: Get.back,
-                onConfirm: () =>
-                    Get.find<ProfileController>().deleteProduct(widget.prodId),
+                onConfirm: () {
+                  Get.back();
+                  Get.find<ProfileController>().deleteProduct(widget.prodId);
+                },
               ),
             );
           },

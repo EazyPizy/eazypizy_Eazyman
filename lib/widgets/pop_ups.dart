@@ -10,7 +10,7 @@ Future infoPopUp(
 }) async =>
     await QuickAlert.show(
       borderRadius: 15,
-      animType: QuickAlertAnimType.slideInLeft,
+      animType: QuickAlertAnimType.scale,
       context: Get.context!,
       type: QuickAlertType.info,
       confirmBtnColor: Colors.green,
@@ -63,6 +63,7 @@ Future successPopUp(
     await QuickAlert.show(
       context: Get.context!,
       type: QuickAlertType.success,
+      animType: QuickAlertAnimType.scale,
       confirmBtnColor: EazyColors.primary,
       text: msg,
       title: title,
@@ -75,6 +76,7 @@ Future errorPopUp(String msg, {VoidCallback? onConfirm, String? text}) async =>
     await QuickAlert.show(
       context: Get.context!,
       type: QuickAlertType.error,
+      animType: QuickAlertAnimType.scale,
       confirmBtnColor: EazyColors.secondary,
       text: msg,
       confirmBtnTextStyle:

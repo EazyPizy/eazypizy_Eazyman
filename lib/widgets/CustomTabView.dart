@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomTabViews extends StatefulWidget {
   final int itemCount;
@@ -11,11 +11,11 @@ class CustomTabViews extends StatefulWidget {
   final int initPosition;
 
   const CustomTabViews(
-      { super.key,
+      {super.key,
       required this.itemCount,
       required this.tabBuilder,
       required this.pageBuilder,
-       this.stub,
+      this.stub,
       required this.onPositionChange,
       required this.onScroll,
       required this.initPosition});
@@ -51,9 +51,7 @@ class _CustomTabsState extends State<CustomTabViews>
       controller.removeListener(onPositionChange);
       controller.dispose();
 
-      if (widget.initPosition != null) {
-        _currentPosition = widget.initPosition;
-      }
+      _currentPosition = widget.initPosition;
 
       if (_currentPosition > widget.itemCount - 1) {
         _currentPosition = widget.itemCount - 1;
@@ -77,7 +75,7 @@ class _CustomTabsState extends State<CustomTabViews>
         controller.addListener(onPositionChange);
         controller.animation?.addListener(onScroll);
       });
-    } else if (widget.initPosition != null) {
+    } else {
       controller.animateTo(widget.initPosition);
     }
 
@@ -105,6 +103,10 @@ class _CustomTabsState extends State<CustomTabViews>
             isScrollable: true,
             controller: controller,
             labelColor: Theme.of(context).primaryColor,
+            labelStyle: Get.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+              letterSpacing: .4,
+            ),
             unselectedLabelColor: Theme.of(context).hintColor,
             indicator: BoxDecoration(
               border: Border(

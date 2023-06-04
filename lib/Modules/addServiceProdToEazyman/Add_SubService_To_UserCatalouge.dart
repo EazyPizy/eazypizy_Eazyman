@@ -4,6 +4,7 @@ import 'package:eazypizy_eazyman/Modules/addServiceProdToEazyman/ctrl_add_produc
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../../core/services/category_services.dart';
 import '../../widgets/CustomTabView.dart';
 import '../../widgets/EasySnackBar.dart';
@@ -39,7 +40,11 @@ class AddSubServiceToUserCatalogueState
         builder: (controller) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(mainService.serviceName!, style: Get.textTheme.titleMedium,),
+              title: Text(
+                mainService.serviceName!,
+                style: Get.textTheme.headlineMedium,
+              ),
+              centerTitle: true,
             ),
             body: SafeArea(
               child: Padding(
@@ -63,13 +68,20 @@ class AddSubServiceToUserCatalogueState
                             itemCount: products.length,
                             itemBuilder: (context, prodIndex) {
                               return ListTile(
-                                title:
-                                    Text(products[prodIndex].serviceProductName!),
+                                title: Text(
+                                  products[prodIndex].serviceProductName!,
+                                  style: Get.textTheme.titleLarge,
+                                ),
                                 trailing: Checkbox(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
                                   value: controller
                                       .ifEazymenProduct(products[prodIndex]),
                                   onChanged: (value) {
-                                    // _onItemTap(index);
+                                    controller.toggleProduct(
+                                        products[prodIndex],
+                                        subServices[index]);
                                   },
                                 ),
                                 onTap: () {
@@ -82,18 +94,21 @@ class AddSubServiceToUserCatalogueState
                         },
                       ),
                     ),
-                    EazyButtons.fullWidthElevatedButton('Add Products', () {
-                      controller.makeControllers();
-                      controller.eazymenProducts.isNotEmpty
-                          ? addYourOwnPrice(controller)
-                          : EazySnackBar.buildSnackbar(
-                              'Select Products',
-                              'Add Product to cataloug',
-                            );
-                    })
                   ],
                 ),
               ),
+            ),
+            bottomNavigationBar: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+              child: EazyButtons.fullWidthElevatedButton('Add Products', () {
+                controller.makeControllers();
+                controller.eazymenProducts.isNotEmpty
+                    ? addYourOwnPrice(controller)
+                    : EazySnackBar.buildSnackbar(
+                        'Select Products',
+                        'Add Product to cataloug',
+                      );
+              }),
             ),
           );
         });
@@ -166,11 +181,9 @@ class AddSubServiceToUserCatalogueState
         ),
         Align(
           alignment: Alignment.bottomCenter,
-          child: EazyButtons.flexWidthElevatedButton(
-            'Save Products', () {
-              controller.updateProducts();
-            },40
-          ),
+          child: EazyButtons.flexWidthElevatedButton('Save Products', () {
+            controller.updateProducts();
+          }, 40),
         )
       ]),
     );
