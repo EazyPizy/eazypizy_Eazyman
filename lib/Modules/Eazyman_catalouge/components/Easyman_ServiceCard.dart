@@ -59,7 +59,7 @@ class EazymanServiceCard extends StatelessWidget {
                 ),
               ),
               Space.horizontal(
-                12.w,
+                14.w,
               ),
               Flexible(
                 flex: 3,
@@ -246,7 +246,8 @@ class _PopupMenuExampleState extends State<PopupMenuExample> {
           value: SampleItem.edit,
           child: const Text('Edit'),
           onTap: () {
-            Get.bottomSheet(
+            Future(
+              () => Get.bottomSheet(
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
@@ -259,12 +260,15 @@ class _PopupMenuExampleState extends State<PopupMenuExample> {
                 enableDrag: false,
                 backgroundColor: Colors.green,
                 shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(10.0),
-                  topRight: Radius.circular(10.0),
-                  // barrierColor: Colors.red[50],
-                  // isDismissible: false,
-                )));
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0),
+                    // barrierColor: Colors.red[50],
+                    // isDismissible: false,
+                  ),
+                ),
+              ),
+            );
           },
         ),
         PopupMenuItem<SampleItem>(

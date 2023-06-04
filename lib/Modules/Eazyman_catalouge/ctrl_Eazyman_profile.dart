@@ -162,7 +162,6 @@ class ProfileController extends GetxController {
         'Product Deleted from Catalogue.',
         title: 'Deleted!',
       );
-      update();
     } catch (e) {
       _log.e(e);
       EazySnackBar.buildErronSnackbar(
