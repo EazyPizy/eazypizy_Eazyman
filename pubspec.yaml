@@ -68,6 +68,7 @@ dependencies:
   firebase_auth: ^4.2.10
   firebase_storage: ^11.0.16
   firebase_messaging: ^14.4.1
+  url_launcher: ^6.1.11
 
 
 dev_dependencies:

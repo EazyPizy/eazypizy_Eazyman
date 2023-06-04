@@ -12,11 +12,18 @@ ThemeData theme = ThemeData(
     backgroundColor: EazyColors.primary,
     foregroundColor: EazyColors.background,
   ),
-  appBarTheme: const AppBarTheme(
+  appBarTheme: AppBarTheme(
     elevation: 0.5,
     backgroundColor: EazyColors.appBarBG,
+    centerTitle: true,
+    titleTextStyle: TextStyle(
+      fontFamily: 'Signika',
+      fontWeight: FontWeight.normal,
+      fontSize: 20.sp,
+      color: EazyColors.black,
+    ),
     surfaceTintColor: EazyColors.background,
-    iconTheme: IconThemeData(
+    iconTheme: const IconThemeData(
       color: EazyColors.black,
     ),
   ),

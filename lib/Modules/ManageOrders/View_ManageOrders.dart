@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/simmerLoader.dart';
 import 'package:eazypizy_eazyman/Modules/ManageOrders/ctrl.manage.orders.dart';
 import 'package:eazypizy_eazyman/Modules/orderDetail/model/mdl.booking.detail.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
-import 'package:eazypizy_eazyman/widgets/eazy_loading.dart';
+import 'package:eazypizy_eazyman/widgets/eazy_networkimage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../core/routes.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/eazy_spaces.dart';
 
@@ -36,10 +36,10 @@ class _ManageOrdersState extends State<ManageOrders> {
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,
-              title: Text(
+              titleTextStyle: Get.textTheme.headlineMedium!,
+              title: const Text(
                 // "Manage Orders",
-                "Manage Bookings",
-                style: Get.textTheme.titleMedium,
+                "Bookings",
               ),
             ),
             // body: DefaultTabController(
@@ -235,14 +235,16 @@ class _ManageOrdersState extends State<ManageOrders> {
                   child: RefreshIndicator(
                     onRefresh: () => controller.getBookings(),
                     child: controller.loadingBookings
-                        ? const Center(
-                            child: EazyLoadingWidget(),
-                          )
+                        // ? const Center(
+                        //     child: EazyLoadingWidget(),
+                        //   )
+                        ? const ShimmerLoader()
                         : controller.bookings.isEmpty
                             ? const Center(
                                 child: Text('No Bookings Available'),
                               )
                             : ListView.builder(
+                                padding: Space.scaffoldPadding,
                                 itemCount: controller.bookings.length,
                                 itemBuilder: (context, index) =>
                                     BookingCard(controller.bookings[index]),
@@ -327,46 +329,64 @@ class BookingCard extends StatelessWidget {
           EasyContainer(
             borderRadius: 10.r,
             width: double.infinity,
-            height: 150.h,
+            // height: 130.h,
             color: EazyColors.white,
-            onTap: () {
-              Get.toNamed(Routes.detailOrderScreen, arguments: booking);
-            },
+            onTap: () => controller.toDetails(booking),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 ListTile(
+                  contentPadding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 14,
+                  ),
                   leading: EasyContainer(
                     showBorder: true,
+                    borderWidth: .5,
                     color: EazyColors.white,
-                    height: 100.h,
+                    // height: 120,
                     width: 75.w,
-                    child: Image.network(
-                        'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
+                    child: const EazyNetworkImage(
+                        url:
+                            'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
                   ),
                   title: Text(
                     booking.customer_name ?? '',
+                    // 'Homanshu Chauhcan',
                     // "Inverter Servicing",
                     style: Get.textTheme.titleLarge,
                     softWrap: true,
-                    overflow: TextOverflow.fade,
+                    maxLines: 2,
+                    // overflow: TextOverflow.fade,
                   ),
-                  subtitle: Text(
-                    booking.booking_date.toString(),
-                    style: Get.textTheme.titleSmall,
-                    softWrap: true,
-                    overflow: TextOverflow.fade,
-                  ),
-                  trailing: const Text('999'),
+                  subtitle: booking.booking_date == null
+                      ? null
+                      : Text(
+                          DateFormat('dd-MM-yyyy').format(
+                            DateTime.parse(booking.booking_date ?? ''),
+                          ),
+                          // booking.booking_date.toString().split(' ')[0],
+                          style: Get.textTheme.titleMedium
+                              ?.copyWith(color: EazyColors.lightBlack),
+                          softWrap: true,
+                          overflow: TextOverflow.fade,
+                        ),
+                  // trailing: Text('${booking.payment_items_total}'),
                 ),
-                const Spacer(),
+                // const Spacer(),
+                Space.vertical(18.h),
                 EasyContainer(
                     customBorderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(0),
-                        topLeft: Radius.circular(0)),
+                      topRight: Radius.circular(0),
+                      topLeft: Radius.circular(0),
+                    ),
                     color: Colors.orange.shade50,
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                        vertical: 8,
+                      ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -378,7 +398,8 @@ class BookingCard extends StatelessWidget {
                           ),
                           Text(
                             'View Details',
-                            style: Get.textTheme.titleMedium,
+                            style: Get.textTheme.titleMedium
+                                ?.copyWith(color: EazyColors.primary),
                           ),
                         ],
                       ),
@@ -449,19 +470,20 @@ class BookingCard extends StatelessWidget {
             //            ),
             //          ),
           ),
-          const Align(
-            alignment: Alignment.topRight,
-            child: EasyContainer(
-              width: 65,
-              customBorderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(0),
-                  topRight: Radius.circular(5),
-                  topLeft: Radius.circular(0)),
-              color: Colors.greenAccent,
-              child: Text('NEW'),
+          if (booking.booking_status == 0)
+            const Align(
+              alignment: Alignment.topRight,
+              child: EasyContainer(
+                width: 65,
+                customBorderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(0),
+                    topRight: Radius.circular(5),
+                    topLeft: Radius.circular(0)),
+                color: Colors.greenAccent,
+                child: Text('NEW'),
+              ),
             ),
-          ),
         ],
       ),
     );

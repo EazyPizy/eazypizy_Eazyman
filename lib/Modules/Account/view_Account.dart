@@ -1,10 +1,10 @@
-import 'dart:typed_data';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
+
 import '../../core/capture_Image.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/eazy_spaces.dart';
@@ -15,11 +15,8 @@ import '../../widgets/widget_to_image.dart';
 import '../BusinessCard/componets/Edit_BusinessCard.dart';
 import '../BusinessCard/view_BusinessCard.dart';
 import '../Eazyman_catalouge/ctrl_Eazyman_profile.dart';
-import '../Eazyman_catalouge/view_eazy_man_cataloge.dart';
 import '../ManageCustomers/view_ManageCustomers.dart';
-import '../../core/capture_Image.dart';
 import 'invite_friends.dart';
-import 'dart:typed_data';
 
 class Account extends StatefulWidget {
   const Account({Key? key}) : super(key: key);
@@ -41,14 +38,14 @@ class _AccountState extends State<Account> {
     Colors.orange,
     Colors.white
   ];
-  List<Alignment> _imageAlign = [
+  final List<Alignment> _imageAlign = [
     Alignment.center,
     Alignment.topLeft,
     Alignment.bottomRight,
     Alignment.topCenter,
     Alignment.bottomLeft,
   ];
-  List<Alignment> _titleAlign = [
+  final List<Alignment> _titleAlign = [
     Alignment.center,
     Alignment.topLeft,
     Alignment.bottomRight,
@@ -60,9 +57,8 @@ class _AccountState extends State<Account> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'Account',
-            style: Get.textTheme.titleMedium,
           ),
         ),
         body: SingleChildScrollView(
@@ -133,7 +129,7 @@ class _AccountState extends State<Account> {
                                   child: IconButton(
                                     onPressed: () => _controller.previousPage(),
                                     color: Colors.white,
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.arrow_back_ios,
                                       size: 15,
                                     ),
@@ -147,7 +143,7 @@ class _AccountState extends State<Account> {
                             child: IconButton(
                               onPressed: () => _controller.nextPage(),
                               color: Colors.white,
-                              icon: Icon(Icons.arrow_forward_ios),
+                              icon: const Icon(Icons.arrow_forward_ios),
                             ),
                           ),
                           // ...Iterable<int>.generate(colors.length).map(
@@ -169,7 +165,7 @@ class _AccountState extends State<Account> {
                           child: EazyButtons.fullWidthShareButton(
                             'Share Card',
                             () async {
-                              final bytes1 = await Utils.capture(key1!);
+                              final bytes1 = await Utils.capture(key1);
 
                               print(bytes1);
                               setState(() {
@@ -214,9 +210,7 @@ class _AccountState extends State<Account> {
                               EazyButtons.flexWidthElevatedButton2(
                                   'View Profile', () {}, EazyColors.primary),
                               EazyButtons.flexWidthElevatedButton(
-                                'Share Profile',
-                                () {},40
-                              ),
+                                  'Share Profile', () {}, 40),
                             ],
                           ),
                           Space.vertical(10),
@@ -308,9 +302,9 @@ class _AccountState extends State<Account> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: const EasyContainer(
+                              const Padding(
+                                padding: EdgeInsets.all(10.0),
+                                child: EasyContainer(
                                     customBorderRadius: BorderRadius.only(
                                         topRight: Radius.circular(5),
                                         bottomRight: Radius.circular(5),
@@ -437,7 +431,6 @@ class _AccountState extends State<Account> {
   Future buildPopUp(Uint8List? bytes1) {
     return Get.bottomSheet(
       backgroundColor: Colors.white,
-
       EasyContainer(
         borderRadius: 10,
         child: Column(
@@ -447,22 +440,19 @@ class _AccountState extends State<Account> {
             bytes1 != null ? Image.memory(bytes1) : Container(),
             const SizedBox(height: 16),
             Padding(
-              padding: EdgeInsets.all(10),
-              child: EazyButtons.flexWidthElevatedButton(
-                "Share",
-                () {
-                  Share.shareXFiles(
-                    [
-                      XFile.fromData(
-                        bytes1!,
-                        name: 'flutter_logo.png',
-                        mimeType: 'image/png',
-                      ),
-                    ],
-                    text: 'Check out this image!',
-                  );
-                },40
-              ),
+              padding: const EdgeInsets.all(10),
+              child: EazyButtons.flexWidthElevatedButton("Share", () {
+                Share.shareXFiles(
+                  [
+                    XFile.fromData(
+                      bytes1!,
+                      name: 'flutter_logo.png',
+                      mimeType: 'image/png',
+                    ),
+                  ],
+                  text: 'Check out this image!',
+                );
+              }, 40),
             )
           ],
         ),

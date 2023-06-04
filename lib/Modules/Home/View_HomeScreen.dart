@@ -1,17 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
-
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../../theme/eazy_spaces.dart';
 import '../../widgets/CarouselImage.dart';
 import '../../widgets/easy_container.dart';
 import '../View_earned_Commision.dart';
-import '../eazymanRegistration/Compnents/SelectServices_Tile.dart';
-import '../eazymanRegistration/Compnents/personal_Details_1.dart';
 import 'components/setup_Payment_Shortcut.dart';
 import 'components/stepsToCompeleteProfile.dart';
 
@@ -32,24 +28,20 @@ class _HomeScreenState extends State<HomeScreen> {
     Image.network('https://via.placeholder.com/600x400'),
   ];
 
-
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           "Amit Bairwa",
-          style: Get.textTheme.titleLarge,
         ),
         actions: [
           IconButton(
               onPressed: () {
                 Scaffold.of(context).openEndDrawer();
-
               },
-              icon: Icon(Icons.handyman))
+              icon: const Icon(Icons.handyman))
         ],
         automaticallyImplyLeading: false,
       ),
@@ -107,13 +99,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          EazyButtons.flexWidthElevatedButton2('Visit', () {}, EazyColors.white),
+                          EazyButtons.flexWidthElevatedButton2(
+                              'Visit', () {}, EazyColors.white),
                           // ElevatedButton(
                           //   onPressed: () {},
                           //   child: const Text("Visit"),
                           // ),
                           const SizedBox(width: 10),
-                          EazyButtons.flexWidthElevatedButton('Share', () {} ,20),
+                          EazyButtons.flexWidthElevatedButton(
+                              'Share', () {}, 20),
                         ]),
                   ),
                 ],
@@ -127,8 +121,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Space.vertical(16),
             statics(),
             Space.vertical(16),
-            CompleteYourProfile(),
-            SetupPayment(),
+            const CompleteYourProfile(),
+            const SetupPayment(),
             EasyContainer(
               color: Colors.white,
               borderRadius: 10,
@@ -140,9 +134,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
-                      children: [
+                      children: const [
                         Text("Your Status"),
                       ],
                     ),
@@ -367,4 +361,3 @@ Widget myCarousel(List<Widget> imageList) {
         viewportFraction: 0.8,
       ));
 }
-

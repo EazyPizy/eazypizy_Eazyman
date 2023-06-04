@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eazypizy_eazyman/Modules/orderDetail/model/mdl.booking.detail.dart';
 import 'package:eazypizy_eazyman/constant/firebase_collections.dart';
 import 'package:eazypizy_eazyman/core/logger.dart';
+import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/core/typedefs.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
@@ -40,6 +41,15 @@ class ManageOrderController extends GetxController {
     } finally {
       loadingBookings = false;
       update();
+    }
+  }
+
+  VoidFuture toDetails(BookingDetailModel booking) async {
+    final routeResult =
+        await Get.toNamed(Routes.detailOrderScreen, arguments: booking);
+    _log.i(routeResult);
+    if (routeResult != null) {
+      getBookings();
     }
   }
 

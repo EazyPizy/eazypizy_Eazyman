@@ -1,3 +1,4 @@
+import 'package:eazypizy_eazyman/Modules/orderDetail/model/mdl.booking.product.dart';
 import 'package:eazypizy_eazyman/core/typedefs.dart';
 
 class BookingDetailModel {
@@ -25,6 +26,7 @@ class BookingDetailModel {
     this.booking_time,
     this.booking_id,
     this.booking_status,
+    this.products,
   });
   factory BookingDetailModel.fromMap(DynamicMap doc, String booking_id) =>
       BookingDetailModel(
@@ -51,6 +53,12 @@ class BookingDetailModel {
         canceled_by: doc['canceled_by'] as int?,
         service_end_code: doc['service_end_code'] as int?,
         service_start_code: doc['service_start_code'] as int?,
+        products: doc['products'] == null
+            ? []
+            : doc['products']
+                .map<BookingProductModel>(
+                    (e) => BookingProductModel.fromJson(e as DynamicMap))
+                .toList() as List<BookingProductModel>,
       );
   final String? eazymen_id;
   final String? eazymen_name;
@@ -75,8 +83,11 @@ class BookingDetailModel {
   final String? cancel_reason;
   final int? service_start_code;
   final int? service_end_code;
+  final List<BookingProductModel>? products;
 
   DynamicMap toMap() => {
+        'products':
+            products == null ? [] : products!.map((e) => e.toJson()).toList(),
         'eazymen_id': eazymen_id,
         'eazymen_name': eazymen_name,
         'eazymen_location': eazymen_location,

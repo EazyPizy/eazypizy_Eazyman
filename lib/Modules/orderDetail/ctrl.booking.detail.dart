@@ -16,6 +16,7 @@ class BookingDetailController extends GetxController {
   late BookingDetailModel bookingDetail;
   bool loading = false;
   final TextEditingController codeController = TextEditingController();
+  bool? reloadRequired;
   @override
   void onInit() {
     // TODO: implement onInit
@@ -83,6 +84,7 @@ class BookingDetailController extends GetxController {
         'booking_status': status,
       });
       getBookingDetails();
+      reloadRequired = true;
       EazySnackBar.buildSuccessSnackbar('Success', 'Booking Updated');
     } catch (e) {
       _log.e(e);
