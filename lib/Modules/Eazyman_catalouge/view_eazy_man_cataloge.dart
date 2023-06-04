@@ -1,8 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/components/services_list.dart';
-import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/simmerLoader.dart';
 import 'package:eazypizy_eazyman/core/routes.dart';
+import 'package:eazypizy_eazyman/widgets/simmerLoader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

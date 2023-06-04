@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:eazypizy_eazyman/Modules/Home/ctrl.home.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:get/get.dart';
 import '../../theme/eazy_spaces.dart';
 import '../../widgets/CarouselImage.dart';
 import '../../widgets/easy_container.dart';
-import '../View_earned_Commision.dart';
 import 'components/setup_Payment_Shortcut.dart';
 import 'components/stepsToCompeleteProfile.dart';
 
@@ -31,317 +31,327 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "Amit Bairwa",
-        ),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-              icon: const Icon(Icons.handyman))
-        ],
-        automaticallyImplyLeading: false,
-      ),
-      body: SingleChildScrollView(
-        padding: Space.scaffoldPadding,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Space.vertical(16),
-            EasyContainer(
-              width: double.infinity,
-              color: Colors.blue.withOpacity(0.10),
-              // margin: const EdgeInsets.all(10),
+        child: GetBuilder<HomeController>(
+            init: HomeController(),
+            builder: (controller) {
+              return Scaffold(
+                appBar: AppBar(
+                  title: const Text(
+                    "Amit Bairwa",
+                  ),
+                  actions: [
+                    IconButton(
+                        onPressed: () {
+                          Scaffold.of(context).openEndDrawer();
+                        },
+                        icon: const Icon(Icons.handyman))
+                  ],
+                  automaticallyImplyLeading: false,
+                ),
+                body: SingleChildScrollView(
+                  padding: Space.scaffoldPadding,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Space.vertical(16),
+                      EasyContainer(
+                        width: double.infinity,
+                        color: Colors.blue.withOpacity(0.10),
+                        // margin: const EdgeInsets.all(10),
 
-              borderRadius: 10,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.fromLTRB(13, 30, 20, 20),
-                    child: Text(
-                      "Share your profile link to customers",
-                      style: TextStyle(
-                          color: Color(0xFF142B6F),
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15),
-                    ),
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.fromLTRB(13, 0, 13, 0),
-                      child: Row(
-                        children: [
-                          const Flexible(
-                            child: EasyContainer(
-                              color: EazyColors.background,
-                              borderRadius: 10,
-                              height: 50,
-                              width: double.infinity,
-                              child: Center(
-                                  child:
-                                      Text("https//eazyPizy.netramPlumber.in")),
+                        borderRadius: 10,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.fromLTRB(13, 30, 20, 20),
+                              child: Text(
+                                "Share your profile link to customers",
+                                style: TextStyle(
+                                    color: Color(0xFF142B6F),
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15),
+                              ),
                             ),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.qr_code_2),
-                          ),
-                        ],
-                      )),
-                  Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          EazyButtons.flexWidthElevatedButton2(
-                              'Visit', () {}, EazyColors.white),
-                          // ElevatedButton(
-                          //   onPressed: () {},
-                          //   child: const Text("Visit"),
-                          // ),
-                          const SizedBox(width: 10),
-                          EazyButtons.flexWidthElevatedButton(
-                              'Share', () {}, 20),
-                        ]),
-                  ),
-                ],
-              ),
-            ),
-            Space.vertical(16),
-            Text(
-              'Your Earning',
-              style: Get.textTheme.titleLarge,
-            ),
-            Space.vertical(16),
-            statics(),
-            Space.vertical(16),
-            const CompleteYourProfile(),
-            const SetupPayment(),
-            EasyContainer(
-              color: Colors.white,
-              borderRadius: 10,
-              // showBorder: true,
-              //  borderColor: Colors.blueAccent.withOpacity(.5),
-              height: 150,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: const [
-                        Text("Your Status"),
-                      ],
-                    ),
-                  ),
-                  Center(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SizedBox(
-                            width: 100,
-                            height: 80,
-                            child: Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: const <Widget>[
-                                  Text(
-                                    " 0 ",
-                                  ),
-                                  Text(
-                                    'Orders',
-                                  )
+                            Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(13, 0, 13, 0),
+                                child: Row(
+                                  children: [
+                                    const Flexible(
+                                      child: EasyContainer(
+                                        color: EazyColors.background,
+                                        borderRadius: 10,
+                                        height: 50,
+                                        width: double.infinity,
+                                        child: Center(
+                                            child: Text(
+                                                "https//eazyPizy.netramPlumber.in")),
+                                      ),
+                                    ),
+                                    IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.qr_code_2),
+                                    ),
+                                  ],
+                                )),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    EazyButtons.flexWidthElevatedButton2(
+                                        'Visit', () {}, EazyColors.white),
+                                    // ElevatedButton(
+                                    //   onPressed: () {},
+                                    //   child: const Text("Visit"),
+                                    // ),
+                                    const SizedBox(width: 10),
+                                    EazyButtons.flexWidthElevatedButton(
+                                        'Share', () {}, 20),
+                                  ]),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Space.vertical(16),
+                      Text(
+                        'Your Earning',
+                        style: Get.textTheme.titleLarge,
+                      ),
+                      Space.vertical(16),
+                      statics(),
+                      Space.vertical(16),
+                      const CompleteYourProfile(),
+                      const SetupPayment(),
+                      EasyContainer(
+                        color: Colors.white,
+                        borderRadius: 10,
+                        // showBorder: true,
+                        //  borderColor: Colors.blueAccent.withOpacity(.5),
+                        height: 150,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                children: const [
+                                  Text("Your Status"),
                                 ],
                               ),
-                            )),
-                        SizedBox(
-                            width: 100,
-                            height: 80,
-                            child: Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: const <Widget>[
-                                  Text(
-                                    " 0 ",
-                                  ),
-                                  Text('Services')
+                            ),
+                            Center(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  SizedBox(
+                                      width: 100,
+                                      height: 80,
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: const <Widget>[
+                                            Text(
+                                              " 0 ",
+                                            ),
+                                            Text(
+                                              'Orders',
+                                            )
+                                          ],
+                                        ),
+                                      )),
+                                  SizedBox(
+                                      width: 100,
+                                      height: 80,
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: const <Widget>[
+                                            Text(
+                                              " 0 ",
+                                            ),
+                                            Text('Services')
+                                          ],
+                                        ),
+                                      )),
+                                  SizedBox(
+                                      width: 100,
+                                      height: 80,
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: const <Widget>[
+                                            Text(
+                                              " 0 ",
+                                            ),
+                                            Text('Visitors')
+                                          ],
+                                        ),
+                                      )),
                                 ],
                               ),
-                            )),
-                        SizedBox(
-                            width: 100,
-                            height: 80,
-                            child: Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: const <Widget>[
-                                  Text(
-                                    " 0 ",
-                                  ),
-                                  Text('Visitors')
-                                ],
-                              ),
-                            )),
-                      ],
-                    ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Space.vertical(16),
+                      const Carousel(
+                        autoplay: true,
+                        width: double.infinity,
+                      )
+                    ],
                   ),
-                ],
-              ),
-            ),
-            Space.vertical(16),
-            const Carousel(
-              autoplay: true,
-              width: double.infinity,
-            )
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // Navigator.of(context).pushNamed(CreateEstimate.routeName);
-        },
-        label: const Text(
-          " Create Estimate",
-        ),
-      ),
-    ));
+                ),
+                floatingActionButton: FloatingActionButton.extended(
+                  onPressed: () {
+                    // Navigator.of(context).pushNamed(CreateEstimate.routeName);
+                  },
+                  label: const Text(
+                    " Create Estimate",
+                  ),
+                ),
+              );
+            }));
   }
 
   Widget statics() {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Flexible(
-                child: EasyContainer(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const EarnedCommission(),
-                ));
-              },
-              height: 100,
-              borderRadius: 10,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const EasyContainer(
-                    customBorderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        topLeft: Radius.circular(10)),
-                    height: 25,
-                    color: Colors.red,
-                    child: Text("Commission"),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Text("100", style: Get.textTheme.titleLarge),
+    return GetBuilder<HomeController>(builder: (controller) {
+      return Column(
+        children: [
+          // Row(
+          //   children: [
+          //     Flexible(
+          //         child: EasyContainer(
+          //       onTap: () {
+          //         Navigator.of(context).push(MaterialPageRoute(
+          //           builder: (context) => const EarnedCommission(),
+          //         ));
+          //       },
+          //       height: 100,
+          //       borderRadius: 10,
+          //       child: Column(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           const EasyContainer(
+          //             customBorderRadius: BorderRadius.only(
+          //                 topRight: Radius.circular(10),
+          //                 topLeft: Radius.circular(10)),
+          //             height: 25,
+          //             color: Colors.red,
+          //             child: Text("Commission"),
+          //           ),
+          //           Align(
+          //             alignment: Alignment.center,
+          //             child: Padding(
+          //               padding: const EdgeInsets.all(15.0),
+          //               child: Text("100", style: Get.textTheme.titleLarge),
+          //             ),
+          //           )
+          //         ],
+          //       ),
+          //     )),
+          //     Space.horizontal(8),
+          //     Flexible(
+          //         child: EasyContainer(
+          //       height: 100,
+          //       borderRadius: 10,
+          //       child: Column(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           const EasyContainer(
+          //             customBorderRadius: BorderRadius.only(
+          //                 topRight: Radius.circular(10),
+          //                 topLeft: Radius.circular(10)),
+          //             height: 25,
+          //             color: Colors.orange,
+          //             child: Text("Service"),
+          //           ),
+          //           Align(
+          //             alignment: Alignment.center,
+          //             child: Padding(
+          //               padding: const EdgeInsets.all(15.0),
+          //               child: Text("100", style: Get.textTheme.titleLarge),
+          //             ),
+          //           )
+          //         ],
+          //       ),
+          //     )),
+          //   ],
+          // ),
+          // Space.vertical(8),
+          Row(
+            children: [
+              Flexible(
+                  child: EasyContainer(
+                height: 100,
+                borderRadius: 10,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const EasyContainer(
+                      customBorderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          topLeft: Radius.circular(10)),
+                      height: 25,
+                      color: Colors.green,
+                      child: Text("Bookings Completed"),
                     ),
-                  )
-                ],
+                    Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: Text(controller.bookingCount.toString(),
+                            style: Get.textTheme.titleLarge),
+                      ),
+                    )
+                  ],
+                ),
+              )),
+              const SizedBox(
+                width: 8,
               ),
-            )),
-            Space.horizontal(8),
-            Flexible(
-                child: EasyContainer(
-              height: 100,
-              borderRadius: 10,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const EasyContainer(
-                    customBorderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        topLeft: Radius.circular(10)),
-                    height: 25,
-                    color: Colors.orange,
-                    child: Text("Service"),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Text("100", style: Get.textTheme.titleLarge),
+              Flexible(
+                  child: EasyContainer(
+                height: 100,
+                borderRadius: 10,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const EasyContainer(
+                      customBorderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          topLeft: Radius.circular(10)),
+                      height: 25,
+                      color: Colors.blueAccent,
+                      child: Text("Total Services"),
                     ),
-                  )
-                ],
-              ),
-            )),
-          ],
-        ),
-        Space.vertical(8),
-        Row(
-          children: [
-            Flexible(
-                child: EasyContainer(
-              height: 100,
-              borderRadius: 10,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const EasyContainer(
-                    customBorderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        topLeft: Radius.circular(10)),
-                    height: 25,
-                    color: Colors.green,
-                    child: Text(" Total Orders"),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15.0),
-                      child: Text("100", style: Get.textTheme.titleLarge),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(controller.amountMade.toString(),
+                            style: Get.textTheme.titleLarge),
+                      ),
                     ),
-                  )
-                ],
-              ),
-            )),
-            const SizedBox(
-              width: 8,
-            ),
-            Flexible(
-                child: EasyContainer(
-              height: 100,
-              borderRadius: 10,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const EasyContainer(
-                    customBorderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10),
-                        topLeft: Radius.circular(10)),
-                    height: 25,
-                    color: Colors.blueAccent,
-                    child: Text(" Total Services"),
-                  ),
-                  Align(
-                    alignment: Alignment.center,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text("100", style: Get.textTheme.titleLarge),
-                    ),
-                  ),
-                ],
-              ),
-            )),
-          ],
-        ),
-      ],
-    );
+                  ],
+                ),
+              )),
+            ],
+          ),
+        ],
+      );
+    });
   }
 }
 

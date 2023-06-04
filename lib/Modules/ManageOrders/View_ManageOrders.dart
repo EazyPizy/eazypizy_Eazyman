@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/simmerLoader.dart';
 import 'package:eazypizy_eazyman/Modules/ManageOrders/ctrl.manage.orders.dart';
 import 'package:eazypizy_eazyman/Modules/orderDetail/model/mdl.booking.detail.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 import 'package:eazypizy_eazyman/widgets/eazy_networkimage.dart';
+import 'package:eazypizy_eazyman/widgets/simmerLoader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
