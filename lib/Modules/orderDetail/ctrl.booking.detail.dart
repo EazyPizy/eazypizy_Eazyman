@@ -15,7 +15,8 @@ class BookingDetailController extends GetxController {
 
   late BookingDetailModel bookingDetail;
   bool loading = false;
-  final TextEditingController codeController = TextEditingController();
+  final TextEditingController startCodeController = TextEditingController();
+  final TextEditingController endCodeController = TextEditingController();
   bool? reloadRequired;
   @override
   void onInit() {
@@ -45,26 +46,29 @@ class BookingDetailController extends GetxController {
   }
 
   void confirmStartService() {
-    if (codeController.text.isEmpty) {
+    final code = startCodeController.text.trim();
+    if (code.isEmpty) {
       EazySnackBar.buildErronSnackbar(
           'Empty', 'Enter Stating code to start service');
       return;
     }
-    if (int.parse(codeController.text) != bookingDetail.service_start_code) {
+    if (int.parse(code) != bookingDetail.service_start_code) {
       EazySnackBar.buildErronSnackbar(
           'Empty', 'Enter valid Stating code to start service');
       return;
     }
+
     updateBookingStatus(2);
   }
 
   void confirmCompleteService() {
-    if (codeController.text.isEmpty) {
+    final code = endCodeController.text.trim();
+    if (code.isEmpty) {
       EazySnackBar.buildErronSnackbar(
           'Empty', 'Enter Ending code to end service');
       return;
     }
-    if (int.parse(codeController.text) != bookingDetail.service_start_code) {
+    if (int.parse(code) != bookingDetail.service_end_code) {
       EazySnackBar.buildErronSnackbar(
           'Empty', 'Enter valid Ending code to end service');
       return;
@@ -118,5 +122,13 @@ class BookingDetailController extends GetxController {
       loading = false;
       update();
     }
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    startCodeController.dispose();
+    endCodeController.dispose();
   }
 }

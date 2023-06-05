@@ -37,7 +37,7 @@ Future<void> completeBookingConfirmationSheet() {
               ),
               EazyTextField.fullWidthTextField(
                 'Enter Ending code',
-                controller: controller.codeController,
+                controller: controller.endCodeController,
               ),
               Text(
                 'Do You want to complete Booking',

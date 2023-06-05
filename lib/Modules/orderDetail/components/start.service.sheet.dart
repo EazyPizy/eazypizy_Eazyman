@@ -37,7 +37,7 @@ Future<void> startServiceConfirmationSheet() {
               ),
               EazyTextField.fullWidthTextField(
                 'Enter starting code',
-                controller: controller.codeController,
+                controller: controller.startCodeController,
               ),
               Text(
                 'Do You want to start this service',
