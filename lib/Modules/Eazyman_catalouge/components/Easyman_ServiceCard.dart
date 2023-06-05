@@ -33,8 +33,8 @@ class EazymanServiceCard extends StatelessWidget {
       borderRadius: 10,
       width: double.infinity,
       //height: 110,
-      elevation: 2,
       padding: 12,
+      elevation: 1,
       color: EazyColors.white,
       showBorder: false,
       child: Column(
@@ -76,7 +76,7 @@ class EazymanServiceCard extends StatelessWidget {
                           children: [
                             Text(
                               product.productDetails!.serviceProductName!,
-                              style: Get.textTheme.titleLarge,
+                              style: Get.textTheme.titleMedium,
                               softWrap: true,
                               overflow: TextOverflow.fade,
                             ),
@@ -91,15 +91,17 @@ class EazymanServiceCard extends StatelessWidget {
                           children: [
                             Text(
                               '₹${product.price}',
-                              style: Get.textTheme.bodyMedium,
+                              style: Get.textTheme.titleSmall,
                               softWrap: true,
                               overflow: TextOverflow.fade,
                             ),
                             Space.horizontal(6.w),
                             Text(
                               '₹399',
-                              style: Get.textTheme.bodyMedium!.copyWith(
+                              style: Get.textTheme.titleSmall!.copyWith(
                                 decoration: TextDecoration.lineThrough,
+
+
                               ),
                               softWrap: true,
                               overflow: TextOverflow.fade,

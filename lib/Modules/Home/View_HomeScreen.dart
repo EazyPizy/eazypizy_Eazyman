@@ -50,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   automaticallyImplyLeading: false,
                 ),
                 body: SingleChildScrollView(
-
                   padding: Space.scaffoldPadding,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -82,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     const EdgeInsets.fromLTRB(13, 0, 13, 0),
                                 child: Row(
                                   children: [
-                                     Flexible(
+                                    Flexible(
                                       child: EasyContainer(
                                         color: EazyColors.background,
                                         borderRadius: 5,
@@ -94,7 +93,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     IconButton(
                                       onPressed: () {},
-                                      icon: const Icon(Icons.qr_code_2, size: 30,),
+                                      icon: const Icon(
+                                        Icons.qr_code_2,
+                                        size: 30,
+                                      ),
                                     ),
                                   ],
                                 )),
@@ -121,22 +123,22 @@ class _HomeScreenState extends State<HomeScreen> {
                       Space.vertical(16.h),
                       Text(
                         'Your Earning',
-                        style: Get.textTheme.titleLarge,
+                        style: Get.textTheme.titleLarge
                       ),
                       Space.vertical(16.h),
                       statics(),
                       Space.vertical(16.h),
                       const CompleteYourProfile(),
-                     // Space.vertical(16.h),
+                      // Space.vertical(16.h),
 
                       //const SetupPayment(),
                       Space.vertical(16.h),
 
                       EasyContainer(
-                       // color: Colors.white,
+                        // color: Colors.white,
                         borderRadius: 10.r,
                         showBorder: true,
-                         borderColor: EazyColors.gray100,
+                        borderColor: EazyColors.gray100,
                         height: 150.h,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -145,8 +147,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Row(
-                                children:  [
-                                  Text("Your Status",style: Get.textTheme.titleMedium),
+                                children: [
+                                  Text("Your Status",
+                                      style: Get.textTheme.titleMedium),
                                 ],
                               ),
                             ),
@@ -154,30 +157,15 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,                                children: [
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
                                   Column(
                                     mainAxisSize: MainAxisSize.min,
-                                    children:  <Widget>[
-                                      Text(
-                                        " 0 ",style: Get.textTheme.titleMedium
-                                      ),
-                                      Text(
-                                        'Orders',style: Get.textTheme.titleMedium
-                                      )
-                                    ],
-                                  ),
-                                  const VerticalDivider(
-                                    width: 1,
-                                    // height: 40.h,
-                                    color: EazyColors.primary,
-                                  ),
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children:  <Widget>[
-                                      Text(
-                                        " 0 ",style: Get.textTheme.titleMedium,
-                                      ),
-                                      Text('Services', style: Get.textTheme.titleMedium,)
+                                    children: <Widget>[
+                                      Text(" 0 ",
+                                          style: Get.textTheme.titleMedium),
+                                      Text('Orders',
+                                          style: Get.textTheme.titleMedium)
                                     ],
                                   ),
                                   const VerticalDivider(
@@ -188,9 +176,26 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Column(
                                     mainAxisSize: MainAxisSize.min,
                                     children: <Widget>[
-                                       Text(
-                                        " 0 ",style: Get.textTheme.titleMedium
+                                      Text(
+                                        " 0 ",
+                                        style: Get.textTheme.titleMedium,
                                       ),
+                                      Text(
+                                        'Services',
+                                        style: Get.textTheme.titleMedium,
+                                      )
+                                    ],
+                                  ),
+                                  const VerticalDivider(
+                                    width: 1,
+                                    // height: 40.h,
+                                    color: EazyColors.primary,
+                                  ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      Text(" 0 ",
+                                          style: Get.textTheme.titleMedium),
                                       Text('Visitors',
                                           style: Get.textTheme.titleMedium)
                                     ],

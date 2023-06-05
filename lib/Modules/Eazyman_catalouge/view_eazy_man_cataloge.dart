@@ -52,12 +52,11 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                       //     icon: const Icon(Icons.sort_sharp),
                       //   )
                       // ],
-                      surfaceTintColor: EazyColors.white,
+                      //  surfaceTintColor: EazyColors.white,
                       title: Text(
                         'Catalogue',
-                        style: Get.textTheme.headlineMedium!,
                       ),
-                      centerTitle: true,
+                      // centerTitle: true,
                       pinned: true,
                       expandedHeight: 250.h,
                       flexibleSpace: LayoutBuilder(
@@ -105,50 +104,83 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                   ),
                                   EasyContainer(
                                     width: double.infinity,
+                                    borderRadius: 0,
                                     height: 60.h,
                                     color: EazyColors.white,
                                     child: Row(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Text(
                                               controller
                                                   .userSubServiceProducts.length
                                                   .toString(),
+                                              style:
+                                                  Get.textTheme.headlineMedium,
                                             ),
-                                            const Text('Products')
+                                            Text(
+                                              'Products',
+                                              style: Get.textTheme.titleMedium,
+                                            )
                                           ],
                                         ),
-                                        const VerticalDivider(
-                                          width: 1,
-                                          // height: 40.h,
-                                          color: EazyColors.primary,
+                                        const Padding(
+                                          padding: EdgeInsets.only(top: 15.0, bottom: 15),
+                                          child: VerticalDivider(
+                                            width: 1,
+                                            color: EazyColors.primary,
+                                          ),
                                         ),
                                         Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Text(
                                               controller.userCategories.length
                                                   .toString(),
+                                              style:
+                                                  Get.textTheme.headlineMedium,
                                             ),
-                                            const Text('Categories')
+                                            Text(
+                                              'Categories',
+                                              style: Get.textTheme.titleMedium,
+                                            )
                                           ],
                                         ),
-                                        const VerticalDivider(
-                                          width: 1,
-                                          // height: 40.h,
-                                          color: EazyColors.primary,
+                                         const Padding(
+
+                                           padding: EdgeInsets.only(top: 15.0, bottom: 15),
+                                           child: VerticalDivider(
+                                            width: 1,
+                                            color: EazyColors.primary,
                                         ),
+                                         ),
                                         Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Text(
                                               controller.bookingsCount
                                                   .toString(),
+                                              style:
+                                                  Get.textTheme.headlineMedium,
                                             ),
-                                            const Text('Bookings')
+                                            Text(
+                                              'Bookings',
+                                              style: Get.textTheme.titleMedium,
+                                            )
                                           ],
                                         ),
                                       ],
@@ -231,7 +263,9 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                         children: controller.userCategories
                             .map(
                               (category) =>
-                                  Expanded(child: ServicesListWidget(category)),
+                                  Expanded(child: EasyContainer(
+                                      color: EazyColors.white,
+                                      child: ServicesListWidget(category))),
                             )
                             .toList(),
                       ),
@@ -325,7 +359,11 @@ Widget inSightCard() {
         elevation: 1,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Center(child: Text(" $i Best Service")),
+          child: Center(
+              child: Text(
+            " $i Best Service",
+            style: Get.textTheme.titleMedium,
+          )),
         ),
       ),
     ),
