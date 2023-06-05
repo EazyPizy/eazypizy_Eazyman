@@ -66,7 +66,7 @@ class EazyButtons {
           ),
       child: Text(
         title,
-        style: Get.textTheme.headlineSmall,
+        style: Get.textTheme.titleMedium,
       ),
     );
   }

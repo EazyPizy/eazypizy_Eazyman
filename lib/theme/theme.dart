@@ -12,19 +12,21 @@ ThemeData theme = ThemeData(
     backgroundColor: EazyColors.primary,
     foregroundColor: EazyColors.background,
   ),
-  appBarTheme: AppBarTheme(
+  appBarTheme:  AppBarTheme(
     elevation: 0.5,
     backgroundColor: EazyColors.appBarBG,
-    centerTitle: true,
+    surfaceTintColor: EazyColors.appBarBG,
     titleTextStyle: TextStyle(
-      fontFamily: 'Signika',
-      fontWeight: FontWeight.normal,
-      fontSize: 20.sp,
-      color: EazyColors.black,
+        fontFamily: 'Signika',
+        fontWeight: FontWeight.normal,
+        fontSize: 14.sp,
+        color: EazyColors.black
     ),
-    surfaceTintColor: EazyColors.background,
     iconTheme: const IconThemeData(
-      color: EazyColors.black,
+      color: EazyColors.primary,
+      size: 20,
+
+
     ),
   ),
   textTheme: TextTheme(
@@ -45,10 +47,10 @@ ThemeData theme = ThemeData(
       fontSize: 18.sp,
     ),
     headlineSmall: TextStyle(
-        fontFamily: 'Signika',
-        fontWeight: FontWeight.w100,
-        fontSize: 12.sp,
-        color: EazyColors.white),
+      fontFamily: 'Signika',
+      fontWeight: FontWeight.w100,
+      fontSize: 10.sp,
+    ),
     headlineMedium: TextStyle(
       fontFamily: 'Signika',
       fontWeight: FontWeight.normal,
@@ -58,14 +60,8 @@ ThemeData theme = ThemeData(
     headlineLarge: TextStyle(
       fontFamily: 'Signika',
       fontWeight: FontWeight.normal,
-      fontSize: 40.sp,
-      color: Colors.green,
-    ),
-    displaySmall: TextStyle(
-      fontFamily: 'Signika',
-      fontWeight: FontWeight.normal,
-      fontSize: 40.sp,
-      color: Colors.green,
+      fontSize: 25.sp,
+      color: Colors.black,
     ),
     bodySmall: TextStyle(
       fontFamily: 'Signika',
@@ -74,5 +70,5 @@ ThemeData theme = ThemeData(
       color: EazyColors.white,
     ),
   ),
-  iconTheme: const IconThemeData(color: EazyColors.black),
+  iconTheme: const IconThemeData(color: EazyColors.primary, size:18 ),
 );
