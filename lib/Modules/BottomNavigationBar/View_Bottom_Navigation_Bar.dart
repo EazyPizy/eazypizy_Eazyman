@@ -36,10 +36,10 @@ class _NavigationViewState extends State<NavigationView> {
       },
       child: Scaffold(
         backgroundColor: EazyColors.appBarBG,
-        endDrawer: EasyContainer(
-          width: MediaQuery.of(context).size.width / 1.5,
-          child: const Drawer(child: DrawerView()),
-        ),
+        // endDrawer: EasyContainer(
+        //   width: MediaQuery.of(context).size.width / 1.5,
+        //   child: const Drawer(child: DrawerView()),
+        // ),
         body: _pages[_selectedPageIndex],
         bottomNavigationBar: CustomBottomNavigationBar(
           iconList: const [

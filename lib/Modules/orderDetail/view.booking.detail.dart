@@ -1,17 +1,25 @@
 import 'package:eazypizy_eazyman/Modules/orderDetail/components/product_tile.dart';
 import 'package:eazypizy_eazyman/Modules/orderDetail/ctrl.booking.detail.dart';
+import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../theme/eazy_spaces.dart';
 import '../../widgets/EasyButtons.dart';
+import '../ManageOrders/ctrl.manage.orders.dart';
+import 'package:intl/intl.dart';
+
 
 class DetailOrderView extends StatelessWidget {
   const DetailOrderView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final manageController = Get.find<ManageOrderController>();
+
     return GetBuilder(
         init: BookingDetailController(),
         builder: (controller) {
@@ -19,7 +27,6 @@ class DetailOrderView extends StatelessWidget {
           return WillPopScope(
             onWillPop: () {
               Get.back(result: controller.reloadRequired);
-
               return Future.value(false);
             },
             child: Scaffold(
@@ -40,11 +47,39 @@ class DetailOrderView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Space.vertical(8),
+                      Space.vertical(8.h),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Status', style: Get.textTheme.titleMedium),
+                          manageController.convertBookingStatus(
+                              booking.booking_status ?? 0),
+                        ],
+                      ),
+                      Space.vertical(10.h),
+                      ListTile(
+                        tileColor: EazyColors.white,
+                        title:  Text(
+                          'Job Details',
+                          style: Get.textTheme.titleMedium,
+                        ) ,
+                        subtitle:
+                        Text(
+                          DateFormat('MMM d, h:mm a',).format(
+                            DateTime.parse(booking.booking_date ?? '', ),
+
+                          ),
+                          style: Get.textTheme.headlineLarge?.copyWith(
+                              color: EazyColors.primary
+                          ),
+                        ),
+                      ),
+                      Space.vertical(10.h),
                       EasyContainer(
                           // height: 150.h,
                           borderRadius: 10,
                           padding: 12,
+                          color: EazyColors.white,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,32 +88,33 @@ class DetailOrderView extends StatelessWidget {
                                 'Customer Details',
                                 style: Get.textTheme.titleLarge,
                               ),
+                              Space.vertical(10.h),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // const Text('Amit Bairwa'),
-                                  // const Spacer(),
+                                  Text("${booking.customer_name}"),
+                                  const Spacer(),
                                   // IconButton(
                                   //     onPressed: () {},
-                                  //     icon: const Icon(
-                                  //       Icons.whatshot,
-                                  //       color: Colors.green,
-                                  //     )),
+                                  //   icon: const Icon(
+                                  //     Icons.phone,
+                                  //   ),
+                                  // ),
+                                  // IconButton(
+                                  //   onPressed: () async {
+                                  //     final url = Uri.parse(
+                                  //         'tel:${booking.customer_phone}');
+                                  //     if (await canLaunchUrl(url)) {
+                                  //       launchUrl(url);
+                                  //     }
+                                  //   },
+                                  //   icon: const Icon(
+                                  //     Icons.whatshot,
+                                  //   ),
+                                  // ),
                                   Text('${booking.customer_phone}'),
-                                  IconButton(
-                                    onPressed: () async {
-                                      final url = Uri.parse(
-                                          'tel:${booking.customer_phone}');
-                                      if (await canLaunchUrl(url)) {
-                                        launchUrl(url);
-                                      }
-                                    },
-                                    icon: const Icon(
-                                      Icons.phone,
-                                      color: Colors.blueAccent,
-                                    ),
-                                  ),
+
                                 ],
                               ),
                               // Text(
@@ -87,7 +123,7 @@ class DetailOrderView extends StatelessWidget {
                               // ),
                               // Space.vertical(8),
                               // const Text('Address'),
-                              Space.vertical(4),
+                              Space.vertical(4.h),
                               Row(
                                 children: [
                                   Column(
@@ -96,7 +132,10 @@ class DetailOrderView extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       // const Text('Locality/Area'),
-                                      const Text('Address'),
+                                      Text(
+                                        'Address',
+                                        style: Get.textTheme.titleMedium,
+                                      ),
                                       Text(
                                         booking.customer_address ?? '',
                                         style: Get.textTheme.titleSmall,
@@ -131,7 +170,7 @@ class DetailOrderView extends StatelessWidget {
                                     children: [
                                       const Text('City'),
                                       Text(
-                                        'Gurgaon',
+                                        booking.customer_address ?? '',
                                         style: Get.textTheme.titleSmall,
                                       ),
                                     ],
@@ -158,7 +197,7 @@ class DetailOrderView extends StatelessWidget {
                                 children: [
                                   const Text('State'),
                                   Text(
-                                    'Haryana',
+                                    booking.customer_address ?? '',
                                     style: Get.textTheme.titleSmall,
                                   ),
                                 ],
@@ -167,6 +206,7 @@ class DetailOrderView extends StatelessWidget {
                           )),
                       Space.vertical(12),
                       EasyContainer(
+                        color: EazyColors.white,
                           padding: 12,
                           borderRadius: 10,
                           child: Column(
@@ -200,7 +240,7 @@ class DetailOrderView extends StatelessWidget {
                                   name: booking
                                       .products![index].serviceProductName!,
                                   quantity: 1,
-                                  price: 1,
+                                  price: 100,
                                 ),
                                 separatorBuilder: (context, index) =>
                                     const Divider(),
@@ -211,6 +251,7 @@ class DetailOrderView extends StatelessWidget {
                       Space.vertical(12),
                       EasyContainer(
                         // height: 150.h,
+                        color: EazyColors.white,
                         borderRadius: 10,
                         padding: 12,
                         child: Column(
@@ -301,4 +342,4 @@ class DetailOrderView extends StatelessWidget {
   }
 }
 
-enum ButtonStatus { accepted, started, reached, complete }
+// enum ButtonStatus { accepted, started, reached, complete }

@@ -100,7 +100,7 @@ class AddSubServiceProductsController extends GetxController {
       await fetchEazymen();
       Get.offAllNamed(Routes.navigationScreen);
     } catch (e) {
-      EazySnackBar.buildSuccessSnackbar('Error', 'Something went wrong!');
+      EazySnackBar.buildSuccessSnackbar('Error','Something went wrong!');
     }
   }
 

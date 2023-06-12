@@ -37,6 +37,7 @@ class ServicesListWidget extends GetView<ProfileController> {
                     Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 12.w,
+                        vertical: 0.h
                       ),
                       child: Text(
                         subServices[index].subServiceName ?? '',

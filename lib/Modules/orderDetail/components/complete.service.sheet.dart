@@ -13,6 +13,11 @@ Future<void> completeBookingConfirmationSheet() {
     GetBuilder<BookingDetailController>(builder: (controller) {
       return EasyContainer(
         height: 250.h,
+        customBorderRadius: const BorderRadius.only(
+            topRight: Radius.circular(10),
+            bottomRight: Radius.circular(0),
+            bottomLeft: Radius.circular(0),
+            topLeft: Radius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -26,8 +31,6 @@ Future<void> completeBookingConfirmationSheet() {
                     },
                     icon: const Icon(
                       Icons.cancel,
-                      size: 20,
-                      color: EazyColors.primary,
                     )),
               ),
               Text(
@@ -35,8 +38,8 @@ Future<void> completeBookingConfirmationSheet() {
                 style: Get.textTheme.titleLarge,
                 textScaleFactor: 1.5,
               ),
-              EazyTextField.fullWidthTextField(
-                'Enter Ending code',
+              EazyTextField.stringTextField(
+                'Please Enter Ending code',hintText: "Enter Ending code",
                 controller: controller.endCodeController,
               ),
               Text(

@@ -1,7 +1,11 @@
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
+import 'package:eazypizy_eazyman/widgets/EazyTextField.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:validators/validators.dart';
 
+import '../../../theme/eazy_spaces.dart';
+import '../../../widgets/easy_container.dart';
 import '../ctrl_registration.dart';
 
 import 'package:intl/intl.dart';
@@ -12,7 +16,7 @@ import '../viewBusinessCardSample.dart';
 class PersonalDetails1 extends StatefulWidget {
   const PersonalDetails1({
     super.key,
-   // required this.controller,
+    // required this.controller,
   });
 
   // final RegistrationController controller;
@@ -31,51 +35,75 @@ class _PersonalDetails1State extends State<PersonalDetails1> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 50,
-          child: TextField(
-            controller: controller.name,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Full Name',
-              // hintText: 'Full name'
-            ),
+        Text(
+          'Tell us about\nyourself',
+          style: Get.textTheme.headlineLarge?.copyWith(
+            color: EazyColors.primary,
+          ),
+          textScaleFactor: 1.5,
+        ),
+        Space.vertical(10.h),
+        Form(
+         // key: controller.formKey,
+          child: Row(
+            children: [
+              Flexible(
+                child: EazyTextField.stringTextField(
+                  'Name cant be empty',
+                  hintText: 'First Name',
+                  controller: controller.firstName,
+                ),
+              ),
+              Space.horizontal(10.w),
+              Flexible(
+                child: EazyTextField.stringTextField(
+                  'Name cant be empty',
+                  hintText: 'Last Name',
+                  controller: controller.lastName,
+                ),
+              ),
+            ],
           ),
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        Space.vertical(20.h),
         SizedBox(
-          height: 50,
+          height: 45.h,
           child: TextField(
               controller: controller.email,
               decoration: InputDecoration(
-                  border: const OutlineInputBorder(),
-                  // prefixIcon: const Icon(Icons.email, color: Colors.red,),
-                  suffixIcon: isEmailRight == false
-                      ? const Icon(
-                    Icons.email,
-                    color: Colors.red,
-                  )
-                      : const Icon(
-                    Icons.email,
-                    color: Colors.green,
+                border: const OutlineInputBorder(),
+                floatingLabelBehavior: FloatingLabelBehavior.auto,
+                hintText: 'Enter Email',
+                focusedBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(color: EazyColors.primary),
+                ),
+                enabledBorder: const OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: EazyColors.blackShade,
                   ),
-                  labelText: 'Email',
-                  hintText: 'Email (Optional)'),
+                ),
+                // prefixIcon: const Icon(Icons.email, color: Colors.red,),
+                suffixIcon: isEmailRight == false
+                    ? const Icon(
+                        Icons.email,
+                        color: Colors.red,
+                      )
+                    : const Icon(
+                        Icons.email,
+                        color: Colors.green,
+                      ),
+                labelText: 'Email',
+              ),
               onChanged: (val) {
                 setState(() {
                   isEmailRight = isEmail(val);
                 });
-
-                // controller.isEmailCorrect = isEmail(val);
+                controller.isEmailCorrect = isEmail(val);
               }),
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        Space.vertical(20.h),
         SizedBox(
-          height: 50,
+          height: 45.h,
           child: TextField(
             readOnly: true,
             controller: controller.dob,
@@ -98,7 +126,7 @@ class _PersonalDetails1State extends State<PersonalDetails1> {
                 print(
                     pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
                 String formattedDate =
-                DateFormat('dd-MM-yyyy').format(pickedDate);
+                    DateFormat('dd-MM-yyyy').format(pickedDate);
                 print(
                     formattedDate); //formatted date output using intl package =>  2021-03-16
                 setState(() {
@@ -109,28 +137,27 @@ class _PersonalDetails1State extends State<PersonalDetails1> {
             },
           ),
         ),
-        const SizedBox(
-          height: 20,
-        ),
+        Space.vertical(20.h),
         Wrap(
+          alignment: WrapAlignment.center,
           spacing: 8,
-          children:
-          List.generate(controller.choicesList.length, (index) {
+          children: List.generate(controller.choicesList.length, (index) {
             return ChoiceChip(
               labelPadding: const EdgeInsets.all(2.0),
               label: Text(
-                  controller.choicesList[index],
-                  style: Get.textTheme.titleLarge
+                controller.choicesList[index],
               ),
               selected: controller.defaultChoiceIndex == index,
-              selectedColor: Colors.blueAccent,
+              selectedColor: EazyColors.primary,
+              labelStyle: (controller.defaultChoiceIndex == index)
+                  ? const TextStyle(color: EazyColors.white)
+                  : const TextStyle(color: EazyColors.primary),
               backgroundColor: EazyColors.white,
-
-
+              disabledColor: EazyColors.white,
               onSelected: (value) {
                 setState(() {
                   controller.defaultChoiceIndex =
-                  value ? index : controller.defaultChoiceIndex;
+                      value ? index : controller.defaultChoiceIndex;
                 });
                 print('gender ${controller.defaultChoiceIndex}');
               },
@@ -141,7 +168,6 @@ class _PersonalDetails1State extends State<PersonalDetails1> {
             );
           }),
         ),
-
       ],
     );
   }

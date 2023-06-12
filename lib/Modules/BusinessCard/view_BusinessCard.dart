@@ -11,21 +11,22 @@ import '../../widgets/easy_container.dart';
 class VisitingCard extends StatelessWidget {
   const VisitingCard({
     Key? key,
-    required EazyMenModel eazyMenModel,
     required this.colors,
     required this.imageAlign,
     required this.titleAlign,
+    required this.eazyMenModel,
   }) : super(key: key);
   final Color colors;
   final Alignment imageAlign;
   final Alignment titleAlign;
+  final EazyMenModel eazyMenModel;
 
   @override
   Widget build(BuildContext context) {
     return FlipCard(
         front: EasyContainer(
           //padding: 10,
-          //margin: 10,
+          margin: 8,
           borderRadius: 10.r,
           color: colors,
           child: Stack(children: [
@@ -46,67 +47,45 @@ class VisitingCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Flexible(
-                        flex: 2,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Align(
-                              alignment: titleAlign,
-                              child: const Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Text(
-                                  'Amit',
-                                  textScaleFactor: 1.5,
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: "Roboto",
-                                    fontSize: 17.0,
-                                  ),
-                                ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: titleAlign,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                eazyMenModel.personalDetail?.firstName ?? "",
+                                style: Get.textTheme.titleLarge,
                               ),
                             ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [Text("149"), Text("Jobs")],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Text("149"),
-                                    Text("Services")
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: const [
-                                    Text("11"),
-                                    Text("Experience")
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
+                      Align(
+                        alignment: imageAlign,
+                        child: EasyContainer(
+                          margin: 10,
+                            height: 90.h,
+                            width: 90.w,
+                            child: Image.network(
+                                eazyMenModel.personalDetail?.images ??
+                                    'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
+                        ),
+                      )
+                      //: Image.asset('assets/five.jpg'))
                     ]),
 
                 Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text("Delhi  | NCR", style: Get.textTheme.titleMedium),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(eazyMenModel.phoneNumber ?? "9023499063",
+                      style: Get.textTheme.titleMedium),
                 ),
                 EasyContainer(
-                    height: 20,
+                    height: 20.h,
                     color: Colors.orange,
-                    customBorderRadius: BorderRadius.only(
+                    customBorderRadius: const BorderRadius.only(
                         topRight: Radius.circular(0),
                         bottomRight: Radius.circular(5),
                         bottomLeft: Radius.circular(5),

@@ -53,7 +53,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                       //   )
                       // ],
                       //  surfaceTintColor: EazyColors.white,
-                      title: Text(
+                      title: const Text(
                         'Catalogue',
                       ),
                       // centerTitle: true,
@@ -83,7 +83,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                                   Space.vertical(10.h),
                                   Center(
                                     child: Text(
-                                      '${controller.eazyMen.personalDetail?.firstName} ${controller.eazyMen.personalDetail?.lastName}',
+                                      '${controller.eazyMen.personalDetail?.firstName} ${controller.eazyMen.personalDetail?.lastName}'?? "",
                                       style: Get.textTheme.titleLarge,
                                     ),
                                   ),
@@ -240,6 +240,7 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                       pinned: true,
                       delegate: _SliverAppBarDelegate(
                         TabBar(
+                          isScrollable: true,
                           labelColor: EazyColors.primary,
                           labelStyle: Get.textTheme.titleMedium,
                           unselectedLabelColor: Colors.grey,
@@ -259,13 +260,10 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
                 body: controller.loading
                     ? const Center(child: ShimmerLoader())
                     : TabBarView(
-                        // controller: controller.tabController,
                         children: controller.userCategories
                             .map(
                               (category) =>
-                                  Expanded(child: EasyContainer(
-                                      color: EazyColors.white,
-                                      child: ServicesListWidget(category))),
+                                  ServicesListWidget(category),
                             )
                             .toList(),
                       ),
@@ -275,15 +273,15 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
         ),
         floatingActionButton:
             GetBuilder<ProfileController>(builder: (controller) {
-          return FloatingActionButton(
-            tooltip: 'Add Product',
-            child: const Icon(Icons.add),
+          return FloatingActionButton.extended(
+            tooltip: 'Add Service',
             onPressed: () {
+           //   controller.userCategories.map((e) =>
               Get.toNamed(
                 Routes.addEazymenProductScreen,
                 arguments: controller.userCategories[0],
               );
-            },
+            }, label: const Text('Add Service'),
           );
         }),
         // bottomNavigationBar: Padding(

@@ -16,6 +16,7 @@ class AuthenticationController extends GetxController {
   final otpController = TextEditingController();
   late bool loading;
   late String _verificationId;
+ late   String enteredNo;
 
   Future<void> verifyOtp() async {
     final otp = otpController.text.trim();
@@ -78,6 +79,7 @@ class AuthenticationController extends GetxController {
   }
 
   Future<void> sendOtp() async {
+    enteredNo = mobileNumberController.text.trim();
     final number = mobileNumberController.text.trim();
     _log
       ..v('Sending OTP...')

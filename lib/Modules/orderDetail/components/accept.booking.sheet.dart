@@ -8,10 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../theme/eazy_spaces.dart';
+
 Future<void> acceptBookingConfirmationSheet() {
   return Get.bottomSheet(
     GetBuilder<BookingDetailController>(builder: (controller) {
       return EasyContainer(
+        customBorderRadius: const BorderRadius.only(
+            topRight: Radius.circular(10),
+            bottomRight: Radius.circular(0),
+            bottomLeft: Radius.circular(0),
+            topLeft: Radius.circular(10)),
         height: 250.h,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
@@ -26,8 +33,6 @@ Future<void> acceptBookingConfirmationSheet() {
                     },
                     icon: const Icon(
                       Icons.cancel,
-                      size: 20,
-                      color: EazyColors.primary,
                     )),
               ),
               Text(
@@ -46,13 +51,14 @@ Future<void> acceptBookingConfirmationSheet() {
                   child: EazyLoadingWidget(),
                 )
               else
-                EazyButtons.flexWidthElevatedButton(
-                  'Yes,Accept Order',
+                EazyButtons.fullWidthShareButton(
+                  'Yes, Accept Order',
                   () {
                     controller.confirmAcceptBooking();
+                    Get.back();
                   },
-                  40.h,
                 ),
+              Space.vertical(10.h)
             ],
           ),
         ),

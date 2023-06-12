@@ -8,6 +8,9 @@ import 'package:eazypizy_eazyman/core/typedefs.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:flutter/material.dart';
+
+import '../../theme/eazy_spaces.dart';
 
 class ManageOrderController extends GetxController {
   final Logger _log = getLogger('ManageOrder Controller');
@@ -53,22 +56,102 @@ class ManageOrderController extends GetxController {
     }
   }
 
-  String convertBookingStatus(int status) {
+  Widget convertBookingStatus(
+    int status,
+  ) {
     switch (status) {
       case 0:
-        return 'Booking Request';
+        return Row(
+          children: [
+            const Icon(
+              Icons.circle,
+              color: Colors.red,
+              size: 10,
+            ),
+            Space.horizontal(10),
+            Text('Booking Request', style: Get.textTheme.titleMedium),
+          ],
+        );
       case 1:
-        return 'Pending';
+        return Row(children: [
+          const Icon(
+            Icons.circle,
+            color: Colors.green,
+            size: 10,
+          ),
+          Space.horizontal(10),
+          Text('Pending', style: Get.textTheme.titleMedium)
+        ]);
       case 2:
-        return 'Working';
+        return Row(
+          children: [
+            const Icon(
+              Icons.circle,
+              color: Colors.blue,
+              size: 10,
+            ),
+            Space.horizontal(10),
+            Text(
+              'Working',
+              style: Get.textTheme.titleMedium,
+            ),
+          ],
+        );
       case 3:
-        return 'Done';
+        return Row(
+          children: [
+            const Icon(
+              Icons.circle,
+              color: Colors.purpleAccent,
+              size: 10,
+            ),
+            Space.horizontal(10),
+            Text('Done', style: Get.textTheme.titleMedium),
+          ],
+        );
       case 4:
-        return 'Canceled';
+        return Row(
+          children: [
+            const Icon(
+              Icons.circle,
+              color: Colors.black,
+              size: 10,
+            ),
+            Space.horizontal(10),
+            Text('Canceled', style: Get.textTheme.titleMedium),
+          ],
+        );
       default:
-        return 'Pending';
+        return Row(
+          children: [
+            const Icon(
+              Icons.circle,
+              color: Colors.orange,
+              size: 10,
+            ),
+            Space.horizontal(10),
+            Text('Pending', style: Get.textTheme.titleMedium),
+          ],
+        );
     }
   }
+
+  // Widget convertBookingStatus(int status,) {
+  //   switch (status) {
+  //     case 0:
+  //       return  Text('Booking Request',style: TextStyle(color: Colors.red),);
+  //     case 1:
+  //       return 'Pending';
+  //     case 2:
+  //       return 'Working';
+  //     case 3:
+  //       return 'Done';
+  //     case 4:
+  //       return 'Canceled';
+  //     default:
+  //       return 'Pending';
+  //   }
+  // }
 
   @override
   void onInit() {

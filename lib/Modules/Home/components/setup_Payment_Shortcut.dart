@@ -102,7 +102,7 @@ class SetupPayment extends StatelessWidget {
               ),
               Space.vertical(10),
               EazyButtons.flexWidthElevatedButton2(
-                  'SetUp Payment', () {}, EazyColors.white)
+                  'SetUp Payment', () {}, EazyColors.white, 40)
             ],
           )),
 

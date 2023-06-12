@@ -5,13 +5,14 @@
 import '../core/typedefs.dart';
 
 class SubServiceProductModel {
-  SubServiceProductModel({
-    this.serviceIDs,
-    this.serviceProductName,
-    this.subServiceIDs,
-    this.serviceProductId,
-    this.serviceProdImage,
-  });
+  SubServiceProductModel(
+      {this.serviceIDs,
+      this.serviceProductName,
+      this.subServiceIDs,
+      this.serviceProductId,
+      this.serviceProdImage,
+      this.serviceRetailPrice});
+
   factory SubServiceProductModel.fromJson(Map<String, dynamic> json) =>
       SubServiceProductModel(
         serviceIDs: json['ServiceIDs'] == null
@@ -25,6 +26,7 @@ class SubServiceProductModel {
               ),
         serviceProductId: json['ServiceProductID'] as String?,
         serviceProdImage: json['serviceProdImage'] as String?,
+        serviceRetailPrice: json['ServiceRetail_Price'] as String?,
       );
 
   final List<String>? serviceIDs;
@@ -32,6 +34,7 @@ class SubServiceProductModel {
   final List<String>? subServiceIDs;
   final String? serviceProductId;
   final String? serviceProdImage;
+  final String? serviceRetailPrice;
 
   Map<String, dynamic> toJson() => {
         'ServiceIDs': serviceIDs == null
@@ -43,6 +46,7 @@ class SubServiceProductModel {
             : List<dynamic>.from(subServiceIDs!.map((x) => x)),
         'ServiceProductID': serviceProductId,
         'serviceProdImage': serviceProdImage,
+        'ServiceRetail_Price': serviceRetailPrice,
       };
 
   static List<SubServiceProductModel> jsonListToObject(List data) {

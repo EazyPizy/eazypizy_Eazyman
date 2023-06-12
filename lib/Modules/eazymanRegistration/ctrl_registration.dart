@@ -10,13 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
-
 import '../../Models/main_service_category.dart';
 import '../../core/logger.dart';
 import '../../core/services/category_services.dart';
-
 import 'dart:io';
-
 import 'package:path/path.dart' as Path;
 
 class RegistrationController extends GetxController {
@@ -33,19 +30,20 @@ class RegistrationController extends GetxController {
   final imagePicker = ImagePicker();
   String imageError = "";
 
-  TextEditingController name = TextEditingController();
+  TextEditingController firstName = TextEditingController();
+  TextEditingController lastName = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController dob = TextEditingController();
+
+  // TextEditingController address = TextEditingController();
+  TextEditingController currentCity = TextEditingController();
+  late GlobalKey<FormState> formKey;
+
   bool isEmailCorrect = false;
   int defaultChoiceIndex = 0;
   int defaultExpIndex = 0;
   final List<String> choicesList = ['Male', 'Female'];
   final List<String> expList = ['Yes', 'No'];
-  TextEditingController email = TextEditingController();
-
-  TextEditingController dob = TextEditingController();
-
-  TextEditingController address = TextEditingController();
-
-  TextEditingController city = TextEditingController();
 
   final List<String> mainService = [];
 
@@ -80,10 +78,13 @@ class RegistrationController extends GetxController {
   }
 
   Future<void> submit() async {
-    final nameS = name.text.trim();
+    final firstname = firstName.text.trim();
+    final lastname = lastName.text.trim();
     final emailS = email.text.trim();
     final dobS = dob.text.trim();
-    final cityS = city.text.trim();
+    final cityS = currentCity.text.trim();
+    final gender = defaultChoiceIndex;
+    final isExp = defaultExpIndex;
     try {
       _log.v('Updating eazymen details...');
 
@@ -95,12 +96,14 @@ class RegistrationController extends GetxController {
         mainServices: mainService,
         dateOfRegistration: DateTime.now(),
         personalDetail: PersonalDetail(
-          firstName: nameS,
-          lastName: nameS,
+          firstName: firstname,
+          lastName: lastname,
           dob: dobS,
           city: cityS,
           images: imageURL,
           email: emailS,
+          gender: defaultChoiceIndex.toString(),
+          experiance: isExp,
         ),
         fcmToken: token,
       );
