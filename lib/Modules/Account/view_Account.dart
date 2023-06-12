@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 
-import '../../core/capture_Image.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/eazy_spaces.dart';
 import '../../widgets/EasyButtons.dart';
@@ -165,13 +165,27 @@ class _AccountState extends State<Account> {
                           child: EazyButtons.fullWidthShareButton(
                             'Share Card',
                             () async {
-                              final bytes1 = await Utils.capture(key1);
+                              final dynam = await FirebaseDynamicLinksPlatform
+                                  .instance
+                                  .buildLink(
+                                DynamicLinkParameters(
+                                    link: Uri.parse(
+                                        'https://eazypizy.page.link?eazymenId=${controller.eazyMen.eazyManUid}'
+                                        // 'https://eazypizy.page.link',
+                                        ),
+                                    uriPrefix: 'https://eazypizy.page.link',
+                                    navigationInfoParameters:
+                                        const NavigationInfoParameters()),
+                              );
+                              print(dynam);
+                              Share.share(dynam.toString());
+                              // final bytes1 = await Utils.capture(key1);
 
-                              print(bytes1);
-                              setState(() {
-                                this.bytes1 = bytes1;
-                              });
-                              buildPopUp(bytes1);
+                              // print(bytes1);
+                              // setState(() {
+                              //   this.bytes1 = bytes1;
+                              // });
+                              // buildPopUp(bytes1);
                             },
                           ),
                         ),
