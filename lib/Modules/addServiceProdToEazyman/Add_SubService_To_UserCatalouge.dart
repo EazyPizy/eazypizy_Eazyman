@@ -3,12 +3,16 @@ import 'package:eazypizy_eazyman/Models/subService_category.dart';
 import 'package:eazypizy_eazyman/Modules/addServiceProdToEazyman/ctrl_add_products.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../core/services/category_services.dart';
+import '../../theme/app_colors.dart';
 import '../../widgets/CustomTabView.dart';
 import '../../widgets/EasySnackBar.dart';
+import '../../widgets/EazyTextField.dart';
 import '../../widgets/easy_container.dart';
+import '../../widgets/eazy_networkimage.dart';
 
 class AddSubServiceToUserCatalogue extends StatefulWidget {
   const AddSubServiceToUserCatalogue({
@@ -42,9 +46,7 @@ class AddSubServiceToUserCatalogueState
             appBar: AppBar(
               title: Text(
                 mainService.serviceName!,
-                style: Get.textTheme.headlineMedium,
               ),
-              centerTitle: true,
             ),
             body: SafeArea(
               child: Padding(
@@ -55,8 +57,9 @@ class AddSubServiceToUserCatalogueState
                       child: CustomTabViews(
                         initPosition: initPosition,
                         itemCount: subServices.length,
-                        tabBuilder: (context, index) =>
-                            Tab(text: subServices[index].subServiceName),
+                        tabBuilder: (context, index) => Tab(
+                          text: subServices[index].subServiceName,
+                        ),
                         onPositionChange: (index) {
                           initPosition = index;
                         },
@@ -68,9 +71,23 @@ class AddSubServiceToUserCatalogueState
                             itemCount: products.length,
                             itemBuilder: (context, prodIndex) {
                               return ListTile(
+                                leading: EasyContainer(
+                                  borderColor: EazyColors.borderColors,
+                                  showBorder: true,
+                                  color: EazyColors.white,
+                                  height: 40.h,
+                                  width: 40.w,
+                                  child: Image.network(
+                                    products[prodIndex].serviceProdImage!,
+                                  ),
+                                ),
                                 title: Text(
                                   products[prodIndex].serviceProductName!,
-                                  style: Get.textTheme.titleLarge,
+                                  style: Get.textTheme.titleMedium,
+                                ),
+                                subtitle: Text(
+                                  products[prodIndex].serviceRetailPrice!,
+                                  style: Get.textTheme.titleMedium,
                                 ),
                                 trailing: Checkbox(
                                   shape: RoundedRectangleBorder(
@@ -103,11 +120,11 @@ class AddSubServiceToUserCatalogueState
               child: EazyButtons.fullWidthElevatedButton('Add Products', () {
                 controller.makeControllers();
                 controller.eazymenProducts.isNotEmpty
-                    ? addYourOwnPrice(controller)
+                    ? addYourOwnPrice(
+                        controller,)
                     : EazySnackBar.buildSnackbar(
                         'Select Products',
-                        'Add Product to cataloug',
-                      );
+                        'Add Product to catalog',);
               }),
             ),
           );
@@ -153,10 +170,15 @@ class AddSubServiceToUserCatalogueState
       Stack(children: [
         EasyContainer(
           padding: 10,
-          //borderRadius: 10,
+          customBorderRadius: const BorderRadius.only(
+              topRight: Radius.circular(10),
+              bottomRight: Radius.circular(0),
+              bottomLeft: Radius.circular(0),
+              topLeft: Radius.circular(10)),          //borderRadius: 10,
           height: Get.size.height - 0.1,
           color: Colors.white,
           child: ListView.builder(
+
             itemCount: products.length,
             itemBuilder: (context, i) {
               // final priceController =
@@ -165,13 +187,22 @@ class AddSubServiceToUserCatalogueState
                 title:
                     Text(products[i].productDetails?.serviceProductName ?? ''),
                 trailing: SizedBox(
-                  height: 40,
-                  width: 90,
+                  height: 40.h,
+                  width: 90.w,
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     controller: priceControllers[i],
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: ' Add Price',
+                    decoration:  const InputDecoration(
+                      floatingLabelBehavior: FloatingLabelBehavior.auto,
+                      hintText: "Add Own Price",
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: EazyColors.primary),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: EazyColors.blackShade,
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -179,11 +210,14 @@ class AddSubServiceToUserCatalogueState
             },
           ),
         ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: EazyButtons.flexWidthElevatedButton('Save Products', () {
-            controller.updateProducts();
-          }, 40),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Align(
+            alignment: Alignment.bottomCenter,
+            child: EazyButtons.fullWidthElevatedButton('Save Products', () {
+              controller.updateProducts();
+            },),
+          ),
         )
       ]),
     );

@@ -35,10 +35,7 @@ class _ManageOrdersState extends State<ManageOrders> {
         builder: (controller) {
           return Scaffold(
             appBar: AppBar(
-              centerTitle: true,
-              titleTextStyle: Get.textTheme.headlineMedium!,
               title: const Text(
-                // "Manage Orders",
                 "Bookings",
               ),
             ),
@@ -230,7 +227,7 @@ class _ManageOrdersState extends State<ManageOrders> {
                       chipText[i].toString(),
                     ),
                   ),
-                ),
+               ),
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: () => controller.getBookings(),
@@ -322,170 +319,165 @@ class BookingCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ManageOrderController>();
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Stack(
-        children: [
-          EasyContainer(
-            borderRadius: 10.r,
-            width: double.infinity,
-            // height: 130.h,
-            color: EazyColors.white,
-            onTap: () => controller.toDetails(booking),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                ListTile(
-                  contentPadding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                    vertical: 14,
-                  ),
-                  leading: EasyContainer(
-                    showBorder: true,
-                    borderWidth: .5,
-                    color: EazyColors.white,
-                    // height: 120,
-                    width: 75.w,
-                    child: const EazyNetworkImage(
-                        url:
-                            'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
-                  ),
-                  title: Text(
-                    booking.customer_name ?? '',
-                    // 'Homanshu Chauhcan',
-                    // "Inverter Servicing",
-                    style: Get.textTheme.titleLarge,
-                    softWrap: true,
-                    maxLines: 2,
-                    // overflow: TextOverflow.fade,
-                  ),
-                  subtitle: booking.booking_date == null
-                      ? null
-                      : Text(
-                          DateFormat('dd-MM-yyyy').format(
-                            DateTime.parse(booking.booking_date ?? ''),
-                          ),
-                          // booking.booking_date.toString().split(' ')[0],
-                          style: Get.textTheme.titleMedium
-                              ?.copyWith(color: EazyColors.lightBlack),
-                          softWrap: true,
-                          overflow: TextOverflow.fade,
-                        ),
-                  // trailing: Text('${booking.payment_items_total}'),
+    return Stack(
+      children: [
+        EasyContainer(
+          margin: 4,
+          padding: 4,
+          borderRadius: 10.r,
+          width: double.infinity,
+          // height: 130.h,
+          color: EazyColors.white,
+          onTap: () => controller.toDetails(booking),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ListTile(
+                contentPadding:  EdgeInsets.symmetric(
+                  horizontal: 16.0.w,
+                  vertical: 14.h,
                 ),
-                // const Spacer(),
-                Space.vertical(18.h),
-                EasyContainer(
-                    customBorderRadius: const BorderRadius.only(
-                      topRight: Radius.circular(0),
-                      topLeft: Radius.circular(0),
-                    ),
-                    color: Colors.orange.shade50,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 8,
+                leading: EasyContainer(
+                  showBorder: true,
+                  borderWidth: .5,
+                  color: EazyColors.white,
+                  // height: 120,
+                  width: 75.w,
+                  child: const EazyNetworkImage(
+                      url:
+                          'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
+                ),
+                title: Text(
+                  booking.customer_name ?? '',
+                  // 'Homanshu Chauhcan',
+                  // "Inverter Servicing",
+                  style: Get.textTheme.titleLarge,
+                  softWrap: true,
+                  maxLines: 2,
+                  // overflow: TextOverflow.fade,
+                ),
+                subtitle: booking.booking_date == null
+                    ? null
+                    : Text(
+                        DateFormat('dd-MM-yyyy').format(
+                          DateTime.parse(booking.booking_date ?? ''),
+                        ),
+                        // booking.booking_date.toString().split(' ')[0],
+                        style: Get.textTheme.titleMedium
+                            ?.copyWith(color: EazyColors.lightBlack),
+                        softWrap: true,
+                        overflow: TextOverflow.fade,
                       ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            controller.convertBookingStatus(
-                              booking.booking_status ?? 0,
-                            ),
-                          ),
-                          Text(
-                            'View Details',
-                            style: Get.textTheme.titleMedium
-                                ?.copyWith(color: EazyColors.primary),
-                          ),
-                        ],
-                      ),
-                    ))
-              ],
-            ),
-            // child: Column(
-            //   crossAxisAlignment: CrossAxisAlignment.end,
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Padding(
-            //       padding: const EdgeInsets.all(8.0),
-            //       child: Row(
-            //         mainAxisAlignment: MainAxisAlignment.start,
-            //         crossAxisAlignment: CrossAxisAlignment.start,
-            //         children: [
-            //           Flexible(
-            //             flex: 1,
-            //             child: Padding(
-            //               padding: const EdgeInsets.only(left: 8),
-            //               child: EasyContainer(
-            //                 showBorder: true,
-            //                 color: EazyColors.white,
-            //                 height: 75.h,
-            //                 width: 150.w,
-            //                 child: Image.network(
-            //                     'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
-            //               ),
-            //             ),
-            //           ),
-            //           Space.horizontal(8.w),
-            // Flexible(
-            //   flex: 3,
-            //             child: Column(
-            //               crossAxisAlignment: CrossAxisAlignment.start,
-            //               mainAxisAlignment: MainAxisAlignment.start,
-            //               children: [
-            //                 Row(
-            //                   crossAxisAlignment: CrossAxisAlignment.start,
-            //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //                   children: [
-            //                     Text(
-            //                       "Inverter Servicing",
-            //                       style: Get.textTheme.titleLarge,
-            //                       softWrap: true,
-            //                       overflow: TextOverflow.fade,
-            //                     ),
-            //                   ],
-            //                 ),
-            //                 Padding(
-            //                   padding: const EdgeInsets.only(top: 4.0),
-            //                   child: Text(
-            //                     'Tue 9 Nov at 09:00 AM',
-            //                     style: Get.textTheme.titleSmall,
-            //                     softWrap: true,
-            //                     overflow: TextOverflow.fade,
-            //                   ),
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //           const Text('999'),
-            //         ],
-            //       ),
-            //     ),
-
-            // ],
-            //            ),
-            //          ),
-          ),
-          if (booking.booking_status == 0)
-            const Align(
-              alignment: Alignment.topRight,
-              child: EasyContainer(
-                width: 65,
-                customBorderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    bottomRight: Radius.circular(0),
-                    topRight: Radius.circular(5),
-                    topLeft: Radius.circular(0)),
-                color: Colors.greenAccent,
-                child: Text('NEW'),
+                // trailing: Text('${booking.payment_items_total}'),
               ),
+              // const Spacer(),
+              Space.vertical(8.h),
+              const Divider(
+                thickness: 1,
+                endIndent: 10,
+                indent: 10,
+              ),
+
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  controller.convertBookingStatus(booking.booking_status ??0 ),
+                 //  Text(
+                 //    controller.convertBookingStatus(
+                 //      booking.booking_status ?? 0,
+                 //    ),
+                 // ),
+                  Text(
+                    'View Details',
+                    style: Get.textTheme.titleMedium
+                        ?.copyWith(color: EazyColors.primary),
+                  ),
+                ],
+              )
+            ],
+          ),
+          // child: Column(
+          //   crossAxisAlignment: CrossAxisAlignment.end,
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     Padding(
+          //       padding: const EdgeInsets.all(8.0),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.start,
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           Flexible(
+          //             flex: 1,
+          //             child: Padding(
+          //               padding: const EdgeInsets.only(left: 8),
+          //               child: EasyContainer(
+          //                 showBorder: true,
+          //                 color: EazyColors.white,
+          //                 height: 75.h,
+          //                 width: 150.w,
+          //                 child: Image.network(
+          //                     'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
+          //               ),
+          //             ),
+          //           ),
+          //           Space.horizontal(8.w),
+          // Flexible(
+          //   flex: 3,
+          //             child: Column(
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               mainAxisAlignment: MainAxisAlignment.start,
+          //               children: [
+          //                 Row(
+          //                   crossAxisAlignment: CrossAxisAlignment.start,
+          //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //                   children: [
+          //                     Text(
+          //                       "Inverter Servicing",
+          //                       style: Get.textTheme.titleLarge,
+          //                       softWrap: true,
+          //                       overflow: TextOverflow.fade,
+          //                     ),
+          //                   ],
+          //                 ),
+          //                 Padding(
+          //                   padding: const EdgeInsets.only(top: 4.0),
+          //                   child: Text(
+          //                     'Tue 9 Nov at 09:00 AM',
+          //                     style: Get.textTheme.titleSmall,
+          //                     softWrap: true,
+          //                     overflow: TextOverflow.fade,
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //           const Text('999'),
+          //         ],
+          //       ),
+          //     ),
+
+          // ],
+          //            ),
+          //          ),
+        ),
+        if (booking.booking_status == 0)
+           Align(
+            alignment: Alignment.topRight,
+            child: EasyContainer(
+              margin: 4,
+              width: 65.w,
+              customBorderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(10),
+                  bottomRight: Radius.circular(0),
+                  topRight: Radius.circular(5),
+                  topLeft: Radius.circular(0)),
+              color: Colors.greenAccent,
+              child: const Text('NEW'),
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }

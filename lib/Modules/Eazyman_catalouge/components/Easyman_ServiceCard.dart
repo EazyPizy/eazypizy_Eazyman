@@ -1,11 +1,13 @@
 import 'package:eazypizy_eazyman/Models/eazymen_product.dart';
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/ctrl_Eazyman_profile.dart';
 import 'package:eazypizy_eazyman/theme/eazy_spaces.dart';
+import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
 import 'package:eazypizy_eazyman/widgets/eazy_networkimage.dart';
 import 'package:eazypizy_eazyman/widgets/pop_ups.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../theme/app_colors.dart';
 import '../../../widgets/EazyTextField.dart';
@@ -30,13 +32,8 @@ class EazymanServiceCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EasyContainer(
-      borderRadius: 10,
-      width: double.infinity,
-      //height: 110,
-      padding: 12,
-      elevation: 1,
       color: EazyColors.white,
-      showBorder: false,
+      padding: 10,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -68,7 +65,6 @@ class EazymanServiceCard extends StatelessWidget {
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +80,7 @@ class EazymanServiceCard extends StatelessWidget {
                             // const SwitchExample()
                           ],
                         ),
-                        Space.vertical(4),
+                        Space.vertical(4.h),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -97,11 +93,9 @@ class EazymanServiceCard extends StatelessWidget {
                             ),
                             Space.horizontal(6.w),
                             Text(
-                              '₹399',
+                              '₹${product.productDetails?.serviceRetailPrice}',
                               style: Get.textTheme.titleSmall!.copyWith(
                                 decoration: TextDecoration.lineThrough,
-
-
                               ),
                               softWrap: true,
                               overflow: TextOverflow.fade,
@@ -109,8 +103,6 @@ class EazymanServiceCard extends StatelessWidget {
                           ],
                         ),
                         // Row(
-                        //   crossAxisAlignment: CrossAxisAlignment.start,
-                        //   mainAxisAlignment: MainAxisAlignment.start,
                         //   children: [
                         //     FittedBox(
                         //       child: TextButton.icon(
@@ -139,7 +131,6 @@ class EazymanServiceCard extends StatelessWidget {
                         //       ),
                         //     ),
                         //     const Spacer(),
-                        //     const PopupMenuExample()
                         //   ],
                         // ),
                       ],
@@ -150,6 +141,39 @@ class EazymanServiceCard extends StatelessWidget {
                   ],
                 ),
               ),
+              // Row(
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   children: [
+              //     FittedBox(
+              //       child: TextButton.icon(
+              //         onPressed: () {},
+              //         icon: const Icon(
+              //           Icons.remove_red_eye_outlined,
+              //           size: 13,
+              //         ),
+              //         label: Text(
+              //           'Preview',
+              //           style: Get.textTheme.titleSmall,
+              //         ),
+              //       ),
+              //     ),
+              //     TextButton.icon(
+              //       onPressed: () {
+              //         Share.share('AC Service at 499 Only');
+              //       },
+              //       icon: const Icon(
+              //         Icons.share_sharp,
+              //         size: 13,
+              //       ),
+              //       label: Text(
+              //         'Share Service',
+              //         style: Get.textTheme.titleSmall,
+              //       ),
+              //     ),
+              //     const Spacer(),
+              //   ],
+              // ),
             ],
           ),
           // const Divider(),
@@ -235,11 +259,13 @@ class PopupMenuExample extends StatefulWidget {
 
 class _PopupMenuExampleState extends State<PopupMenuExample> {
   SampleItem? selectedMenu;
+  TextEditingController priceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     SampleItem? selectedMenu;
     return PopupMenuButton<SampleItem>(
+      // color: EazyColors.white,
       initialValue: selectedMenu, padding: EdgeInsets.zero,
       // Callback that sets the selected popup menu item.
       onSelected: (SampleItem item) {},
@@ -249,24 +275,20 @@ class _PopupMenuExampleState extends State<PopupMenuExample> {
           child: const Text('Edit'),
           onTap: () {
             Future(
-              () => Get.bottomSheet(
-                Padding(
+              () => Get.defaultDialog(
+                backgroundColor: EazyColors.white,
+                radius: 10,
+                title: 'Add New Price',
+                // confirm: EazyButtons.flexWidthElevatedButton('Save', () {}, 10),
+                // cancel:  EazyButtons.flexWidthElevatedButton2(
+                //     'Visit', () {}, EazyColors.primary),
+                content: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-                      EazyTextField.fullWidthTextField('New Price'),
+                      EazyTextField.stringTextField('New Price',
+                          hintText: 'Enter PRice', controller: priceController),
                     ],
-                  ),
-                ),
-                elevation: 20.0,
-                enableDrag: false,
-                backgroundColor: Colors.green,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(10.0),
-                    topRight: Radius.circular(10.0),
-                    // barrierColor: Colors.red[50],
-                    // isDismissible: false,
                   ),
                 ),
               ),

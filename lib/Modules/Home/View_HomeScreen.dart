@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eazypizy_eazyman/Modules/Home/ctrl.home.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
+import 'package:eazypizy_eazyman/widgets/startpu_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -37,9 +38,10 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (controller) {
               return Scaffold(
                 appBar: AppBar(
-                  title: const Text(
-                    "Amit Bairwa",
-                  ),
+                  title: const StarterTopLogo(),
+                  // const Text(
+                  //   "Amit Bairwa",
+                  // ),
                   actions: [
                     IconButton(
                         onPressed: () {
@@ -107,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     EazyButtons.flexWidthElevatedButton2(
-                                        'Visit', () {}, EazyColors.primary),
+                                        'Visit', () {}, EazyColors.primary,40),
                                     // ElevatedButton(
                                     //   onPressed: () {},
                                     //   child: const Text("Visit"),
@@ -138,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         // color: Colors.white,
                         borderRadius: 10.r,
                         showBorder: true,
-                        borderColor: EazyColors.gray100,
+                        borderColor: EazyColors.primary,
                         height: 150.h,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -304,8 +306,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 25.h,
                       color: Colors.green,
                       child: Center(
-                        child: Text("Bookings Completed",
-                            style: Get.textTheme.titleMedium),
+                        child: Text('Job Done',
+                            style: Get.textTheme.titleMedium?.copyWith(
+                                color: EazyColors.white
+                            ),),
                       ),
                     ),
                     Align(
@@ -313,7 +317,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
                         child: Text(controller.bookingCount.toString(),
-                            style: Get.textTheme.titleMedium),
+                            style: Get.textTheme.headlineMedium),
                       ),
                     )
                   ],
@@ -338,15 +342,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.blueAccent,
                       child: Text(
                         "Total Services",
-                        style: Get.textTheme.titleMedium,
+                        style: Get.textTheme.titleMedium?.copyWith(
+                          color: EazyColors.white
+
+                        ),
                       ),
                     ),
                     Align(
                       alignment: Alignment.center,
                       child: Padding(
-                        padding: const EdgeInsets.all(5.0),
+                        padding: const EdgeInsets.all(15.0),
                         child: Text(controller.amountMade.toString(),
-                            style: Get.textTheme.titleMedium),
+                            style: Get.textTheme.headlineMedium),
                       ),
                     ),
                   ],

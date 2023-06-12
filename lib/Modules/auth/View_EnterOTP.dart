@@ -1,10 +1,12 @@
 import 'package:eazypizy_eazyman/Modules/auth/ctrl_auth.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
 
+import '../../theme/app_colors.dart';
 import '../../theme/eazy_spaces.dart';
 import '../../widgets/startpu_logo.dart';
 
@@ -16,30 +18,35 @@ class VerifyOTPScreen extends StatelessWidget {
     return GetBuilder<AuthenticationController>(builder: (controller) {
       return SafeArea(
         child: Scaffold(
-          body: SingleChildScrollView(
-            padding: Space.scaffoldPadding,
-            physics: const BouncingScrollPhysics(),
+          resizeToAvoidBottomInset : false,
+          body: Padding(
+            padding: const EdgeInsets.all(15.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
 
-                StarterTopLogo(),
+                const StarterTopLogo(),
                 const SizedBox(height: 150),
                 Text(
-                  "Enter OTP".tr,
-                  style: Get.textTheme.titleSmall,
-                  textScaleFactor: 2,
-                ),
-               // const SizedBox(height: 20),
-
-                Text(
                   "Verify Your OTP",
-                  style: Get.textTheme.titleLarge,
+                  style: Get.textTheme.titleLarge?.copyWith(color: EazyColors.primary),
                   textScaleFactor: 2,
                 ),
-                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Text(
+                      "We have Sent OTP to ${controller.enteredNo}",
+                      style: GoogleFonts.signika(),
+                      textScaleFactor: 1,
+                    ),
+                    Space.horizontal(10.w)  ,
+
+                    EazyButtons.primaryTextButton('Change Number', () { }),
+
+                  ],
+                ),
 
 
                 Pinput(
@@ -59,44 +66,35 @@ class VerifyOTPScreen extends StatelessWidget {
                   children: [
                     Text(
                       "00:00",
-                      style: GoogleFonts.signika(fontSize: 10, color: Colors.green),
+                      style: Get.textTheme.titleSmall?.copyWith(color: Colors.green),
                       textScaleFactor: 2,
                     ),
-                    TextButton(onPressed: (){}, child: Text('Send Again'))
+                    Space.horizontal(10.w)  ,
+                    EazyButtons.primaryTextButton('Send Again', () { }),
                   ],
                 ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: EazyButtons.flexWidthElevatedButton(
-                    'Continue',
-                    () async {
-                      // EazySnackBar.buildErronSnackbar(
-                      //     "WrongOTP", "Enter again");
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const BusinessCardSample(),
-                      //   ),
-                      // );
-                      controller.verifyOtp();
-                    },40
-                  ),
-                ),
+                const Spacer(),
 
-                Row(
-                  children: [
-                    Text(
-                      "We have Sent OTP to xxxxxxxxxx}",
-                      style: GoogleFonts.signika(),
-                      textScaleFactor: 1,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: const Text("Change Number"),
-                    )
-                  ],
-                ),
+                EazyButtons.fullWidthElevatedButton('Verify OTP', () { controller.verifyOtp(); })
+
+                // Align(
+                //   alignment: Alignment.centerRight,
+                //   child: EazyButtons.flexWidthElevatedButton(
+                //     'Continue',
+                //     () async {
+                //       // EazySnackBar.buildErronSnackbar(
+                //       //     "WrongOTP", "Enter again");
+                //       // Navigator.of(context).push(
+                //       //   MaterialPageRoute(
+                //       //     builder: (context) => const BusinessCardSample(),
+                //       //   ),
+                //       // );
+                //       controller.verifyOtp();
+                //     },40
+                //   ),
+                // ),
+
+
                 // const Expanded(
                 //   child: Align(
                 //     alignment: Alignment.centerRight,

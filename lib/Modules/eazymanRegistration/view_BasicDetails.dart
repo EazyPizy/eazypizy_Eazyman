@@ -1,9 +1,15 @@
+import 'package:easy_stepper/easy_stepper.dart';
 import 'package:eazypizy_eazyman/Modules/eazymanRegistration/ctrl_registration.dart';
+import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
+import 'package:eazypizy_eazyman/widgets/EazyTextField.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
+import 'package:eazypizy_eazyman/widgets/startpu_logo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../theme/app_colors.dart';
+import '../../theme/eazy_spaces.dart';
 import 'Compnents/SelectServices_Tile.dart';
 import 'Compnents/personal_Details_1.dart';
 import 'UserImageUploadScreen.dart';
@@ -22,75 +28,50 @@ class _BasicDetailsState extends State<BasicDetails> {
   int dotCount = 5;
   bool isEmailRight = false;
   int activeStep = 0; // Initial step set to 5.
-
   int upperBound = 6; // upperBound MUST BE total number of icons minus 1.
 
   late final RegistrationController controller;
 
-
-
   List<Step> stepList() => [
         ///Step 1///
+
         Step(
-            state: _activeCurrentStep <= 0
-                ? StepState.editing
-                : StepState.complete,
-            isActive: _activeCurrentStep >= 0,
-            title: const Text('Account'),
-            content: const PersonalDetails1(
-            )),
+          // state: StepState.disabled,
+          state:
+              _activeCurrentStep <= 0 ? StepState.editing : StepState.complete,
+          isActive: _activeCurrentStep >= 0,
+          title: const Text('1'),
+          content: const PersonalDetails1(),
+        ),
 
         ///Step 2///
 
         Step(
+            //state: StepState.disabled,
+
             state: _activeCurrentStep <= 1
                 ? StepState.editing
                 : StepState.complete,
             isActive: _activeCurrentStep >= 1,
-            title:  const Text('Address'),
+            title: const Text('2'),
             content: Column(
               children: [
-                const EasyContainer(
-                    width: double.infinity,
-                    height: 200,
-                    borderRadius: 25,
-                    showBorder: true,
-                    child: Text('New card')),
+                Text(
+                  'Enter Your Current City',
+                  style: Get.textTheme.headlineLarge
+                      ?.copyWith(color: EazyColors.primary),
+                  textScaleFactor: 1.5,
+                ),
                 const SizedBox(
                   child: Icon(
                     Icons.map_outlined,
-                    color: Colors.blueAccent,
+                    color: Colors.green,
                     size: 100,
                   ),
-                ),const SizedBox(height: 100,),
-
-                SizedBox(
-                    height: 50,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blueAccent,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
-                        ),                        elevation: 0,
-                        minimumSize: const Size.fromHeight(40), // fromHeight use double.infinity as width and 40 is the height
-                      ),
-
-                      onPressed: () {},
-                      child:  Text('Choose Location', style: Get.textTheme.titleLarge,),
-                    )),
-                const SizedBox(
-                  height: 20,
                 ),
-                SizedBox(
-                  height: 50,
-                  child: TextField(
-                    controller: controller.city,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'Enter City',
-                    ),
-                  ),
-                ),
+                Space.vertical(100.h),
+                EazyTextField.stringTextField('Please Enter Location',
+                    hintText: 'Enter City', controller: controller.currentCity)
               ],
             )),
 
@@ -100,7 +81,7 @@ class _BasicDetailsState extends State<BasicDetails> {
           state:
               _activeCurrentStep <= 2 ? StepState.editing : StepState.complete,
           isActive: _activeCurrentStep >= 2,
-          title: const Text('Select'),
+          title: const Text('3'),
           content: const SelectServiceTile(),
         ),
 
@@ -111,31 +92,35 @@ class _BasicDetailsState extends State<BasicDetails> {
                 ? StepState.editing
                 : StepState.complete,
             isActive: _activeCurrentStep >= 3,
-            title: const Text('Select'),
+            title: const Text('4'),
             content: Column(
               children: [
                 Text(
                   'Do you have Experience',
-                  style: Get.textTheme.headlineLarge,
+                  style: Get.textTheme.headlineLarge
+                      ?.copyWith(color: EazyColors.primary),
+                  textScaleFactor: 1.5,
                 ),
+                Space.vertical(50.h),
                 Wrap(
                   spacing: 8,
-                  children:
-                  List.generate(controller.expList.length, (index) {
+                  children: List.generate(controller.expList.length, (index) {
                     return ChoiceChip(
                       labelPadding: const EdgeInsets.all(2.0),
-                      label: Text(controller.expList[index],
-                          style: Get.textTheme.titleLarge
+                      label: Text(
+                        controller.expList[index],
                       ),
                       selected: controller.defaultExpIndex == index,
-                      selectedColor: Colors.blueAccent,
+                      selectedColor: EazyColors.primary,
                       backgroundColor: EazyColors.white,
-
-
+                      disabledColor: EazyColors.white,
+                      labelStyle: (controller.defaultExpIndex == index)
+                          ? const TextStyle(color: EazyColors.white)
+                          : const TextStyle(color: EazyColors.primary),
                       onSelected: (value) {
                         setState(() {
                           controller.defaultExpIndex =
-                          value ? index : controller.defaultExpIndex;
+                              value ? index : controller.defaultExpIndex;
                         });
                         print('Exp ${controller.defaultExpIndex}');
                       },
@@ -159,14 +144,14 @@ class _BasicDetailsState extends State<BasicDetails> {
             )),
 
         ///Step 5///
-
         Step(
           state:
               _activeCurrentStep <= 4 ? StepState.editing : StepState.complete,
           isActive: _activeCurrentStep >= 4,
-          title: const Text('Select'),
-          content:  UserImageUploadScreen
-            (controller: controller,),
+          title: const Text('5'),
+          content: UserImageUploadScreen(
+            controller: controller,
+          ),
         ),
 
         ///Step 6///
@@ -174,21 +159,30 @@ class _BasicDetailsState extends State<BasicDetails> {
         Step(
           state: StepState.complete,
           isActive: _activeCurrentStep >= 5,
-          title: const Text('Confirm'),
-          content: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text('Name: ${controller.name.text}'),
-              Text('Email: ${controller.email.text}'),
-              Text('Password: ${controller.dob.text}'),
-              Text('Address : ${controller.address.text}'),
-              Text('PinCode : ${controller.city.text}'),
-            ],
+          title: const Text('6'),
+          content: EasyContainer(
+            padding: 10,
+            showBorder: true,
+            color: Colors.blue.shade50,
+            width: double.infinity,
+            borderRadius: 10,
+            borderColor: EazyColors.appBarBG,
+            height: 180.h,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                    'Full Name: ${controller.firstName.text + controller.lastName.text}'),
+                Text('Email: ${controller.email.text}'),
+                Text('Date Of Birth: ${controller.dob.text}'),
+               // Text('City : ${controller.address.text}'),
+                Text('City : ${controller.currentCity.text}'),
+              ],
+            ),
           ),
         )
       ];
-
 
   @override
   void initState() {
@@ -207,72 +201,141 @@ class _BasicDetailsState extends State<BasicDetails> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints.tightFor(
-              height: MediaQuery.of(context).size.height,
-            ),
-            child: Stepper(
-              // controlsBuilder: (BuildContext context, ControlsDetails details) {
-              //   return Row(
-              //     children: <Widget>[
-              //       ElevatedButton(
-              //         child: Text('Elevated Button'),
-              //         style: ElevatedButton.styleFrom(
-              //           primary: Colors.green,
-              //         ),
-              //         onPressed: () {
-              //           details.onStepContinue;
-              //         },
-              //       ),
-              //       TextButton(
-              //         onPressed: details.onStepCancel,
-              //         child: const Text('CANCEL'),
-              //       ),
-              //     ],
-              //   );
-              // },
-              elevation: 0,
-              type: StepperType.horizontal,
-              currentStep: _activeCurrentStep,
-              steps: stepList(),
-              onStepContinue: () {
-                // if (_activeCurrentStep < (stepList().length - 4)) {
-                //   setState(() {
-                //     _activeCurrentStep += 4;
-                //   });
-                // } else {
-                //   controller.submit();
-                // }
+        child: Scaffold(
+      appBar: AppBar(
+        title: const StarterTopLogo(),
+        automaticallyImplyLeading: false,
+      ),
+      backgroundColor: EazyColors.white,
+      body: EasyContainer(
+        color: EazyColors.white,
+        child: Stepper(
+          controlsBuilder: (
+            BuildContext context,
+            ControlsDetails details,
+          ) {
+            return Container();
+            //   Row(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: <Widget>[
+            //     EazyButtons.flexWidthElevatedButton2('Back', () {
+            //       if (_activeCurrentStep == 0) {
+            //         return;
+            //       }
+            //
+            //       setState(() {
+            //         _activeCurrentStep -= 1;
+            //       });
+            //     }, EazyColors.primary),
+            //
+            //     EazyButtons.flexWidthElevatedButton('Next', () {
+            //       if (_activeCurrentStep < (stepList().length - 1)) {
+            //         setState(() {
+            //           _activeCurrentStep += 1;
+            //         });
+            //       } else {
+            //         controller.submit();
+            //         // controller.upload();
+            //       }
+            //     }, 40),
+            //     // ElevatedButton(
+            //     //   child: Text('Elevated Button'),
+            //     //   style: ElevatedButton.styleFrom(
+            //     //     primary: Colors.green,
+            //     //   ),
+            //     //   onPressed: () {
+            //     //     details.onStepContinue;
+            //     //   },
+            //     // ),
+            //     // TextButton(
+            //     //   onPressed: details.onStepCancel,
+            //     //   child: const Text('CANCEL'),
+            //     // ),
+            //   ],
+            // );
+          },
+          elevation: 0,
+          type: StepperType.horizontal,
+          currentStep: _activeCurrentStep,
+          steps: stepList(),
+          onStepContinue: () {
+            if (_activeCurrentStep < (stepList().length - 1)) {
+              setState(() {
+                _activeCurrentStep += 1;
+              });
+            } else {
+              controller.submit();
+              // controller.upload();
+            }
+          },
+          onStepCancel: () {
+            if (_activeCurrentStep == 0) {
+              return;
+            }
 
-                if (_activeCurrentStep < (stepList().length - 1)) {
-                  setState(() {
-                    _activeCurrentStep += 1;
-                  });
-                } else {
-                  controller.submit();
-                 // controller.upload();
-                }
-              },
-              onStepCancel: () {
-                if (_activeCurrentStep == 0) {
-                  return;
-                }
-
-                setState(() {
-                  _activeCurrentStep -= 1;
-                });
-              },
-              onStepTapped: (int index) {
-                setState(() {
-                  _activeCurrentStep = index;
-                });
-              },
-            ),
-          ),
+            setState(() {
+              _activeCurrentStep -= 1;
+            });
+          },
+          onStepTapped: (int index) {
+            setState(() {
+              _activeCurrentStep = index;
+            });
+          },
         ),
       ),
-    );
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            EazyButtons.flexWidthElevatedButton2('Back', () {
+              if (_activeCurrentStep == 0) {
+                return;
+              }
+
+              setState(() {
+                _activeCurrentStep -= 1;
+              });
+            }, EazyColors.primary, 68),
+
+            EazyButtons.flexWidthElevatedButton('Next', () {
+              if (_activeCurrentStep < (stepList().length - 1)) {
+                setState(() {
+                  _activeCurrentStep += 1;
+
+                });
+
+              } else if (_activeCurrentStep== 4){
+                  setState(() {
+                    _activeCurrentStep += 4;
+                    controller.upload(controller.imageFile);
+                  });
+              }
+              else {
+                controller.submit();
+                // controller.upload();
+              }
+            }, 68),
+            // ElevatedButton(
+            //   child: Text('Elevated Button'),
+            //   style: ElevatedButton.styleFrom(
+            //     primary: Colors.green,
+            //   ),
+            //   onPressed: () {
+            //     details.onStepContinue;
+            //   },
+            // ),
+            // TextButton(
+            //   onPressed: details.onStepCancel,
+            //   child: const Text('CANCEL'),
+            // ),
+          ],
+        ),
+      ),
+      //  ),
+    ));
   }
 }

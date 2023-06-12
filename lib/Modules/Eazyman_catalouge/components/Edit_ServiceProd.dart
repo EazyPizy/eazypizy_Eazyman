@@ -8,9 +8,10 @@ class EditServiceProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController priceController = TextEditingController();
     return Column(
       children: [
-        EazyTextField.fullWidthTextField('New Price'),
+        EazyTextField.stringTextField('Enter New Price', hintText: 'Enter NEw Price', controller: priceController, ),
       ],
     );
   }

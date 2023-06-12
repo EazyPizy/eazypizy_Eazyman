@@ -23,7 +23,7 @@ class EazyButtons {
           ),
       child: Text(
         title,
-        style: Get.textTheme.titleLarge?.copyWith(color: EazyColors.white),
+        style: Get.textTheme.titleMedium?.copyWith(color: EazyColors.white),
       ),
     );
   }
@@ -36,7 +36,6 @@ class EazyButtons {
           backgroundColor: Colors.green,
           //background color of button
           // side: BorderSide(width:3, color:Colors.white), //border width and color
-          elevation: 3,
           //elevation of button
           shape: RoundedRectangleBorder(
               //to set border radius to button
@@ -44,7 +43,9 @@ class EazyButtons {
           padding: const EdgeInsets.only(
               left: 40, right: 40) //content padding inside button
           ),
-      child: Text(title, style: Get.textTheme.titleMedium),
+      child: Text(title, style: Get.textTheme.titleMedium?.copyWith(
+        color: EazyColors.white
+      )),
     );
   }
 
@@ -66,13 +67,13 @@ class EazyButtons {
           ),
       child: Text(
         title,
-        style: Get.textTheme.titleMedium,
+        style: Get.textTheme.titleMedium?.copyWith(color: EazyColors.white),
       ),
     );
   }
 
   static flexWidthElevatedButton2(
-      String title, VoidCallback onPressed, Color borderColor) {
+      String title, VoidCallback onPressed, Color borderColor,double padding) {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
@@ -80,7 +81,7 @@ class EazyButtons {
 
           //background color of button
           // side: BorderSide(width:3, color:Colors.white), //border width and color
-          elevation: 1,
+         // elevation: 1,
           side: BorderSide(
             width: 1.0,
             color: borderColor,
@@ -90,8 +91,8 @@ class EazyButtons {
               borderRadius: BorderRadius.circular(
             6,
           )),
-          padding: const EdgeInsets.only(
-              left: 40, right: 40) //content padding inside button
+          padding:  EdgeInsets.only(
+              left: padding, right: padding)
           ),
       child: Text(title, style: const TextStyle(color: EazyColors.primary)),
     );

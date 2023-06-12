@@ -1,7 +1,10 @@
+import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
+import '../../../theme/eazy_spaces.dart';
+import '../../../widgets/easy_container.dart';
 import '../ctrl_registration.dart';
 
 class SelectServiceTile extends StatelessWidget {
@@ -9,60 +12,77 @@ class SelectServiceTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<RegistrationController>(id: 'id',builder: (controller) {
-      return Column(
-        children: [
-          Text(
-            'Select Your services',
-            style: Get.textTheme.headlineLarge,
-          ),
-          ListView.separated(
-            shrinkWrap: true,
-            itemCount: controller.mainServiceCategories.length,
-            itemBuilder: (context, index) => Card(
-              color: Colors.white,
-              elevation: 0.5,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: ListTile(
-                  contentPadding: const EdgeInsets.all(8),
-                  onTap: () {
-                    controller.addSubServicesToEazman(
-                        controller.mainServiceCategories[index]?.serviceId ??
-                            '');
-                    print(controller.mainService.length);
-                  },
+    return GetBuilder<RegistrationController>(
+        id: 'id',
+        builder: (controller) {
+          return Column(
 
-                  // tileColor: Colors.white,
-                  trailing: controller.mainService.contains(
-                          controller.mainServiceCategories[index]?.serviceId)
-                      ? const Icon(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'What type of service do you provide?',
+                style: Get.textTheme.titleMedium
+                    ?.copyWith(color: EazyColors.primary),
+                textScaleFactor: 1.5,
+
+              ),
+              Space.vertical(10.h),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: controller.mainServiceCategories.length,
+                itemBuilder: (context, index) => EasyContainer(
+                  showBorder: true,
+                  borderColor: EazyColors.primary,
+                  color: EazyColors.white,
+                  height: 120.h,
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Image.network(
+                          controller.mainServiceCategories[index].imageUrl ??
+                              'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29',
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      ListTile(
+                        contentPadding:
+                        const EdgeInsets.only(left: 8, right: 8),
+                        onTap: () {
+                          controller.addSubServicesToEazman(controller
+                              .mainServiceCategories[index].serviceId ??
+                              '');
+                          print(controller.mainService.length);
+                        },
+
+                        // tileColor: Colors.white,
+                        trailing: controller.mainService.contains(controller
+                            .mainServiceCategories[index].serviceId)
+                            ? const Icon(
                           Icons.check_box,
                           color: Colors.green,
                         )
-                      : Icon(
+                            : const Icon(
                           Icons.check_box_outline_blank,
                         ),
-                  title: Text(
-                    controller.mainServiceCategories[index].serviceName ?? '',
+                        title: Text(
+                          controller.mainServiceCategories[index].serviceName ??
+                              '',
+                        ),
+                      ),
+
+                    ],
                   ),
-                  leading: ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                      controller.mainServiceCategories[index].imageUrl ?? '',
-                      width: 60.w,
-                      height: 60.h,
-                      fit: BoxFit.fitHeight,
-                    ),
-                  )),
-            ),
-            separatorBuilder: (context, index) => const SizedBox(
-              height: 5,
-            ),
-          )
-        ],
-      );
-    });
+                ),
+                separatorBuilder: (context, index) => SizedBox(
+                  height: 10.h,
+                ),
+              )
+            ],
+          );
+        });
   }
 }
