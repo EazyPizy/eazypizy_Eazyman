@@ -14,12 +14,15 @@ class AuthenticationController extends GetxController {
 
   final mobileNumberController = TextEditingController();
   final otpController = TextEditingController();
-  late bool loading;
+  bool loading = false;
   late String _verificationId;
- late   String enteredNo;
+  late String enteredNo;
 
   Future<void> verifyOtp() async {
     final otp = otpController.text.trim();
+    if (otp.isEmpty || otp.length < 6) {
+      return EazySnackBar.buildErronSnackbar('Fields Empty', 'Enter OTP');
+    }
     _log.i('OTP - $otp');
     await _signIn(
       PhoneAuthProvider.credential(
@@ -30,6 +33,8 @@ class AuthenticationController extends GetxController {
   }
 
   Future<void> _signIn(PhoneAuthCredential credentials) async {
+    loading = true;
+    update();
     try {
       _log.v('signing in...');
       final userCredentials = await FirebaseAuth.instance.signInWithCredential(
@@ -75,10 +80,15 @@ class AuthenticationController extends GetxController {
       }
     } catch (e) {
       _log.e(e);
+    } finally {
+      loading = false;
+      update();
     }
   }
 
   Future<void> sendOtp() async {
+    loading = true;
+    update();
     enteredNo = mobileNumberController.text.trim();
     final number = mobileNumberController.text.trim();
     _log
@@ -91,7 +101,6 @@ class AuthenticationController extends GetxController {
         verificationCompleted: (phoneAuthCredential) {
           _log.v('Verification completed');
           _signIn(phoneAuthCredential);
-
         },
         verificationFailed: (error) {
           _log
@@ -101,6 +110,8 @@ class AuthenticationController extends GetxController {
         codeSent: (verificationId, forceResendingToken) {
           _log.v('OTP sent');
           _verificationId = verificationId;
+          loading = false;
+          update();
           EazySnackBar.buildSnackbar('OTP Sent', 'OTP sent on given number');
           Get.to(const VerifyOTPScreen());
         },
@@ -110,6 +121,9 @@ class AuthenticationController extends GetxController {
       );
     } catch (e) {
       _log.e(e);
+    } finally {
+      // loading = false;
+      // update();
     }
   }
 

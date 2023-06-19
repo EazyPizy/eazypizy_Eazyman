@@ -1,14 +1,10 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eazypizy_eazyman/Modules/auth/ctrl_auth.dart';
-import 'package:eazypizy_eazyman/widgets/CarouselImage.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
-import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
-import 'package:eazypizy_eazyman/widgets/EazyTextField.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
+import 'package:eazypizy_eazyman/widgets/eazy_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../theme/app_colors.dart';
 import '../../theme/eazy_spaces.dart';
@@ -28,6 +24,7 @@ class InputMobileNumberScreen extends StatelessWidget {
     return GetBuilder(
         init: AuthenticationController(),
         builder: (controller) {
+          final formKey = GlobalKey<FormState>();
           return SafeArea(
             child: Scaffold(
               resizeToAvoidBottomInset: false,
@@ -67,32 +64,33 @@ class InputMobileNumberScreen extends StatelessWidget {
                             child: SizedBox(
                               //width: 200.w,
                               height: 75.h,
-                              child: TextFormField(
-                                autovalidateMode: AutovalidateMode.always,
-                                controller: controller.mobileNumberController,
-                                keyboardType: TextInputType.number,
-
-                                maxLength: 10,
-                                decoration: InputDecoration(
-
-                                  border: const OutlineInputBorder(
-
-                                    borderSide: BorderSide(
-                                      width: 5,
-
-                                      color: EazyColors.primary
-                                    )
-
-
+                              child: Form(
+                                key: formKey,
+                                child: TextFormField(
+                                  // autovalidateMode: AutovalidateMode.always,
+                                  controller: controller.mobileNumberController,
+                                  keyboardType: TextInputType.number,
+                                  maxLength: 10,
+                                  decoration: InputDecoration(
+                                    border: const OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 5,
+                                        color: EazyColors.primary,
+                                      ),
+                                    ),
+                                    labelText: 'Mobile Number'.tr,
+                                    labelStyle: const TextStyle(
+                                        color: EazyColors.primary),
+                                    helperText:
+                                        'We will send OTP to verify your mobile number',
+                                    suffixStyle: const TextStyle(
+                                        color: EazyColors.primary),
                                   ),
-                                  labelText: 'Mobile Number'.tr,
-
-                                  labelStyle:
-                                      const TextStyle(color: EazyColors.primary),
-                                  helperText:
-                                      'We will send OTP to verify your mobile number',
-                                  suffixStyle:
-                                      const TextStyle(color: EazyColors.primary),
+                                  validator: (value) => value!.isEmpty
+                                      ? 'Enter Mobile Numebr'
+                                      : value.length < 10
+                                          ? ' Invalid Number'
+                                          : null,
                                 ),
                               ),
                             ),
@@ -101,9 +99,17 @@ class InputMobileNumberScreen extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
-                    EazyButtons.fullWidthElevatedButton('Get OTP', () {
-                      controller.sendOtp();
-                    }),
+                    if (controller.loading)
+                      const Center(
+                        child: EazyLoadingWidget(),
+                      )
+                    else
+                      EazyButtons.fullWidthElevatedButton('Get OTP', () {
+                        if (formKey.currentState!.validate()) {
+                          FocusScope.of(context).unfocus();
+                          controller.sendOtp();
+                        }
+                      }),
 
                     // Align(
                     //   alignment: Alignment.bottomRight,

@@ -1,5 +1,6 @@
 import 'package:eazypizy_eazyman/Modules/auth/ctrl_auth.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
+import 'package:eazypizy_eazyman/widgets/eazy_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -18,20 +19,21 @@ class VerifyOTPScreen extends StatelessWidget {
     return GetBuilder<AuthenticationController>(builder: (controller) {
       return SafeArea(
         child: Scaffold(
-          resizeToAvoidBottomInset : false,
+          resizeToAvoidBottomInset: false,
           body: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 20),
+                SizedBox(height: 20.h),
 
                 const StarterTopLogo(),
-                const SizedBox(height: 150),
+                SizedBox(height: 130.h),
                 Text(
                   "Verify Your OTP",
-                  style: Get.textTheme.titleLarge?.copyWith(color: EazyColors.primary),
+                  style: Get.textTheme.titleLarge
+                      ?.copyWith(color: EazyColors.primary),
                   textScaleFactor: 2,
                 ),
                 Row(
@@ -41,14 +43,14 @@ class VerifyOTPScreen extends StatelessWidget {
                       style: GoogleFonts.signika(),
                       textScaleFactor: 1,
                     ),
-                    Space.horizontal(10.w)  ,
-
-                    EazyButtons.primaryTextButton('Change Number', () { }),
-
+                    Space.horizontal(10.w),
+                    EazyButtons.primaryTextButton('Change Number', () {
+                      Get.back();
+                    }),
                   ],
                 ),
 
-
+                SizedBox(height: 20.h),
                 Pinput(
                   controller: controller.otpController,
                   length: 6,
@@ -60,22 +62,28 @@ class VerifyOTPScreen extends StatelessWidget {
                   },
                   onCompleted: print,
                 ),
-                const SizedBox(height: 4),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Text(
-                      "00:00",
-                      style: Get.textTheme.titleSmall?.copyWith(color: Colors.green),
-                      textScaleFactor: 2,
-                    ),
-                    Space.horizontal(10.w)  ,
-                    EazyButtons.primaryTextButton('Send Again', () { }),
-                  ],
-                ),
+                // const SizedBox(height: 4),
+                // const SizedBox(height: 10),
+                // Row(
+                //   children: [
+                //     Text(
+                //       "00:00",
+                //       style: Get.textTheme.titleSmall?.copyWith(color: Colors.green),
+                //       textScaleFactor: 2,
+                //     ),
+                //     Space.horizontal(10.w)  ,
+                //     EazyButtons.primaryTextButton('Send Again', () { }),
+                //   ],
+                // ),
                 const Spacer(),
-
-                EazyButtons.fullWidthElevatedButton('Verify OTP', () { controller.verifyOtp(); })
+                if (controller.loading)
+                  const Center(
+                    child: EazyLoadingWidget(),
+                  )
+                else
+                  EazyButtons.fullWidthElevatedButton('Verify OTP', () {
+                    controller.verifyOtp();
+                  })
 
                 // Align(
                 //   alignment: Alignment.centerRight,
@@ -93,7 +101,6 @@ class VerifyOTPScreen extends StatelessWidget {
                 //     },40
                 //   ),
                 // ),
-
 
                 // const Expanded(
                 //   child: Align(
