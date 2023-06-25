@@ -6,6 +6,7 @@ abstract class EazyColors {
   static const Color background = Color(0xFFF6F6F6);
   static const secBackground = Color(0xffececf6);
   static const Color appBarBG = Colors.white;
+  static const Color error = Colors.red;
 
   ///New Colors///
   static const white = Colors.white;

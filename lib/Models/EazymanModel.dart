@@ -157,6 +157,8 @@ class PersonalDetail {
     this.lastName,
     this.email,
     this.city,
+    this.locality,
+    this.state,
     this.images,
     this.age,
     this.dob,
@@ -170,6 +172,8 @@ class PersonalDetail {
         lastName: json['LastName'] as String?,
         email: json['Email'] as String?,
         city: json['City'] as String?,
+        locality: json['locality'] as String?,
+        state: json['state'] as String?,
         images: json['Images'] as String?,
         age: json['Age'] as String?,
         dob: json['DOB'] as String?,
@@ -183,6 +187,8 @@ class PersonalDetail {
   final String? lastName;
   final String? email;
   final String? city;
+  final String? locality;
+  final String? state;
   final String? images;
   final String? age;
   final String? dob;
@@ -196,6 +202,8 @@ class PersonalDetail {
         'LastName': lastName,
         'Email': email,
         'City': city,
+        'locality': locality,
+        'state': state,
         'Images': images,
         'Age': age,
         'DOB': dob,

@@ -1,13 +1,11 @@
 import 'dart:io';
+
 import 'package:eazypizy_eazyman/core/typedefs.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as Path;
 
 import '../../theme/app_colors.dart';
 import '../../theme/eazy_spaces.dart';
@@ -40,7 +38,7 @@ class _UserImageUploadScreenState extends State<UserImageUploadScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(),
+          const SizedBox(),
           Text(
             "Upload Your Image",
             style: Get.textTheme.headlineLarge
@@ -87,10 +85,11 @@ class _UserImageUploadScreenState extends State<UserImageUploadScreen> {
             ),
           ),
           ElevatedButton(
-              onPressed: () {
-                widget.controller.upload(imageFile!);
-              },
-              child: const Text('Upload'))
+            onPressed: () {
+              showPickers();
+            },
+            child: const Text('Upload'),
+          )
         ]);
   }
 
@@ -187,6 +186,7 @@ class _UserImageUploadScreenState extends State<UserImageUploadScreen> {
     setState(() {
       widget.controller.imageFile = (File(image?.path ?? ''));
       imageFile = (File(image?.path ?? ''));
+      widget.controller.imageFile = imageFile!;
       _loading = false;
       imageError = "";
     });
@@ -198,6 +198,7 @@ class _UserImageUploadScreenState extends State<UserImageUploadScreen> {
     setState(() {
       widget.controller.imageFile = (File(image?.path ?? ''));
       imageFile = (File(image?.path ?? ''));
+      widget.controller.imageFile = imageFile!;
       _loading = false;
       imageError = "";
     });

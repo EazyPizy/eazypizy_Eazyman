@@ -1,20 +1,22 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eazypizy_eazyman/Models/EazymanModel.dart';
 import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:eazypizy_eazyman/core/services/notification_service.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:logger/logger.dart';
+import 'package:path/path.dart' as Path;
+
 import '../../Models/main_service_category.dart';
 import '../../core/logger.dart';
 import '../../core/services/category_services.dart';
-import 'dart:io';
-import 'package:path/path.dart' as Path;
 
 class RegistrationController extends GetxController {
   final Logger _log = getLogger('Registration Controller');
@@ -22,8 +24,8 @@ class RegistrationController extends GetxController {
   final List<MainCategoryModel> mainServiceCategories =
       CategoryService.instance.mainServiceCategories;
 
-  bool _loading = false;
-  late File imageFile;
+  bool loading = false;
+  File? imageFile;
   bool isImageAdded = false;
   String? imageURL;
 
@@ -36,8 +38,11 @@ class RegistrationController extends GetxController {
   TextEditingController dob = TextEditingController();
 
   // TextEditingController address = TextEditingController();
-  TextEditingController currentCity = TextEditingController();
-  late GlobalKey<FormState> formKey;
+  TextEditingController localityController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  final GlobalKey<FormState> personalDetailsformKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> addressformKey = GlobalKey<FormState>();
 
   bool isEmailCorrect = false;
   int defaultChoiceIndex = 0;
@@ -65,11 +70,12 @@ class RegistrationController extends GetxController {
   }
 
   Future upload(
-    File imageFile,
-  ) async {
+      // File imageFile,
+      ) async {
     final storageReference = FirebaseStorage.instance;
-    final String picture = "Eazyman_Images/${Path.basename(imageFile.path)}";
-    final uploadTask = storageReference.ref().child(picture).putFile(imageFile);
+    final String picture = "Eazyman_Images/${Path.basename(imageFile!.path)}";
+    final uploadTask =
+        storageReference.ref().child(picture).putFile(imageFile!);
 
     TaskSnapshot snapshot = await uploadTask.whenComplete(() => TaskSnapshot);
     //
@@ -82,13 +88,19 @@ class RegistrationController extends GetxController {
     final lastname = lastName.text.trim();
     final emailS = email.text.trim();
     final dobS = dob.text.trim();
-    final cityS = currentCity.text.trim();
+    final cityS = cityController.text.trim();
+    final locality = localityController.text.trim();
+    final state = stateController.text.trim();
     final gender = defaultChoiceIndex;
     final isExp = defaultExpIndex;
     try {
       _log.v('Updating eazymen details...');
-
+      loading = true;
+      update();
       final token = await NotificationService.instance.getToken();
+      if (imageFile != null) {
+        await upload();
+      }
 
       final eazyman = EazyMenModel(
         eazyManUid: FirebaseAuth.instance.currentUser!.uid,
@@ -100,6 +112,8 @@ class RegistrationController extends GetxController {
           lastName: lastname,
           dob: dobS,
           city: cityS,
+          locality: locality,
+          state: state,
           images: imageURL,
           email: emailS,
           gender: defaultChoiceIndex.toString(),
@@ -137,6 +151,10 @@ class RegistrationController extends GetxController {
       Get.offAllNamed(Routes.navigationScreen);
     } on Exception catch (e) {
       _log.e(e);
+      EazySnackBar.buildErronSnackbar('Error', 'Something went wrong');
+    } finally {
+      loading = false;
+      update();
     }
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../theme/app_colors.dart';
@@ -9,8 +8,11 @@ import '../theme/app_colors.dart';
 class EazyTextField {
   EazyTextField._();
 
-  static SizedBox stringTextField(String validateMsg,
-      {required String hintText, required TextEditingController controller ,}) {
+  static SizedBox stringTextField(
+    String validateMsg, {
+    required String hintText,
+    required TextEditingController controller,
+  }) {
     return SizedBox(
       height: 45.h,
       child: TextFormField(
@@ -33,8 +35,7 @@ class EazyTextField {
     );
   }
 
-  static SizedBox optionalTextField(
-      {required String hintText}) {
+  static SizedBox optionalTextField({required String hintText}) {
     return SizedBox(
       height: 45.h,
       child: TextFormField(
@@ -56,22 +57,21 @@ class EazyTextField {
   }
 
   static SizedBox numberTextField(String validateMsg, int length,
-
       {required String hintText}) {
     return SizedBox(
       height: 45.h,
       child: TextFormField(
         maxLength: length,
         buildCounter: (
-            context, {
-              required currentLength,
-              required isFocused,
-              maxLength,
-            }) {
+          context, {
+          required currentLength,
+          required isFocused,
+          maxLength,
+        }) {
           return null;
         },
         validator: (val) =>
-        (val!.isEmpty || val.length < length) ? validateMsg : null,
+            (val!.isEmpty || val.length < length) ? validateMsg : null,
         keyboardType: TextInputType.number,
         // controller: controller.mobileNumberController,
         decoration: InputDecoration(

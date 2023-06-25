@@ -26,10 +26,11 @@ class BusinessCardSample extends StatelessWidget {
                 Space.vertical(50.h),
                 Text(
                   'Lets Build your Business Card',
-                  style: Get.textTheme.headlineLarge?.copyWith(color: EazyColors.primary),
+                  style: Get.textTheme.headlineLarge
+                      ?.copyWith(color: EazyColors.primary),
                 ),
                 Space.vertical(50.h),
-                 EasyContainer(
+                EasyContainer(
                   showBorder: true,
                   color: Colors.white,
                   width: double.infinity,
@@ -39,7 +40,9 @@ class BusinessCardSample extends StatelessWidget {
                   child: const Text('Business card'),
                 ),
                 const Spacer(),
-                EazyButtons.fullWidthElevatedButton('Lets Start', () {  Get.toNamed(Routes.basicDetailsScreen);}),
+                EazyButtons.fullWidthElevatedButton('Lets Start', () {
+                  Get.toNamed(Routes.basicDetailsScreen);
+                }),
                 // Align(
                 //   alignment: Alignment.centerRight,
                 //   child: ElevatedButton(
