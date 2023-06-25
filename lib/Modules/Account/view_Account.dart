@@ -73,7 +73,7 @@ class _AccountState extends State<Account> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         child: Column(
                           children: [
                             Row(
@@ -117,7 +117,7 @@ class _AccountState extends State<Account> {
                                   // disableCenter: true,
                                   enlargeCenterPage: false,
 
-                                  viewportFraction:.90,
+                                  viewportFraction: .90,
                                   aspectRatio: 2.0,
                                   initialPage: 1,
                                 ),
@@ -171,7 +171,7 @@ class _AccountState extends State<Account> {
                             Space.vertical(10.h),
                             EazyButtons.fullWidthShareButton(
                               'Share Card',
-                                  () async {
+                              () async {
                                 final bytes1 = await Utils.capture(key1!);
 
                                 //print(bytes1);
@@ -182,7 +182,6 @@ class _AccountState extends State<Account> {
                               },
                             ),
                             Space.vertical(10.h),
-
                             EasyContainer(
                               borderRadius: 10.r,
                               padding: 10,
@@ -208,10 +207,9 @@ class _AccountState extends State<Account> {
                                     children: [
                                       EazyButtons.flexWidthElevatedButton2(
                                           'View Profile',
-                                          () {
-
-                                          },
-                                          EazyColors.primary,30),
+                                          () {},
+                                          EazyColors.primary,
+                                          30),
                                       Space.horizontal(10.w),
                                       EazyButtons.flexWidthElevatedButton(
                                           'Share Profile', () {}, 30),
@@ -306,6 +304,13 @@ class _AccountState extends State<Account> {
                       icon: Icons.chevron_right,
                       onTap: () {},
                     ),
+                    customListTile(
+                      title: 'LogOut',
+                      icon: Icons.chevron_right,
+                      onTap: () {
+                        controller.logout();
+                      },
+                    ),
 
                     Space.vertical(10.h),
                     const InviteFriends(),
@@ -368,9 +373,9 @@ class _AccountState extends State<Account> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10.0, right: 10),
-                      child: const Text(
+                    const Padding(
+                      padding: EdgeInsets.only(left: 10.0, right: 10),
+                      child: Text(
                         'Together....',
                         style: TextStyle(
                             color: Colors.grey,

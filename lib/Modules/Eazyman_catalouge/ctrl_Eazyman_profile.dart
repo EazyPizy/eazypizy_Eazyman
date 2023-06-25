@@ -14,11 +14,12 @@ import '../../Models/main_service_category.dart';
 import '../../Models/subService_category.dart';
 import '../../core/logger.dart';
 import '../../core/services/category_services.dart';
+import '../ChooseLanguage/view_ChooseLanguage.dart';
 
 class ProfileController extends GetxController {
   ProfileController();
-  final Logger _log = getLogger('Profile Controller');
 
+  final Logger _log = getLogger('Profile Controller');
   late final EazyMenModel eazyMen;
   final GlobalKey _globalKey = GlobalKey();
 
@@ -154,7 +155,6 @@ class ProfileController extends GetxController {
       eazyMen.subServices?.addAll(newSubServiceIdsList);
       eazyMen.subServiceProdcuts?.clear();
       eazyMen.subServiceProdcuts?.addAll(newProductList);
-
       userSubServiceCategories.clear();
       userSubServiceCategories.addAll(newSubServicesList);
       Get.back();
@@ -171,6 +171,15 @@ class ProfileController extends GetxController {
     } finally {
       loading = false;
       update();
+    }
+  }
+
+  VoidFuture logout() async {
+    try {
+      await EazyMenService.instance.logout();
+      await Get.offAll(ChooseLanguageScreen());
+    } catch (e) {
+      _log.e(e);
     }
   }
 
