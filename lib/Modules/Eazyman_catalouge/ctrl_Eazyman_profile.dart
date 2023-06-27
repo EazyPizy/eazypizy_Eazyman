@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eazypizy_eazyman/Models/eazymen_product.dart';
+import 'package:eazypizy_eazyman/Modules/Account/components/logout_popup.dart';
 import 'package:eazypizy_eazyman/constant/firebase_collections.dart';
+import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/core/typedefs.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
@@ -14,7 +16,6 @@ import '../../Models/main_service_category.dart';
 import '../../Models/subService_category.dart';
 import '../../core/logger.dart';
 import '../../core/services/category_services.dart';
-import '../ChooseLanguage/view_ChooseLanguage.dart';
 
 class ProfileController extends GetxController {
   ProfileController();
@@ -175,11 +176,19 @@ class ProfileController extends GetxController {
   }
 
   VoidFuture logout() async {
+    showLogoutPopup(
+      onConfirm: _logout,
+      onCancel: Get.back,
+    );
+  }
+
+  VoidFuture _logout() async {
     try {
       await EazyMenService.instance.logout();
-      await Get.offAll(ChooseLanguageScreen());
+      await Get.offAllNamed(Routes.enterMobileNumber);
     } catch (e) {
       _log.e(e);
+      EazySnackBar.buildErronSnackbar('Error', 'Something went wrong!');
     }
   }
 

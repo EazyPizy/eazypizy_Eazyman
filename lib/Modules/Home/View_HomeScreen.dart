@@ -10,8 +10,6 @@ import 'package:get/get.dart';
 import '../../theme/eazy_spaces.dart';
 import '../../widgets/CarouselImage.dart';
 import '../../widgets/easy_container.dart';
-import 'components/setup_Payment_Shortcut.dart';
-import 'components/stepsToCompeleteProfile.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName = '/HomeScreen'
@@ -42,13 +40,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   // const Text(
                   //   "Amit Bairwa",
                   // ),
-                  actions: [
-                    IconButton(
-                        onPressed: () {
-                          Scaffold.of(context).openEndDrawer();
-                        },
-                        icon: const Icon(Icons.handyman))
-                  ],
+                  // actions: [
+                  //   IconButton(
+                  //       onPressed: () {
+                  //         Scaffold.of(context).openEndDrawer();
+                  //       },
+                  //       icon: const Icon(Icons.handyman))
+                  // ],
                   automaticallyImplyLeading: false,
                 ),
                 body: SingleChildScrollView(
@@ -58,6 +56,36 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Space.vertical(16.h),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(left: 10.0, right: 10),
+                      //   child: RichText(
+                      //     text: const TextSpan(
+                      //       text: 'Lets ',
+                      //       style: TextStyle(
+                      //           color: Colors.grey,
+                      //           fontSize: 30,
+                      //           fontWeight: FontWeight.bold),
+                      //       children: <TextSpan>[
+                      //         TextSpan(
+                      //             text: 'Grow',
+                      //             style: TextStyle(
+                      //                 color: Colors.orange,
+                      //                 fontSize: 30,
+                      //                 fontWeight: FontWeight.bold)),
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      // const Padding(
+                      //   padding: EdgeInsets.only(left: 10.0, right: 10),
+                      //   child: Text(
+                      //     'Together....',
+                      //     style: TextStyle(
+                      //         color: Colors.grey,
+                      //         fontSize: 40,
+                      //         fontWeight: FontWeight.bold),
+                      //   ),
+                      // ),
                       EasyContainer(
                         width: double.infinity,
                         color: Colors.blue.withOpacity(0.10),
@@ -109,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     EazyButtons.flexWidthElevatedButton2(
-                                        'Visit', () {}, EazyColors.primary,40),
+                                        'Visit', () {}, EazyColors.primary, 40),
                                     // ElevatedButton(
                                     //   onPressed: () {},
                                     //   child: const Text("Visit"),
@@ -123,14 +151,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       Space.vertical(16.h),
-                      Text(
-                        'Your Earning',
-                        style: Get.textTheme.titleLarge
-                      ),
+                      Text('Your Earning', style: Get.textTheme.titleLarge),
                       Space.vertical(16.h),
                       statics(),
                       Space.vertical(16.h),
-                      const CompleteYourProfile(),
+                      // const CompleteYourProfile(),
                       // Space.vertical(16.h),
 
                       //const SetupPayment(),
@@ -212,7 +237,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       const Carousel(
                         autoplay: true,
                         width: double.infinity,
-                      )
+                      ),
+                      Space.vertical(16.h),
                     ],
                   ),
                 ),
@@ -306,10 +332,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: 25.h,
                       color: Colors.green,
                       child: Center(
-                        child: Text('Job Done',
-                            style: Get.textTheme.titleMedium?.copyWith(
-                                color: EazyColors.white
-                            ),),
+                        child: Text(
+                          'Job Done',
+                          style: Get.textTheme.titleMedium
+                              ?.copyWith(color: EazyColors.white),
+                        ),
                       ),
                     ),
                     Align(
@@ -342,10 +369,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.blueAccent,
                       child: Text(
                         "Total Services",
-                        style: Get.textTheme.titleMedium?.copyWith(
-                          color: EazyColors.white
-
-                        ),
+                        style: Get.textTheme.titleMedium
+                            ?.copyWith(color: EazyColors.white),
                       ),
                     ),
                     Align(

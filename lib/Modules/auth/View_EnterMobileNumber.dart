@@ -45,60 +45,59 @@ class InputMobileNumberScreen extends StatelessWidget {
                     ),
                     Space.vertical(20.h),
 
-                    Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          EasyContainer(
-                              color: EazyColors.background,
-                              borderColor: EazyColors.primary,
-                              padding: 10,
-                              showBorder: true,
-                              height: 55.h,
-                              child: const Text('+ 91')),
-                          Space.horizontal(
-                            10.h,
-                          ),
-                          Flexible(
-                            child: SizedBox(
-                              //width: 200.w,
-                              height: 75.h,
-                              child: Form(
-                                key: formKey,
-                                child: TextFormField(
-                                  // autovalidateMode: AutovalidateMode.always,
-                                  controller: controller.mobileNumberController,
-                                  keyboardType: TextInputType.number,
-                                  maxLength: 10,
-                                  decoration: InputDecoration(
-                                    border: const OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        width: 5,
-                                        color: EazyColors.primary,
-                                      ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        EasyContainer(
+                            color: EazyColors.background,
+                            borderColor: EazyColors.primary,
+                            padding: 10,
+                            showBorder: true,
+                            height: 55.h,
+                            child: const Text('+ 91')),
+                        Space.horizontal(
+                          10.h,
+                        ),
+                        Flexible(
+                          child: SizedBox(
+                            //width: 200.w,
+                            height: 75.h,
+                            child: Form(
+                              key: formKey,
+                              child: TextFormField(
+                                // autovalidateMode: AutovalidateMode.always,
+                                controller: controller.mobileNumberController,
+                                keyboardType: TextInputType.number,
+                                maxLength: 10,
+                                decoration: InputDecoration(
+                                  border: const OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 5,
+                                      color: EazyColors.primary,
                                     ),
-                                    labelText: 'Mobile Number'.tr,
-                                    labelStyle: const TextStyle(
-                                        color: EazyColors.primary),
-                                    helperText:
-                                        'We will send OTP to verify your mobile number',
-                                    suffixStyle: const TextStyle(
-                                        color: EazyColors.primary),
                                   ),
-                                  validator: (value) => value!.isEmpty
-                                      ? 'Enter Mobile Numebr'
-                                      : value.length < 10
-                                          ? ' Invalid Number'
-                                          : null,
+                                  labelText: 'Mobile Number'.tr,
+                                  labelStyle: const TextStyle(
+                                      color: EazyColors.primary),
+                                  helperText:
+                                      'We will send OTP to verify your mobile number',
+                                  suffixStyle: const TextStyle(
+                                      color: EazyColors.primary),
                                 ),
+                                validator: (value) => value!.isEmpty
+                                    ? 'Enter Mobile Numebr'
+                                    : value.length < 10
+                                        ? ' Invalid Number'
+                                        : null,
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    const Spacer(),
+                    // const Spacer(),
+                    Space.vertical(80.h),
                     if (controller.loading)
                       const Center(
                         child: EazyLoadingWidget(),

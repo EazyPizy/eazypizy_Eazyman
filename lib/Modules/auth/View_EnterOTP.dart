@@ -36,6 +36,7 @@ class VerifyOTPScreen extends StatelessWidget {
                       ?.copyWith(color: EazyColors.primary),
                   textScaleFactor: 2,
                 ),
+                Space.vertical(6.h),
                 Row(
                   children: [
                     Text(
@@ -75,7 +76,8 @@ class VerifyOTPScreen extends StatelessWidget {
                 //     EazyButtons.primaryTextButton('Send Again', () { }),
                 //   ],
                 // ),
-                const Spacer(),
+                // const Spacer(),
+                Space.vertical(80.h),
                 if (controller.loading)
                   const Center(
                     child: EazyLoadingWidget(),

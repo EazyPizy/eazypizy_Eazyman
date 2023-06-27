@@ -1,12 +1,10 @@
-import 'package:device_preview/device_preview.dart';
+import 'package:eazypizy_eazyman/core/language.dart';
 import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:eazypizy_eazyman/core/services/notification_service.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
-import 'package:eazypizy_eazyman/core/language.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:eazypizy_eazyman/theme/theme.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -77,6 +75,7 @@ String initialRoute() {
     }
   } else {
     // return ChooseLanguageScreen();
-    return Routes.choseLanguage;
+    // return Routes.choseLanguage;
+    return Routes.enterMobileNumber;
   }
 }

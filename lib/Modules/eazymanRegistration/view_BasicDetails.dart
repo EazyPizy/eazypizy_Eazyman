@@ -250,106 +250,112 @@ class _BasicDetailsState extends State<BasicDetails> {
           color: EazyColors.white,
           child: Theme(
             data: Theme.of(context).copyWith(
-              canvasColor:  EazyColors.white,
+              canvasColor: EazyColors.white,
               colorScheme: Theme.of(context).colorScheme.copyWith(
-                primary: EazyColors.primary,
-                background: Colors.red,
-                secondary: Colors.green,
-              ),
+                    primary: EazyColors.primary,
+                    background: Colors.red,
+                    secondary: Colors.green,
+                  ),
             ),
-            child: Stepper(
-              controlsBuilder: (
-                BuildContext context,
-                ControlsDetails details,
-              ) {
-                return Container();
-                //   width: 500,
-                // );
-                //   Row(
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //   children: <Widget>[
-                //     EazyButtons.flexWidthElevatedButton2('Back', () {
-                //       if (_activeCurrentStep == 0) {
-                //         return;
-                //       }
-                //
-                //       setState(() {
-                //         _activeCurrentStep -= 1;
-                //       });
-                //     }, EazyColors.primary),
-                //
-                //     EazyButtons.flexWidthElevatedButton('Next', () {
-                //       if (_activeCurrentStep < (stepList().length - 1)) {
-                //         setState(() {
-                //           _activeCurrentStep += 1;
-                //         });
-                //       } else {
-                //         controller.submit();
-                //         // controller.upload();
-                //       }
-                //     }, 40),
-                //     // ElevatedButton(
-                //     //   child: Text('Elevated Button'),
-                //     //   style: ElevatedButton.styleFrom(
-                //     //     primary: Colors.green,
-                //     //   ),
-                //     //   onPressed: () {
-                //     //     details.onStepContinue;
-                //     //   },
-                //     // ),
-                //     // TextButton(
-                //     //   onPressed: details.onStepCancel,
-                //     //   child: const Text('CANCEL'),
-                //     // ),
-                //   ],
-                // );
-              },
-              elevation: 0,
-              type: StepperType.horizontal,
-              currentStep: _activeCurrentStep,
-              steps: stepList(),
-              onStepContinue: () {
-                if (_activeCurrentStep < (stepList().length - 1)) {
-                  setState(() {
-                    _activeCurrentStep += 1;
-                  });
-                } else {
-                  controller.submit();
-                  // controller.upload();
-                }
-              },
-              onStepCancel: () {
-                if (_activeCurrentStep == 0) {
-                  return;
-                }
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: SizedBox(
+                width: Get.width,
+                child: Stepper(
+                  controlsBuilder: (
+                    BuildContext context,
+                    ControlsDetails details,
+                  ) {
+                    return Container();
+                    //   width: 500,
+                    // );
+                    //   Row(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: <Widget>[
+                    //     EazyButtons.flexWidthElevatedButton2('Back', () {
+                    //       if (_activeCurrentStep == 0) {
+                    //         return;
+                    //       }
+                    //
+                    //       setState(() {
+                    //         _activeCurrentStep -= 1;
+                    //       });
+                    //     }, EazyColors.primary),
+                    //
+                    //     EazyButtons.flexWidthElevatedButton('Next', () {
+                    //       if (_activeCurrentStep < (stepList().length - 1)) {
+                    //         setState(() {
+                    //           _activeCurrentStep += 1;
+                    //         });
+                    //       } else {
+                    //         controller.submit();
+                    //         // controller.upload();
+                    //       }
+                    //     }, 40),
+                    //     // ElevatedButton(
+                    //     //   child: Text('Elevated Button'),
+                    //     //   style: ElevatedButton.styleFrom(
+                    //     //     primary: Colors.green,
+                    //     //   ),
+                    //     //   onPressed: () {
+                    //     //     details.onStepContinue;
+                    //     //   },
+                    //     // ),
+                    //     // TextButton(
+                    //     //   onPressed: details.onStepCancel,
+                    //     //   child: const Text('CANCEL'),
+                    //     // ),
+                    //   ],
+                    // );
+                  },
+                  elevation: 0,
+                  type: StepperType.horizontal,
+                  currentStep: _activeCurrentStep,
+                  steps: stepList(),
+                  onStepContinue: () {
+                    if (_activeCurrentStep < (stepList().length - 1)) {
+                      setState(() {
+                        _activeCurrentStep += 1;
+                      });
+                    } else {
+                      controller.submit();
+                      // controller.upload();
+                    }
+                  },
+                  onStepCancel: () {
+                    if (_activeCurrentStep == 0) {
+                      return;
+                    }
 
-                setState(() {
-                  _activeCurrentStep -= 1;
-                });
-              },
-              // onStepTapped: (int index) {
-              //   if (index == 0 &&
-              //       !controller.personalDetailsformKey.currentState!.validate()) {
-              //     return;
-              //   }
-              //   if (index == 1 &&
-              //       !controller.addressformKey.currentState!.validate()) {
-              //     return;
-              //   }
-              //   if (index == 2 && controller.mainService.isEmpty) {
-              //     EazySnackBar.buildErronSnackbar(
-              //         'No Service selected', 'Select atleast 1 service!');
-              //     return;
-              //   }
-              //   setState(() {
-              //     _activeCurrentStep = index;
-              //   });
-              // },
+                    setState(() {
+                      _activeCurrentStep -= 1;
+                    });
+                  },
+                  // onStepTapped: (int index) {
+                  //   if (index == 0 &&
+                  //       !controller.personalDetailsformKey.currentState!.validate()) {
+                  //     return;
+                  //   }
+                  //   if (index == 1 &&
+                  //       !controller.addressformKey.currentState!.validate()) {
+                  //     return;
+                  //   }
+                  //   if (index == 2 && controller.mainService.isEmpty) {
+                  //     EazySnackBar.buildErronSnackbar(
+                  //         'No Service selected', 'Select atleast 1 service!');
+                  //     return;
+                  //   }
+                  //   setState(() {
+                  //     _activeCurrentStep = index;
+                  //   });
+                  // },
+                ),
+              ),
             ),
           ),
         ),
-                 bottomNavigationBar: Padding(
+        bottomNavigationBar: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
