@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eazypizy_eazyman/Modules/auth/View_EnterOTP.dart';
 import 'package:eazypizy_eazyman/core/logger.dart';
 import 'package:eazypizy_eazyman/core/routes.dart';
+import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,7 @@ class AuthenticationController extends GetxController {
           .get();
 
       if (eazyMenData.exists) {
+        EazyMenService.instance.fetchEazymenData();
         Get.toNamed(Routes.navigationScreen);
       } else {
         Get.toNamed(Routes.bussinessCardScreen);
