@@ -2,11 +2,12 @@
     package="com.eazypizy.eazyman.eazypizy_eazyman">
 
 
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <!-- <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" /> -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="eazypizy_eazyman"
+        android:label="Eazymen"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

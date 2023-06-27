@@ -45,6 +45,43 @@
     },
     {
       "client_info": {
+        "mobilesdk_app_id": "1:711870604099:android:c902c6ded6c73d7b6b85f6",
+        "android_client_info": {
+          "package_name": "com.eazypizy.admin.new_eazypizy_admin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "711870604099-riv1q81b44kd7h8qsoqjo1edv33cu8sc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eazypizy.admin.new_eazypizy_admin",
+            "certificate_hash": "75e6b6be13df2233f027e1db7457e1daec5386d5"
+          }
+        },
+        {
+          "client_id": "711870604099-hu0n4uh36ci83ho50uuq89kdfpmi7jig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOmdEoN4P-kyziYlObfHCMxUP3qGiby3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "711870604099-hu0n4uh36ci83ho50uuq89kdfpmi7jig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:711870604099:android:b6d2999456456a546b85f6",
         "android_client_info": {
           "package_name": "com.eazypizy.eazyman.eazypizy_eazyman"
@@ -57,6 +94,14 @@
           "android_info": {
             "package_name": "com.eazypizy.eazyman.eazypizy_eazyman",
             "certificate_hash": "75e6b6be13df2233f027e1db7457e1daec5386d5"
+          }
+        },
+        {
+          "client_id": "711870604099-pk0fevjp491kk3f776uo0lhekoob1r94.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.eazypizy.eazyman.eazypizy_eazyman",
+            "certificate_hash": "0c37314c7b0626eb1c497da6e5c952c5aaa5fe0a"
           }
         },
         {
@@ -141,6 +186,88 @@
             "certificate_hash": "3388a83acedbfab71800956d3be5988c5e2a2445"
           }
         },
+        {
+          "client_id": "711870604099-hu0n4uh36ci83ho50uuq89kdfpmi7jig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOmdEoN4P-kyziYlObfHCMxUP3qGiby3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "711870604099-hu0n4uh36ci83ho50uuq89kdfpmi7jig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711870604099:android:85af7cec29a8b51b6b85f6",
+        "android_client_info": {
+          "package_name": "customer.eazypizy.in"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "711870604099-aannt386kb19a39tftpdifn6trf36gvn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "customer.eazypizy.in",
+            "certificate_hash": "b535fd548a9ea47afda9797b2c9c00c6951daa56"
+          }
+        },
+        {
+          "client_id": "711870604099-ged2d5qgr2su43ba9qnkqnsj1pag1tgl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "customer.eazypizy.in",
+            "certificate_hash": "75e6b6be13df2233f027e1db7457e1daec5386d5"
+          }
+        },
+        {
+          "client_id": "711870604099-pnm16i83e458v4683afl55t500fnhtd7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "customer.eazypizy.in",
+            "certificate_hash": "0c37314c7b0626eb1c497da6e5c952c5aaa5fe0a"
+          }
+        },
+        {
+          "client_id": "711870604099-hu0n4uh36ci83ho50uuq89kdfpmi7jig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOmdEoN4P-kyziYlObfHCMxUP3qGiby3k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "711870604099-hu0n4uh36ci83ho50uuq89kdfpmi7jig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:711870604099:android:8fd016870dadf0286b85f6",
+        "android_client_info": {
+          "package_name": "eazyman.eazypizy.in"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "711870604099-hu0n4uh36ci83ho50uuq89kdfpmi7jig.apps.googleusercontent.com",
           "client_type": 3
