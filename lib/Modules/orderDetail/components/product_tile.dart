@@ -27,8 +27,8 @@ class BookingProductTile extends StatelessWidget {
         borderRadius: 20,
         height: 75.h,
         width: 60.w,
-        child: const EazyNetworkImage(
-          url: 'assets/eazymen.jpg',
+        child: EazyNetworkImage(
+          url: imageUrl,
         ),
       ),
       title: Text(

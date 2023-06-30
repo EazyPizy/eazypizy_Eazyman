@@ -10,9 +10,7 @@ import '../../core/services/category_services.dart';
 import '../../theme/app_colors.dart';
 import '../../widgets/CustomTabView.dart';
 import '../../widgets/EasySnackBar.dart';
-import '../../widgets/EazyTextField.dart';
 import '../../widgets/easy_container.dart';
-import '../../widgets/eazy_networkimage.dart';
 
 class AddSubServiceToUserCatalogue extends StatefulWidget {
   const AddSubServiceToUserCatalogue({
@@ -70,6 +68,7 @@ class AddSubServiceToUserCatalogueState
                           return ListView.builder(
                             itemCount: products.length,
                             itemBuilder: (context, prodIndex) {
+                              print(products[prodIndex].toJson());
                               return ListTile(
                                 leading: EasyContainer(
                                   borderColor: EazyColors.borderColors,
@@ -79,14 +78,17 @@ class AddSubServiceToUserCatalogueState
                                   width: 40.w,
                                   child: Image.network(
                                     products[prodIndex].serviceProdImage!,
+                                    errorBuilder:
+                                        (context, error, stackTrace) =>
+                                            const Placeholder(),
                                   ),
                                 ),
                                 title: Text(
-                                  products[prodIndex].serviceProductName!,
+                                  products[prodIndex].serviceProductName ?? '',
                                   style: Get.textTheme.titleMedium,
                                 ),
                                 subtitle: Text(
-                                  products[prodIndex].serviceRetailPrice!,
+                                  '${products[prodIndex].serviceRetailPrice ?? ''}',
                                   style: Get.textTheme.titleMedium,
                                 ),
                                 trailing: Checkbox(
@@ -121,10 +123,12 @@ class AddSubServiceToUserCatalogueState
                 controller.makeControllers();
                 controller.eazymenProducts.isNotEmpty
                     ? addYourOwnPrice(
-                        controller,)
+                        controller,
+                      )
                     : EazySnackBar.buildSnackbar(
                         'Select Products',
-                        'Add Product to catalog',);
+                        'Add Product to catalog',
+                      );
               }),
             ),
           );
@@ -174,11 +178,10 @@ class AddSubServiceToUserCatalogueState
               topRight: Radius.circular(10),
               bottomRight: Radius.circular(0),
               bottomLeft: Radius.circular(0),
-              topLeft: Radius.circular(10)),          //borderRadius: 10,
+              topLeft: Radius.circular(10)), //borderRadius: 10,
           height: Get.size.height - 0.1,
           color: Colors.white,
           child: ListView.builder(
-
             itemCount: products.length,
             itemBuilder: (context, i) {
               // final priceController =
@@ -192,7 +195,7 @@ class AddSubServiceToUserCatalogueState
                   child: TextField(
                     keyboardType: TextInputType.number,
                     controller: priceControllers[i],
-                    decoration:  const InputDecoration(
+                    decoration: const InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.auto,
                       hintText: "Add Own Price",
                       focusedBorder: OutlineInputBorder(
@@ -214,9 +217,12 @@ class AddSubServiceToUserCatalogueState
           padding: const EdgeInsets.all(8.0),
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: EazyButtons.fullWidthElevatedButton('Save Products', () {
-              controller.updateProducts();
-            },),
+            child: EazyButtons.fullWidthElevatedButton(
+              'Save Products',
+              () {
+                controller.updateProducts();
+              },
+            ),
           ),
         )
       ]),

@@ -64,7 +64,14 @@ class RegistrationController extends GetxController {
         mainServiceID,
       );
     } else {
-      mainService.add((mainServiceID));
+      if (mainService.length < 2) {
+        mainService.add((mainServiceID));
+      } else {
+        EazySnackBar.buildErronSnackbar(
+          'Services Limit',
+          'Only upto 2 services allowed!',
+        );
+      }
     }
     update(['id']);
   }

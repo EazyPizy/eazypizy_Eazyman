@@ -1,12 +1,13 @@
 import 'package:eazypizy_eazyman/Modules/orderDetail/ctrl.booking.detail.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
+import 'package:eazypizy_eazyman/theme/eazy_spaces.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
-import 'package:eazypizy_eazyman/widgets/EazyTextField.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 import 'package:eazypizy_eazyman/widgets/eazy_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:pinput/pinput.dart';
 
 Future<void> completeBookingConfirmationSheet() {
   return Get.bottomSheet(
@@ -38,12 +39,27 @@ Future<void> completeBookingConfirmationSheet() {
                 style: Get.textTheme.titleLarge,
                 textScaleFactor: 1.5,
               ),
-              EazyTextField.stringTextField(
-                'Please Enter Ending code',hintText: "Enter Ending code",
-                controller: controller.endCodeController,
+              Space.vertical(12),
+              SizedBox(
+                height: 70.h,
+                child: Pinput(
+                  // defaultPinTheme: defaultPinTheme,
+                  // focusedPinTheme: focusedPinTheme,
+                  // submittedPinTheme: submittedPinTheme,
+                  controller: controller.endCodeController,
+                  length: 4,
+                  //  key: some,
+                  validator: (s) {
+                    if ((s?.length ?? 0) < 4) {
+                      return 'Enter complete digits';
+                    }
+                    return null;
+                  },
+                  onCompleted: print,
+                ),
               ),
               Text(
-                'Do You want to complete Booking',
+                'Do You want to complete Booking?',
                 style: Get.textTheme.titleSmall,
                 // textScaleFactor: 1.5,
               ),
@@ -57,6 +73,7 @@ Future<void> completeBookingConfirmationSheet() {
                   'Complete Booking',
                   () {
                     controller.confirmCompleteService();
+                    Get.back();
                   },
                   40.h,
                 ),

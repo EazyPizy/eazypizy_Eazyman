@@ -1,7 +1,6 @@
 import 'package:eazypizy_eazyman/Modules/orderDetail/ctrl.booking.detail.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
-import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 import 'package:eazypizy_eazyman/widgets/eazy_loading.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +40,7 @@ Future<void> acceptBookingConfirmationSheet() {
                 textScaleFactor: 1.5,
               ),
               Text(
-                'Do You want to accept this new order',
+                'Do You want to accept this order?',
                 style: Get.textTheme.titleSmall,
                 // textScaleFactor: 1.5,
               ),

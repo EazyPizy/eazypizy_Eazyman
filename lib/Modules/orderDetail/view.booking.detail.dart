@@ -5,13 +5,11 @@ import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:intl/intl.dart';
 
 import '../../theme/eazy_spaces.dart';
 import '../../widgets/EasyButtons.dart';
 import '../ManageOrders/ctrl.manage.orders.dart';
-import 'package:intl/intl.dart';
-
 
 class DetailOrderView extends StatelessWidget {
   const DetailOrderView({Key? key}) : super(key: key);
@@ -59,19 +57,20 @@ class DetailOrderView extends StatelessWidget {
                       Space.vertical(10.h),
                       ListTile(
                         tileColor: EazyColors.white,
-                        title:  Text(
+                        title: Text(
                           'Job Details',
                           style: Get.textTheme.titleMedium,
-                        ) ,
-                        subtitle:
-                        Text(
-                          DateFormat('MMM d, h:mm a',).format(
-                            DateTime.parse(booking.booking_date ?? '', ),
-
+                        ),
+                        subtitle: Text(
+                          DateFormat(
+                            'MMM d, h:mm a',
+                          ).format(
+                            DateTime.parse(
+                              booking.booking_date ?? '',
+                            ),
                           ),
-                          style: Get.textTheme.headlineLarge?.copyWith(
-                              color: EazyColors.primary
-                          ),
+                          style: Get.textTheme.headlineLarge
+                              ?.copyWith(color: EazyColors.primary),
                         ),
                       ),
                       Space.vertical(10.h),
@@ -114,7 +113,6 @@ class DetailOrderView extends StatelessWidget {
                                   //   ),
                                   // ),
                                   Text('${booking.customer_phone}'),
-
                                 ],
                               ),
                               // Text(
@@ -133,11 +131,12 @@ class DetailOrderView extends StatelessWidget {
                                     children: [
                                       // const Text('Locality/Area'),
                                       Text(
-                                        'Address',
+                                        'Locality/Area',
                                         style: Get.textTheme.titleMedium,
                                       ),
                                       Text(
-                                        booking.customer_address ?? '',
+                                        booking.customer_address?.localArea ??
+                                            '',
                                         style: Get.textTheme.titleSmall,
                                       ),
                                     ],
@@ -149,7 +148,8 @@ class DetailOrderView extends StatelessWidget {
                                     children: [
                                       const Text('Landmark'),
                                       Text(
-                                        booking.customer_landmark ?? '',
+                                        booking.customer_address?.landMark ??
+                                            '',
                                         style: Get.textTheme.titleSmall,
                                       ),
                                     ],
@@ -170,7 +170,7 @@ class DetailOrderView extends StatelessWidget {
                                     children: [
                                       const Text('City'),
                                       Text(
-                                        booking.customer_address ?? '',
+                                        booking.customer_address?.city ?? '',
                                         style: Get.textTheme.titleSmall,
                                       ),
                                     ],
@@ -183,7 +183,7 @@ class DetailOrderView extends StatelessWidget {
                                     children: [
                                       const Text('Pincode'),
                                       Text(
-                                        booking.customer_pincode ?? '',
+                                        booking.customer_address?.pincode ?? '',
                                         style: Get.textTheme.titleSmall,
                                       ),
                                     ],
@@ -197,7 +197,7 @@ class DetailOrderView extends StatelessWidget {
                                 children: [
                                   const Text('State'),
                                   Text(
-                                    booking.customer_address ?? '',
+                                    booking.customer_address?.state ?? '',
                                     style: Get.textTheme.titleSmall,
                                   ),
                                 ],
@@ -206,7 +206,7 @@ class DetailOrderView extends StatelessWidget {
                           )),
                       Space.vertical(12),
                       EasyContainer(
-                        color: EazyColors.white,
+                          color: EazyColors.white,
                           padding: 12,
                           borderRadius: 10,
                           child: Column(
@@ -235,16 +235,16 @@ class DetailOrderView extends StatelessWidget {
                                 physics: const NeverScrollableScrollPhysics(),
                                 itemBuilder: (context, index) =>
                                     BookingProductTile(
-                                  imageUrl: booking
-                                      .products![index].serviceProdImage!,
+                                  imageUrl:
+                                      booking.products[index].serviceProdImage!,
                                   name: booking
-                                      .products![index].serviceProductName!,
+                                      .products[index].serviceProductName!,
                                   quantity: 1,
                                   price: 100,
                                 ),
                                 separatorBuilder: (context, index) =>
                                     const Divider(),
-                                itemCount: booking.products?.length ?? 0,
+                                itemCount: booking.products.length ?? 0,
                               )
                             ],
                           )),

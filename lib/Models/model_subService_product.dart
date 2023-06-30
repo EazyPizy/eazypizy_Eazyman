@@ -26,7 +26,7 @@ class SubServiceProductModel {
               ),
         serviceProductId: json['ServiceProductID'] as String?,
         serviceProdImage: json['serviceProdImage'] as String?,
-        serviceRetailPrice: json['ServiceRetail_Price'] as String?,
+        serviceRetailPrice: json['ServiceRetail_Price'] as double?,
       );
 
   final List<String>? serviceIDs;
@@ -34,7 +34,7 @@ class SubServiceProductModel {
   final List<String>? subServiceIDs;
   final String? serviceProductId;
   final String? serviceProdImage;
-  final String? serviceRetailPrice;
+  final double? serviceRetailPrice;
 
   Map<String, dynamic> toJson() => {
         'ServiceIDs': serviceIDs == null

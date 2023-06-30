@@ -34,274 +34,280 @@ class _EazyManCatalogScreenState extends State<EazyManCatalogScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Scaffold(
-        body: GetBuilder<ProfileController>(
-          init: ProfileController(),
-          builder: (controller) {
-            return DefaultTabController(
-              length: controller.userCategories.length,
-              child: NestedScrollView(
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
-                  return <Widget>[
-                    SliverAppBar(
-                      // actions: [
-                      //   IconButton(
-                      //     onPressed: () {},
-                      //     icon: const Icon(Icons.sort_sharp),
-                      //   )
-                      // ],
-                      //  surfaceTintColor: EazyColors.white,
-                      title: const Text(
-                        'Catalogue',
-                      ),
-                      // centerTitle: true,
-                      pinned: true,
-                      expandedHeight: 250.h,
-                      flexibleSpace: LayoutBuilder(
-                        builder: (ctx, cons) {
-                          top = cons.biggest.height.h;
-                          return FlexibleSpaceBar(
-                            background: EasyContainer(
-                              color: EazyColors.white,
-                              borderRadius: 0.r,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Space.vertical(
-                                    90.h,
-                                  ),
-                                  Center(
-                                    child: SizedBox(
-                                      height: 75.h,
-                                      width: 75.w,
-                                      child: const CircleAvatar(),
+    return GetBuilder<ProfileController>(
+        init: ProfileController(),
+        builder: (controller) {
+          return DefaultTabController(
+            length: controller.userCategories.length,
+            child: Stack(children: [
+              Scaffold(
+                body: NestedScrollView(
+                  headerSliverBuilder:
+                      (BuildContext context, bool innerBoxIsScrolled) {
+                    return <Widget>[
+                      SliverAppBar(
+                        // actions: [
+                        //   IconButton(
+                        //     onPressed: () {},
+                        //     icon: const Icon(Icons.sort_sharp),
+                        //   )
+                        // ],
+                        //  surfaceTintColor: EazyColors.white,
+                        title: const Text(
+                          'Catalogue',
+                        ),
+                        // centerTitle: true,
+                        pinned: true,
+                        expandedHeight: 250.h,
+                        flexibleSpace: LayoutBuilder(
+                          builder: (ctx, cons) {
+                            top = cons.biggest.height.h;
+                            return FlexibleSpaceBar(
+                              background: EasyContainer(
+                                color: EazyColors.white,
+                                borderRadius: 0.r,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Space.vertical(
+                                      90.h,
                                     ),
-                                  ),
-                                  Space.vertical(10.h),
-                                  Center(
-                                    child: Text(
-                                      '${controller.eazyMen.personalDetail?.firstName} ${controller.eazyMen.personalDetail?.lastName}'?? "",
-                                      style: Get.textTheme.titleLarge,
+                                    Center(
+                                      child: SizedBox(
+                                        height: 75.h,
+                                        width: 75.w,
+                                        child: const CircleAvatar(),
+                                      ),
                                     ),
-                                  ),
-                                  Space.vertical(10.h),
-                                  // Center(
-                                  //   child: EasyContainer(
-                                  //     elevation: 1,
-                                  //     width: 70.w,
-                                  //     color: Colors.orange,
-                                  //     child: Text(
-                                  //       'Plumber',
-                                  //       style: Get.textTheme.titleLarge,
-                                  //     ),
-                                  //   ),
-                                  // ),
-                                  Space.vertical(
-                                    10.h,
-                                  ),
-                                  EasyContainer(
-                                    width: double.infinity,
-                                    borderRadius: 0,
-                                    height: 60.h,
-                                    color: EazyColors.white,
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              controller
-                                                  .userSubServiceProducts.length
-                                                  .toString(),
-                                              style:
-                                                  Get.textTheme.headlineMedium,
-                                            ),
-                                            Text(
-                                              'Products',
-                                              style: Get.textTheme.titleMedium,
-                                            )
-                                          ],
-                                        ),
-                                        const Padding(
-                                          padding: EdgeInsets.only(top: 15.0, bottom: 15),
-                                          child: VerticalDivider(
-                                            width: 1,
-                                            color: EazyColors.primary,
+                                    Space.vertical(10.h),
+                                    Center(
+                                      child: Text(
+                                        '${controller.eazyMen.personalDetail?.firstName} ${controller.eazyMen.personalDetail?.lastName}',
+                                        style: Get.textTheme.titleLarge,
+                                      ),
+                                    ),
+                                    Space.vertical(10.h),
+                                    // Center(
+                                    //   child: EasyContainer(
+                                    //     elevation: 1,
+                                    //     width: 70.w,
+                                    //     color: Colors.orange,
+                                    //     child: Text(
+                                    //       'Plumber',
+                                    //       style: Get.textTheme.titleLarge,
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    Space.vertical(
+                                      10.h,
+                                    ),
+                                    EasyContainer(
+                                      width: double.infinity,
+                                      borderRadius: 0,
+                                      height: 60.h,
+                                      color: EazyColors.white,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                controller
+                                                    .userSubServiceProducts
+                                                    .length
+                                                    .toString(),
+                                                style: Get
+                                                    .textTheme.headlineMedium,
+                                              ),
+                                              Text(
+                                                'Products',
+                                                style:
+                                                    Get.textTheme.titleMedium,
+                                              )
+                                            ],
                                           ),
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              controller.userCategories.length
-                                                  .toString(),
-                                              style:
-                                                  Get.textTheme.headlineMedium,
+                                          const Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 15.0, bottom: 15),
+                                            child: VerticalDivider(
+                                              width: 1,
+                                              color: EazyColors.primary,
                                             ),
-                                            Text(
-                                              'Categories',
-                                              style: Get.textTheme.titleMedium,
-                                            )
-                                          ],
-                                        ),
-                                         const Padding(
-
-                                           padding: EdgeInsets.only(top: 15.0, bottom: 15),
-                                           child: VerticalDivider(
-                                            width: 1,
-                                            color: EazyColors.primary,
-                                        ),
-                                         ),
-                                        Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              controller.bookingsCount
-                                                  .toString(),
-                                              style:
-                                                  Get.textTheme.headlineMedium,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                controller.userCategories.length
+                                                    .toString(),
+                                                style: Get
+                                                    .textTheme.headlineMedium,
+                                              ),
+                                              Text(
+                                                'Categories',
+                                                style:
+                                                    Get.textTheme.titleMedium,
+                                              )
+                                            ],
+                                          ),
+                                          const Padding(
+                                            padding: EdgeInsets.only(
+                                                top: 15.0, bottom: 15),
+                                            child: VerticalDivider(
+                                              width: 1,
+                                              color: EazyColors.primary,
                                             ),
-                                            Text(
-                                              'Bookings',
-                                              style: Get.textTheme.titleMedium,
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                  // WidgetToImage(
-                                  //   builder: (key) {
-                                  //     this.key1 = key;
-                                  //
-                                  //     return VisitingCard(
-                                  //       eazyMenModel: controller.eazyMen,
-                                  //     );
-                                  //   },
-                                  // ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    // SliverToBoxAdapter(
-                    //   child: EasyContainer(
-                    //     color: EazyColors.white,
-                    //     child: Column(
-                    //       children: [
-                    //         Padding(
-                    //           padding: const EdgeInsets.only(left: 8, right: 8),
-                    //           child: Row(
-                    //             mainAxisAlignment:
-                    //                 MainAxisAlignment.spaceBetween,
-                    //             children: const [
-                    //               Text('Top Reviews'),
-                    //               TextButton(
-                    //                 onPressed: viewAllReviews,
-                    //                 child: Text('View All'),
-                    //               )
-                    //             ],
-                    //           ),
-                    //         ),
-                    //         SizedBox(
-                    //           height: 65.h,
-                    //           //child: buildImage(bytes1)
-                    //           child: ListView.builder(
-                    //             scrollDirection: Axis.horizontal,
-                    //             itemCount: 10,
-                    //             itemBuilder: (context, i) => CustomerReviewTile(
-                    //               index: i,
-                    //             ),
-                    //           ),
-                    //         )
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
-                    SliverPersistentHeader(
-                      pinned: true,
-                      delegate: _SliverAppBarDelegate(
-                        TabBar(
-                          isScrollable: true,
-                          labelColor: EazyColors.primary,
-                          labelStyle: Get.textTheme.titleMedium,
-                          unselectedLabelColor: Colors.grey,
-                          indicatorColor: EazyColors.primary,
-                          tabs: controller.userCategories
-                              .map(
-                                (e) => Tab(
-                                  text: e.serviceName,
+                                          ),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              Text(
+                                                controller.bookingsCount
+                                                    .toString(),
+                                                style: Get
+                                                    .textTheme.headlineMedium,
+                                              ),
+                                              Text(
+                                                'Bookings',
+                                                style:
+                                                    Get.textTheme.titleMedium,
+                                              )
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                    // WidgetToImage(
+                                    //   builder: (key) {
+                                    //     this.key1 = key;
+                                    //
+                                    //     return VisitingCard(
+                                    //       eazyMenModel: controller.eazyMen,
+                                    //     );
+                                    //   },
+                                    // ),
+                                  ],
                                 ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      // SliverToBoxAdapter(
+                      //   child: EasyContainer(
+                      //     color: EazyColors.white,
+                      //     child: Column(
+                      //       children: [
+                      //         Padding(
+                      //           padding: const EdgeInsets.only(left: 8, right: 8),
+                      //           child: Row(
+                      //             mainAxisAlignment:
+                      //                 MainAxisAlignment.spaceBetween,
+                      //             children: const [
+                      //               Text('Top Reviews'),
+                      //               TextButton(
+                      //                 onPressed: viewAllReviews,
+                      //                 child: Text('View All'),
+                      //               )
+                      //             ],
+                      //           ),
+                      //         ),
+                      //         SizedBox(
+                      //           height: 65.h,
+                      //           //child: buildImage(bytes1)
+                      //           child: ListView.builder(
+                      //             scrollDirection: Axis.horizontal,
+                      //             itemCount: 10,
+                      //             itemBuilder: (context, i) => CustomerReviewTile(
+                      //               index: i,
+                      //             ),
+                      //           ),
+                      //         )
+                      //       ],
+                      //     ),
+                      //   ),
+                      // ),
+                      SliverPersistentHeader(
+                        pinned: true,
+                        delegate: _SliverAppBarDelegate(
+                          TabBar(
+                            isScrollable: true,
+                            labelColor: EazyColors.primary,
+                            labelStyle: Get.textTheme.titleMedium,
+                            unselectedLabelColor: Colors.grey,
+                            indicatorColor: EazyColors.primary,
+                            tabs: controller.userCategories
+                                .map(
+                                  (e) => Tab(
+                                    text: e.serviceName,
+                                  ),
+                                )
+                                .toList(),
+                          ),
+                        ),
+                      )
+                    ];
+                  },
+                  body: controller.loading
+                      ? const Center(child: ShimmerLoader())
+                      : TabBarView(
+                          children: controller.userCategories
+                              .map(
+                                (category) => ServicesListWidget(category),
                               )
                               .toList(),
                         ),
-                      ),
-                    )
-                  ];
-                },
-                body: controller.loading
-                    ? const Center(child: ShimmerLoader())
-                    : TabBarView(
-                        children: controller.userCategories
-                            .map(
-                              (category) =>
-                                  ServicesListWidget(category),
-                            )
-                            .toList(),
-                      ),
+                ),
+
+                floatingActionButton: Builder(builder: (context) {
+                  return FloatingActionButton.extended(
+                    tooltip: 'Add Service',
+                    onPressed: () {
+                      //   controller.userCategories.map((e) =>
+                      final tabController = DefaultTabController.of(context);
+                      Get.toNamed(
+                        Routes.addEazymenProductScreen,
+                        arguments:
+                            controller.userCategories[tabController.index],
+                      );
+                    },
+                    label: const Text('Add Service'),
+                  );
+                }),
+                // bottomNavigationBar: Padding(
+                //   padding: const EdgeInsets.only(bottom: 8.0),
+                //   child: Row(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //     children: [
+                //       EazyButtons.flexWidthElevatedButton2(
+                //           'View Profile', () {}, EazyColors.white),
+                //       EazyButtons.flexWidthElevatedButton(
+                //         'Share Profile',
+                //         () {},
+                //         40,
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ),
-            );
-          },
-        ),
-        floatingActionButton:
-            GetBuilder<ProfileController>(builder: (controller) {
-          return FloatingActionButton.extended(
-            tooltip: 'Add Service',
-            onPressed: () {
-           //   controller.userCategories.map((e) =>
-              Get.toNamed(
-                Routes.addEazymenProductScreen,
-                arguments: controller.userCategories[0],
-              );
-            }, label: const Text('Add Service'),
+            ]),
           );
-        }),
-        // bottomNavigationBar: Padding(
-        //   padding: const EdgeInsets.only(bottom: 8.0),
-        //   child: Row(
-        //     crossAxisAlignment: CrossAxisAlignment.start,
-        //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //     children: [
-        //       EazyButtons.flexWidthElevatedButton2(
-        //           'View Profile', () {}, EazyColors.white),
-        //       EazyButtons.flexWidthElevatedButton(
-        //         'Share Profile',
-        //         () {},
-        //         40,
-        //       ),
-        //     ],
-        //   ),
-        // ),
-      )
-    ]);
+        });
   }
 }
 

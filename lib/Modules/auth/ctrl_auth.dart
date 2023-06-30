@@ -54,7 +54,7 @@ class AuthenticationController extends GetxController {
           .get();
 
       if (eazyMenData.exists) {
-        EazyMenService.instance.fetchEazymenData();
+        await EazyMenService.instance.fetchEazymenData();
         Get.toNamed(Routes.navigationScreen);
       } else {
         Get.toNamed(Routes.bussinessCardScreen);
@@ -132,9 +132,9 @@ class AuthenticationController extends GetxController {
   void _validateNumber(TextEditingController mobileNumberController) {}
 
   @override
-  void onClose() {
-    // TODO: implement onClose
-    super.onClose();
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
     otpController.dispose();
     mobileNumberController.dispose();
   }

@@ -295,9 +295,13 @@ class _AccountState extends State<Account> {
                     onTap: () {},
                   ),
                   customListTile(
-                    title: 'Invite customers',
+                    title: 'Invite Customers',
                     icon: FontAwesomeIcons.shareNodes,
-                    onTap: () {},
+                    onTap: () async {
+                      await Share.share(
+                        'Hey, Look i found an awesome app where you can book home services easily.\n\n https://play.google.com/store/apps/details?id=customer.eazypizy.in',
+                      );
+                    },
                   ),
                   customListTile(
                     title: 'Logout',

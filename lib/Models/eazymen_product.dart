@@ -15,6 +15,22 @@ class EazymenProductModel {
     this.productDetails,
   });
 
+  EazymenProductModel copyWith({
+    String? productId,
+    SubServiceProductModel? productDetails,
+    String? subServiceId,
+    int? price,
+    bool? isActive,
+  }) {
+    return EazymenProductModel(
+      productId: productId ?? this.productId,
+      productDetails: productDetails ?? this.productDetails,
+      subServiceId: subServiceId ?? this.subServiceId,
+      price: price ?? this.price,
+      isActive: isActive ?? this.isActive,
+    );
+  }
+
   factory EazymenProductModel.fromJson(Map<String, dynamic> json,
           [SubServiceProductModel? productModel]) =>
       EazymenProductModel(

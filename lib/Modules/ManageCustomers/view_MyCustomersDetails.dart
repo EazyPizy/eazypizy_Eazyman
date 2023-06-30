@@ -135,7 +135,7 @@ class _MyCustomerDetailsState extends State<MyCustomerDetails> {
                               child: ListView.builder(
                                 itemCount: 10,
                                 itemBuilder: (context, index) => BookingCard(
-                                  BookingDetailModel(),
+                                  BookingDetailModel(products: []),
                                 ),
                               ),
                             ),

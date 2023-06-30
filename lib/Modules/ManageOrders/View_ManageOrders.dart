@@ -215,19 +215,19 @@ class _ManageOrdersState extends State<ManageOrders> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: Get.size.height * 0.10.h,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 14),
-                    itemCount: chipText.length,
-                    separatorBuilder: (context, index) =>
-                        Space.horizontal(12.w),
-                    itemBuilder: (context, i) => customChips(
-                      chipText[i].toString(),
-                    ),
-                  ),
-               ),
+                // SizedBox(
+                //   height: Get.size.height * 0.10.h,
+                //   child: ListView.separated(
+                //     scrollDirection: Axis.horizontal,
+                //     padding: const EdgeInsets.symmetric(horizontal: 14),
+                //     itemCount: chipText.length,
+                //     separatorBuilder: (context, index) =>
+                //         Space.horizontal(12.w),
+                //     itemBuilder: (context, i) => customChips(
+                //       chipText[i].toString(),
+                //     ),
+                //   ),
+                // ),
                 Expanded(
                   child: RefreshIndicator(
                     onRefresh: () => controller.getBookings(),
@@ -334,7 +334,7 @@ class BookingCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ListTile(
-                contentPadding:  EdgeInsets.symmetric(
+                contentPadding: EdgeInsets.symmetric(
                   horizontal: 16.0.w,
                   vertical: 14.h,
                 ),
@@ -344,17 +344,27 @@ class BookingCard extends StatelessWidget {
                   color: EazyColors.white,
                   // height: 120,
                   width: 75.w,
-                  child: const EazyNetworkImage(
-                      url:
+                  child: EazyNetworkImage(
+                      url: booking.products.first.serviceProdImage ??
                           'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
                 ),
                 title: Text(
-                  booking.customer_name ?? '',
+                  booking.products.first.serviceProductName ?? '',
                   // 'Homanshu Chauhcan',
                   // "Inverter Servicing",
-                  style: Get.textTheme.titleLarge,
+                  style: Get.textTheme.titleLarge?.copyWith(fontSize: 14.sp),
                   softWrap: true,
                   maxLines: 2,
+                  // overflow: TextOverflow.fade,
+                ),
+                trailing: Text(
+                  '₹${booking.payment_items_total?.toString() ?? ''}',
+                  // 'Homanshu Chauhcan',
+                  // "Inverter Servicing",
+                  style: Get.textTheme.titleLarge
+                      ?.copyWith(fontSize: 12.sp, color: EazyColors.black),
+                  softWrap: true,
+                  maxLines: 1,
                   // overflow: TextOverflow.fade,
                 ),
                 subtitle: booking.booking_date == null
@@ -364,8 +374,10 @@ class BookingCard extends StatelessWidget {
                           DateTime.parse(booking.booking_date ?? ''),
                         ),
                         // booking.booking_date.toString().split(' ')[0],
-                        style: Get.textTheme.titleMedium
-                            ?.copyWith(color: EazyColors.lightBlack),
+                        style: Get.textTheme.titleMedium?.copyWith(
+                          color: EazyColors.lightBlack,
+                          fontSize: 12.sp,
+                        ),
                         softWrap: true,
                         overflow: TextOverflow.fade,
                       ),
@@ -381,14 +393,16 @@ class BookingCard extends StatelessWidget {
 
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  controller.convertBookingStatus(booking.booking_status ??0 ),
-                 //  Text(
-                 //    controller.convertBookingStatus(
-                 //      booking.booking_status ?? 0,
-                 //    ),
-                 // ),
+                  Space.horizontal(8),
+                  controller.convertBookingStatus(booking.booking_status ?? 0),
+                  //  Text(
+                  //    controller.convertBookingStatus(
+                  //      booking.booking_status ?? 0,
+                  //    ),
+                  // ),
+                  const Spacer(),
                   Text(
                     'View Details',
                     style: Get.textTheme.titleMedium
@@ -463,7 +477,7 @@ class BookingCard extends StatelessWidget {
           //          ),
         ),
         if (booking.booking_status == 0)
-           Align(
+          Align(
             alignment: Alignment.topRight,
             child: EasyContainer(
               margin: 4,
@@ -473,8 +487,11 @@ class BookingCard extends StatelessWidget {
                   bottomRight: Radius.circular(0),
                   topRight: Radius.circular(5),
                   topLeft: Radius.circular(0)),
-              color: Colors.greenAccent,
-              child: const Text('NEW'),
+              color: Colors.green,
+              child: const Text(
+                'NEW',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
           ),
       ],

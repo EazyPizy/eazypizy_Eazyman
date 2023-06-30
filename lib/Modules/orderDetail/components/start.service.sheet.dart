@@ -1,7 +1,7 @@
 import 'package:eazypizy_eazyman/Modules/orderDetail/ctrl.booking.detail.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
+import 'package:eazypizy_eazyman/theme/eazy_spaces.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
-import 'package:eazypizy_eazyman/widgets/EazyTextField.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 import 'package:eazypizy_eazyman/widgets/eazy_loading.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,8 @@ Future<void> startServiceConfirmationSheet() {
                 style: Get.textTheme.titleLarge,
                 textScaleFactor: 1.5,
               ),
-            SizedBox(
+              Space.vertical(12),
+              SizedBox(
                 height: 70.h,
                 child: Pinput(
                   // defaultPinTheme: defaultPinTheme,
@@ -48,7 +49,7 @@ Future<void> startServiceConfirmationSheet() {
                   // submittedPinTheme: submittedPinTheme,
                   controller: controller.startCodeController,
                   length: 4,
-                //  key: some,
+                  //  key: some,
                   validator: (s) {
                     if ((s?.length ?? 0) < 4) {
                       return 'Enter complete digits';
@@ -57,7 +58,7 @@ Future<void> startServiceConfirmationSheet() {
                   },
                   onCompleted: print,
                 ),
-            ),
+              ),
               // EazyTextField.stringTextField(
               //   'Please Enter Code',
               //   controller: controller.startCodeController, hintText: 'Enter starting code',
@@ -78,7 +79,6 @@ Future<void> startServiceConfirmationSheet() {
                   () {
                     controller.confirmStartService();
                     Get.back();
-
                   },
                   40.h,
                 ),

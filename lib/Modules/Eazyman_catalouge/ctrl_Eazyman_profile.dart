@@ -175,6 +175,47 @@ class ProfileController extends GetxController {
     }
   }
 
+  VoidFuture updateProductPrice(String productId, int price) async {
+    loading = true;
+    update();
+    final newProductList = [...userSubServiceProducts];
+    final product =
+        newProductList.firstWhere((element) => element.productId == productId);
+    newProductList.removeWhere(
+      (element) => element.productId == productId,
+    );
+    newProductList.add(product.copyWith(price: price));
+
+    try {
+      _log.v('updating product...');
+      await FirebaseFirestore.instance
+          .collection('EazyMen')
+          .doc(EazyMenService.instance.eazyMen!.eazyManUid)
+          .update({
+        "Service_Product": newProductList.map((e) => e.toJson()).toList()
+      });
+      userSubServiceProducts.clear();
+      userSubServiceProducts.addAll(newProductList);
+
+      eazyMen.subServiceProdcuts?.clear();
+      eazyMen.subServiceProdcuts?.addAll(newProductList);
+      Get.back();
+      successPopUp(
+        'Product price updated.',
+        title: 'Updated!',
+      );
+    } catch (e) {
+      _log.e(e);
+      EazySnackBar.buildErronSnackbar(
+        'Failed',
+        'Something went wrong while updating product',
+      );
+    } finally {
+      loading = false;
+      update();
+    }
+  }
+
   VoidFuture logout() async {
     showLogoutPopup(
       onConfirm: _logout,

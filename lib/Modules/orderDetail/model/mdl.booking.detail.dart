@@ -1,3 +1,4 @@
+import 'package:eazypizy_eazyman/Models/address_model.dart';
 import 'package:eazypizy_eazyman/Modules/orderDetail/model/mdl.booking.product.dart';
 import 'package:eazypizy_eazyman/core/typedefs.dart';
 
@@ -19,14 +20,13 @@ class BookingDetailModel {
     this.customer_name,
     this.customer_address,
     this.customer_phone,
-    this.customer_pincode,
     this.customer_fcm_token,
-    this.customer_landmark,
     this.booking_date,
-    this.booking_time,
+    this.booking_scheduled_date,
+    this.booking_scheduled_time,
     this.booking_id,
     this.booking_status,
-    this.products,
+    required this.products,
   });
   factory BookingDetailModel.fromMap(DynamicMap doc, String booking_id) =>
       BookingDetailModel(
@@ -34,60 +34,59 @@ class BookingDetailModel {
         eazymen_name: doc['eazymen_name'] as String?,
         eazymen_location: doc['eazymen_location'] as String?,
         eazymen_fcm_token: doc['eazymen_fcm_token'] as String?,
-        payment_tax: doc['payment_tax'] as int?,
-        payment_items_total: doc['payment_items_total'] as int?,
+        payment_tax: doc['payment_tax'].toDouble() as double?,
+        payment_items_total: doc['payment_items_total'].toDouble() as double?,
         payment_discount: doc['payment_discount'] as int?,
-        payment_total: doc['payment_total'] as int?,
+        payment_total: doc['payment_total'].toDouble() as double?,
         customer_id: doc['customer_id'] as String?,
         customer_name: doc['customer_name'] as String?,
-        customer_address: doc['customer_address'] as String?,
+        customer_address: doc['customer_address'] == null
+            ? null
+            : AddressModel.fromMap(doc['customer_address'] as DynamicMap),
         customer_phone: doc['customer_phone'] as String?,
-        customer_pincode: doc['customer_pincode'] as String?,
         customer_fcm_token: doc['customer_fcm_token'] as String?,
-        customer_landmark: doc['customer_landmark'] as String?,
         booking_date: doc['booking_date'] as String?,
-        booking_time: doc['booking_time'] as String?,
+        booking_scheduled_date: doc['booking_scheduled_date'] as String?,
+        booking_scheduled_time: doc['booking_scheduled_time'] as String?,
         booking_id: booking_id,
         booking_status: doc['booking_status'] as int?,
         cancel_reason: doc['cancel_reason'] as String?,
         canceled_by: doc['canceled_by'] as int?,
         service_end_code: doc['service_end_code'] as int?,
         service_start_code: doc['service_start_code'] as int?,
-        products: doc['products'] == null
-            ? []
-            : doc['products']
-                .map<BookingProductModel>(
-                    (e) => BookingProductModel.fromJson(e as DynamicMap))
-                .toList() as List<BookingProductModel>,
+        products: doc['products']
+            .map<BookingProductModel>(
+              (e) => BookingProductModel.fromJson(e as DynamicMap),
+            )
+            .toList() as List<BookingProductModel>,
       );
   final String? eazymen_id;
   final String? eazymen_name;
   final String? eazymen_location;
   final String? eazymen_fcm_token;
-  final int? payment_tax;
-  final int? payment_items_total;
+  final double? payment_tax;
+  final double? payment_items_total;
   final int? payment_discount;
-  final int? payment_total;
+  final double? payment_total;
   final String? customer_id;
   final String? customer_name;
-  final String? customer_address;
   final String? customer_phone;
-  final String? customer_pincode;
   final String? customer_fcm_token;
-  final String? customer_landmark;
+  final AddressModel? customer_address;
   final String? booking_date;
-  final String? booking_time;
+  // final String? booking_time;
+  final String? booking_scheduled_date;
+  final String? booking_scheduled_time;
   final String? booking_id;
   final int? booking_status;
   final int? canceled_by;
   final String? cancel_reason;
   final int? service_start_code;
   final int? service_end_code;
-  final List<BookingProductModel>? products;
+  final List<BookingProductModel> products;
 
   DynamicMap toMap() => {
-        'products':
-            products == null ? [] : products!.map((e) => e.toJson()).toList(),
+        'products': products.map((e) => e.toJson()).toList(),
         'eazymen_id': eazymen_id,
         'eazymen_name': eazymen_name,
         'eazymen_location': eazymen_location,
@@ -98,13 +97,12 @@ class BookingDetailModel {
         'payment_total': payment_total,
         'customer_id': customer_id,
         'customer_name': customer_name,
-        'customer_address': customer_address,
         'customer_phone': customer_phone,
-        'customer_pincode': customer_pincode,
         'customer_fcm_token': customer_fcm_token,
-        'customer_landmark': customer_landmark,
+        'customer_address': customer_address,
         'booking_date': booking_date,
-        'booking_time': booking_time,
+        'booking_scheduled_date': booking_scheduled_date,
+        'booking_scheduled_time': booking_scheduled_time,
         'booking_status': booking_status,
         'canceled_by': canceled_by,
         'cancel_reason': cancel_reason,

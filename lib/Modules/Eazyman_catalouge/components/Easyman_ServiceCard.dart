@@ -2,12 +2,12 @@ import 'package:eazypizy_eazyman/Models/eazymen_product.dart';
 import 'package:eazypizy_eazyman/Modules/Eazyman_catalouge/ctrl_Eazyman_profile.dart';
 import 'package:eazypizy_eazyman/theme/eazy_spaces.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
+import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:eazypizy_eazyman/widgets/eazy_networkimage.dart';
 import 'package:eazypizy_eazyman/widgets/pop_ups.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../theme/app_colors.dart';
 import '../../../widgets/EazyTextField.dart';
@@ -50,9 +50,12 @@ class EazymanServiceCard extends StatelessWidget {
                   color: EazyColors.white,
                   height: 90.h,
                   width: 150.w,
-                  child: const EazyNetworkImage(
-                      url:
-                          'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
+                  child: EazyNetworkImage(
+                    url: product.productDetails?.serviceProdImage ??
+                        'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29',
+                    fit: BoxFit.fill,
+                  ),
+                  // 'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
                 ),
               ),
               Space.horizontal(
@@ -63,77 +66,82 @@ class EazymanServiceCard extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              product.productDetails!.serviceProductName!,
-                              style: Get.textTheme.titleMedium,
-                              softWrap: true,
-                              overflow: TextOverflow.fade,
-                            ),
-                            // const Spacer(),
-                            // const SwitchExample()
-                          ],
-                        ),
-                        Space.vertical(4.h),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text(
-                              '₹${product.price}',
-                              style: Get.textTheme.titleSmall,
-                              softWrap: true,
-                              overflow: TextOverflow.fade,
-                            ),
-                            Space.horizontal(6.w),
-                            Text(
-                              '₹${product.productDetails?.serviceRetailPrice}',
-                              style: Get.textTheme.titleSmall!.copyWith(
-                                decoration: TextDecoration.lineThrough,
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  product.productDetails!.serviceProductName!,
+                                  style: Get.textTheme.titleMedium,
+                                  // softWrap: true,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
-                              softWrap: true,
-                              overflow: TextOverflow.fade,
-                            ),
-                          ],
-                        ),
-                        // Row(
-                        //   children: [
-                        //     FittedBox(
-                        //       child: TextButton.icon(
-                        //         onPressed: () {},
-                        //         icon: const Icon(
-                        //           Icons.remove_red_eye_outlined,
-                        //           size: 13,
-                        //         ),
-                        //         label: Text(
-                        //           'Preview',
-                        //           style: Get.textTheme.titleSmall,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     TextButton.icon(
-                        //       onPressed: () {
-                        //         Share.share('AC Service at 499 Only');
-                        //       },
-                        //       icon: const Icon(
-                        //         Icons.share_sharp,
-                        //         size: 13,
-                        //       ),
-                        //       label: Text(
-                        //         'Share Service',
-                        //         style: Get.textTheme.titleSmall,
-                        //       ),
-                        //     ),
-                        //     const Spacer(),
-                        //   ],
-                        // ),
-                      ],
+                              // const Spacer(),
+                              // const SwitchExample()
+                            ],
+                          ),
+                          Space.vertical(4.h),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                '₹${product.price}',
+                                style: Get.textTheme.titleSmall,
+                                softWrap: true,
+                                overflow: TextOverflow.fade,
+                              ),
+                              Space.horizontal(6.w),
+                              Text(
+                                '₹${product.productDetails?.serviceRetailPrice}',
+                                style: Get.textTheme.titleSmall!.copyWith(
+                                  decoration: TextDecoration.lineThrough,
+                                ),
+                                softWrap: true,
+                                overflow: TextOverflow.fade,
+                              ),
+                            ],
+                          ),
+                          // Row(
+                          //   children: [
+                          //     FittedBox(
+                          //       child: TextButton.icon(
+                          //         onPressed: () {},
+                          //         icon: const Icon(
+                          //           Icons.remove_red_eye_outlined,
+                          //           size: 13,
+                          //         ),
+                          //         label: Text(
+                          //           'Preview',
+                          //           style: Get.textTheme.titleSmall,
+                          //         ),
+                          //       ),
+                          //     ),
+                          //     TextButton.icon(
+                          //       onPressed: () {
+                          //         Share.share('AC Service at 499 Only');
+                          //       },
+                          //       icon: const Icon(
+                          //         Icons.share_sharp,
+                          //         size: 13,
+                          //       ),
+                          //       label: Text(
+                          //         'Share Service',
+                          //         style: Get.textTheme.titleSmall,
+                          //       ),
+                          //     ),
+                          //     const Spacer(),
+                          //   ],
+                          // ),
+                        ],
+                      ),
                     ),
                     PopupMenuExample(
                       prodId: product.productId,
@@ -278,7 +286,7 @@ class _PopupMenuExampleState extends State<PopupMenuExample> {
               () => Get.defaultDialog(
                 backgroundColor: EazyColors.white,
                 radius: 10,
-                title: 'Add New Price',
+                title: 'Update Price',
                 // confirm: EazyButtons.flexWidthElevatedButton('Save', () {}, 10),
                 // cancel:  EazyButtons.flexWidthElevatedButton2(
                 //     'Visit', () {}, EazyColors.primary),
@@ -286,8 +294,27 @@ class _PopupMenuExampleState extends State<PopupMenuExample> {
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
                     children: [
-                      EazyTextField.stringTextField('New Price',
-                          hintText: 'Enter PRice', controller: priceController),
+                      EazyTextField.stringTextField(
+                        'New Price',
+                        hintText: 'Enter Price',
+                        controller: priceController,
+                        textInputType: TextInputType.number,
+                      ),
+                      Space.vertical(18),
+                      EazyButtons.fullWidthElevatedButton('Submit', () {
+                        final price = priceController.text.trim();
+                        if (price.isEmpty) {
+                          EazySnackBar.buildErronSnackbar(
+                            'Missing Price!',
+                            'Please enter a price to update',
+                          );
+                          return;
+                        }
+                        Get.find<ProfileController>().updateProductPrice(
+                          widget.prodId,
+                          int.parse(price),
+                        );
+                      }),
                     ],
                   ),
                 ),

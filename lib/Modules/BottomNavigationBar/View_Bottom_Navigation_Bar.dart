@@ -1,12 +1,12 @@
-import 'package:eazypizy_eazyman/Modules/BottomNavigationBar/view_sideDrawer.dart';
+import 'package:eazypizy_eazyman/Modules/BottomNavigationBar/components/app_exit_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
 import '../../theme/app_colors.dart';
-import '../../widgets/easy_container.dart';
 import '../Account/view_Account.dart';
 import '../Eazyman_catalouge/view_eazy_man_cataloge.dart';
 import '../Home/View_HomeScreen.dart';
-import '../ManageCustomers/view_ManageCustomers.dart';
 import '../ManageOrders/View_ManageOrders.dart';
 
 class NavigationView extends StatefulWidget {
@@ -22,7 +22,7 @@ class _NavigationViewState extends State<NavigationView> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const EazyManCatalogScreen(),
-  //  const SizedBox(),
+    //  const SizedBox(),
     const ManageOrders(),
     const Account()
     // const ManageCustomers(),
@@ -32,7 +32,11 @@ class _NavigationViewState extends State<NavigationView> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        return true;
+        showOnAppExit(
+          onConfirm: SystemNavigator.pop,
+          onCancel: Get.back,
+        );
+        return false;
       },
       child: Scaffold(
         backgroundColor: EazyColors.appBarBG,
@@ -45,18 +49,17 @@ class _NavigationViewState extends State<NavigationView> {
           iconList: const [
             Icons.home,
             Icons.category_rounded,
-          //  Icons.store,
+            //  Icons.store,
             Icons.book,
             Icons.person,
           ],
-
           label: const [
             'home',
 
             /// Store Floating Action Button, Just uncomment this///
 
             'Catalog',
-          //  '',
+            //  '',
             /// Store Floating Action Button, Just uncomment this///
 
             'Bookings',
@@ -93,7 +96,6 @@ class _NavigationViewState extends State<NavigationView> {
         // ),
 
         /// Store Floating Action Button, Just uncomment this///
-
       ),
     );
   }
@@ -106,14 +108,12 @@ class CustomBottomNavigationBar extends StatefulWidget {
     required this.iconList,
     required this.onChange,
     required this.label,
-
   });
 
   final int defaultSelectedIndex;
   final void Function(int index) onChange;
   final List<IconData> iconList;
   final List<String> label;
-
 
   @override
   _CustomBottomNavigationBarState createState() =>
@@ -125,7 +125,6 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   List<IconData> _iconList = [];
   List<String> _label = [];
 
-
   @override
   void initState() {
     // TODO: implement initState
@@ -134,7 +133,6 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     _selectedIndex = widget.defaultSelectedIndex;
     _iconList = widget.iconList;
     _label = widget.label;
-
   }
 
   @override
@@ -146,11 +144,12 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     }
 
     ///comment this
-     return Row(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: navBarItemList,
     );
-   /// comment this
+
+    /// comment this
 
     /// Store Floating Action Button, Just uncomment this///
 
@@ -184,22 +183,22 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
         /// Store Floating Action Button, Just comment this from here///
         height: 60,
-       width: ((MediaQuery.of(context).size.width) / _iconList.length) - 30,
+        width: ((MediaQuery.of(context).size.width) / _iconList.length) - 30,
         decoration: index == _selectedIndex
             ? const BoxDecoration(
-          color: Colors.white,
-          border: Border(
-            top: BorderSide(
-              width: 3,
-              color: EazyColors.primary,
-            ),
-          ),
-        )
+                color: Colors.white,
+                border: Border(
+                  top: BorderSide(
+                    width: 3,
+                    color: EazyColors.primary,
+                  ),
+                ),
+              )
             : const BoxDecoration(),
 
         /// Store Floating Action Button, Just comment this, to here///
 
-        child:Column(
+        child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -213,7 +212,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               style: TextStyle(
                 fontSize: 9,
                 color:
-                index == _selectedIndex ? EazyColors.primary : Colors.grey,
+                    index == _selectedIndex ? EazyColors.primary : Colors.grey,
               ),
             ),
           ],

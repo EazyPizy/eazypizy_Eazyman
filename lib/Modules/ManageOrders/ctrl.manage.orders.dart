@@ -6,9 +6,9 @@ import 'package:eazypizy_eazyman/core/routes.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/core/typedefs.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:flutter/material.dart';
 
 import '../../theme/eazy_spaces.dart';
 
@@ -26,6 +26,7 @@ class ManageOrderController extends GetxController {
       final data = await FirebaseFirestore.instance
           .collection(FirestoreCollections.bookings)
           .where('eazymen_id', isEqualTo: eazymen!.eazyManUid)
+          .orderBy('booking_date', descending: true)
           .get();
       bookings.clear();
       if (data.docs.isNotEmpty) {
@@ -65,10 +66,10 @@ class ManageOrderController extends GetxController {
           children: [
             const Icon(
               Icons.circle,
-              color: Colors.red,
+              color: Colors.orange,
               size: 10,
             ),
-            Space.horizontal(10),
+            Space.horizontal(4),
             Text('Booking Request', style: Get.textTheme.titleMedium),
           ],
         );
@@ -76,7 +77,7 @@ class ManageOrderController extends GetxController {
         return Row(children: [
           const Icon(
             Icons.circle,
-            color: Colors.green,
+            color: Colors.yellow,
             size: 10,
           ),
           Space.horizontal(10),
@@ -102,7 +103,7 @@ class ManageOrderController extends GetxController {
           children: [
             const Icon(
               Icons.circle,
-              color: Colors.purpleAccent,
+              color: Colors.green,
               size: 10,
             ),
             Space.horizontal(10),
@@ -114,7 +115,7 @@ class ManageOrderController extends GetxController {
           children: [
             const Icon(
               Icons.circle,
-              color: Colors.black,
+              color: Colors.red,
               size: 10,
             ),
             Space.horizontal(10),
@@ -126,7 +127,7 @@ class ManageOrderController extends GetxController {
           children: [
             const Icon(
               Icons.circle,
-              color: Colors.orange,
+              color: Colors.yellow,
               size: 10,
             ),
             Space.horizontal(10),

@@ -12,12 +12,14 @@ class EazyTextField {
     String validateMsg, {
     required String hintText,
     required TextEditingController controller,
+    TextInputType? textInputType,
   }) {
     return SizedBox(
       height: 45.h,
       child: TextFormField(
         controller: controller,
         textInputAction: TextInputAction.next,
+        keyboardType: textInputType,
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.auto,
           hintText: hintText,
