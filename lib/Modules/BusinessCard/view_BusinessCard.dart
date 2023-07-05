@@ -1,3 +1,4 @@
+import 'package:eazypizy_eazyman/widgets/eazy_networkimage.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,20 +6,15 @@ import 'package:get/get.dart';
 
 import '../../Models/EazymanModel.dart';
 import '../../theme/app_colors.dart';
-import '../../theme/eazy_spaces.dart';
 import '../../widgets/easy_container.dart';
 
 class VisitingCard extends StatelessWidget {
   const VisitingCard({
     Key? key,
     required this.colors,
-    required this.imageAlign,
-    required this.titleAlign,
     required this.eazyMenModel,
   }) : super(key: key);
   final Color colors;
-  final Alignment imageAlign;
-  final Alignment titleAlign;
   final EazyMenModel eazyMenModel;
 
   @override
@@ -31,14 +27,17 @@ class VisitingCard extends StatelessWidget {
           color: colors,
           child: Stack(children: [
             Positioned(
-                left: -60,
-                top: -60,
-                child: Container(
-                    height: 180,
-                    width: 180,
-                    decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.purpleAccent.withOpacity(0.075)))),
+              left: -60,
+              top: -60,
+              child: Container(
+                height: 180,
+                width: 180,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.purpleAccent.withOpacity(0.075),
+                ),
+              ),
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.end,
@@ -47,31 +46,40 @@ class VisitingCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment: titleAlign,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                eazyMenModel.personalDetail?.firstName ?? "",
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                '${eazyMenModel.personalDetail?.firstName ?? ""} ${eazyMenModel.personalDetail?.lastName ?? ""}',
                                 style: Get.textTheme.titleLarge,
+                                maxLines: 1,
+                                overflow: TextOverflow.clip,
                               ),
-                            ),
+                              // Row(
+                              //   children: [
+                              //     ...eazyMenModel.mainServices!.map((e) => Text(
+                              //       '${e.}',
+                              //       style: Get.textTheme.titleLarge,
+                              //       maxLines: 1,
+                              //       overflow: TextOverflow.clip,
+                              //     )).toList()
+
+                              //   ],
+                              // ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                      Align(
-                        alignment: imageAlign,
-                        child: EasyContainer(
-                          margin: 10,
-                            height: 90.h,
-                            width: 90.w,
-                            child: Image.network(
-                                eazyMenModel.personalDetail?.images ??
-                                    'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
+                      EasyContainer(
+                        margin: 10,
+                        height: 90.h,
+                        width: 90.w,
+                        child: EazyNetworkImage(
+                          url: eazyMenModel.personalDetail?.images! ?? '',
                         ),
                       )
                       //: Image.asset('assets/five.jpg'))
@@ -79,21 +87,22 @@ class VisitingCard extends StatelessWidget {
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(eazyMenModel.phoneNumber ?? "9023499063",
+                  child: Text(eazyMenModel.personalDetail?.phoneNumber ?? "",
                       style: Get.textTheme.titleMedium),
                 ),
                 EasyContainer(
-                    height: 20.h,
-                    color: Colors.orange,
-                    customBorderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(0),
-                        bottomRight: Radius.circular(5),
-                        bottomLeft: Radius.circular(5),
-                        topLeft: Radius.circular(0)),
-                    child: Text(
-                      'Powered By | EazyPizy',
-                      style: Get.textTheme.headlineSmall,
-                    )),
+                  height: 20.h,
+                  color: Colors.orange,
+                  customBorderRadius: const BorderRadius.only(
+                      topRight: Radius.circular(0),
+                      bottomRight: Radius.circular(5),
+                      bottomLeft: Radius.circular(5),
+                      topLeft: Radius.circular(0)),
+                  child: Text(
+                    'Powered By | EazyPizy',
+                    style: Get.textTheme.headlineSmall,
+                  ),
+                ),
                 // Container(
                 //   decoration: BoxDecoration(
                 //     // borderRadius: BorderRadius.only(

@@ -1,19 +1,22 @@
+import 'dart:io';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:widgets_to_image/widgets_to_image.dart';
 
-import '../../core/capture_Image.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/eazy_spaces.dart';
 import '../../widgets/EasyButtons.dart';
 import '../../widgets/easy_container.dart';
 import '../../widgets/startpu_logo.dart';
-import '../../widgets/widget_to_image.dart';
 import '../BusinessCard/componets/Edit_BusinessCard.dart';
 import '../BusinessCard/view_BusinessCard.dart';
 import '../Eazyman_catalouge/ctrl_Eazyman_profile.dart';
@@ -31,6 +34,9 @@ class _AccountState extends State<Account> {
   Uint8List? bytes1;
 
   final CarouselController _controller = CarouselController();
+
+  final WidgetsToImageController widgetsToImageController =
+      WidgetsToImageController();
 
   List<Color> colors = [
     Colors.red.withOpacity(0.50),
@@ -84,98 +90,138 @@ class _AccountState extends State<Account> {
                               EazyButtons.primaryTextButton(
                                 'Edit Card',
                                 () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const EditBusinessCard(),
-                                  ));
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const EditBusinessCard(),
+                                    ),
+                                  );
                                 },
                               )
                             ],
                           ),
-                          Stack(children: [
-                            CarouselSlider.builder(
-                              carouselController: _controller,
-                              itemCount: 5,
-                              itemBuilder: (BuildContext context, int itemIndex,
-                                      int pageViewIndex) =>
-                                  WidgetToImage(
-                                builder: (key) {
-                                  key1 = key;
-                                  return VisitingCard(
-                                    eazyMenModel: controller.eazyMen,
-                                    colors: colors[itemIndex],
-                                    imageAlign: _imageAlign[itemIndex],
-                                    titleAlign: _titleAlign[itemIndex],
-                                  );
-                                },
-                              ),
-                              options: CarouselOptions(
-                                autoPlay: false,
-                                // disableCenter: true,
-                                enlargeCenterPage: false,
-
-                                viewportFraction: .90,
-                                aspectRatio: 2.0,
-                                initialPage: 1,
-                              ),
+                          WidgetsToImage(
+                            controller: widgetsToImageController,
+                            child: VisitingCard(
+                              eazyMenModel: controller.eazyMen,
+                              colors: colors.last,
                             ),
-                            Space.vertical(10.h),
-                            // Row(
-                            //   crossAxisAlignment: CrossAxisAlignment.center,
-                            //   mainAxisAlignment:
-                            //       MainAxisAlignment.spaceBetween,
-                            //   children: <Widget>[
-                            //     Flexible(
-                            //       child: Container(
-                            //         alignment: Alignment.center,
-                            //         height: 20.h,
-                            //         width: 20.w,
-                            //         child: CircleAvatar(
-                            //           backgroundColor: Colors.blue,
-                            //           child: Center(
-                            //             child: IconButton(
-                            //               onPressed: () =>
-                            //                   _controller.previousPage(),
-                            //               color: Colors.white,
-                            //               icon: const Icon(
-                            //                 Icons.arrow_back_ios,
-                            //                 size: 15,
-                            //               ),
-                            //             ),
-                            //           ),
-                            //         ),
-                            //       ),
-                            //     ),
-                            //
-                            //     Flexible(
-                            //       child: IconButton(
-                            //         onPressed: () => _controller.nextPage(),
-                            //         color: Colors.white,
-                            //         icon: const Icon(Icons.arrow_forward_ios),
-                            //       ),
-                            //     ),
-                            //     // ...Iterable<int>.generate(colors.length).map(
-                            //     //       (int  itemIndex) => Flexible(
-                            //     //     child: ElevatedButton(
-                            //     //       onPressed: () => _controller.animateToPage(itemIndex),
-                            //     //       child: Text("$itemIndex"),
-                            //     //     ),
-                            //     //   ),
-                            //     // ),
-                            //   ],
-                            // ),
-                          ]),
+                          ),
+                          // Stack(children: [
+                          //   CarouselSlider.builder(
+                          //     carouselController: _controller,
+                          //     itemCount: 5,
+                          //     itemBuilder: (BuildContext context, int itemIndex,
+                          //             int pageViewIndex) =>
+                          //         WidgetToImage(
+                          //       builder: (key) {
+                          //         key1 = key;
+                          //         return VisitingCard(
+                          //           eazyMenModel: controller.eazyMen,
+                          //           colors: colors.last,
+                          //         );
+                          //       },
+                          //     ),
+                          //     options: CarouselOptions(
+                          //       autoPlay: false,
+                          //       // disableCenter: true,
+                          //       enlargeCenterPage: false,
+
+                          //       viewportFraction: .90,
+                          //       aspectRatio: 2.0,
+                          //       initialPage: 1,
+                          //     ),
+                          //   ),
+                          //   Space.vertical(10.h),
+                          //   // Row(
+                          //   //   crossAxisAlignment: CrossAxisAlignment.center,
+                          //   //   mainAxisAlignment:
+                          //   //       MainAxisAlignment.spaceBetween,
+                          //   //   children: <Widget>[
+                          //   //     Flexible(
+                          //   //       child: Container(
+                          //   //         alignment: Alignment.center,
+                          //   //         height: 20.h,
+                          //   //         width: 20.w,
+                          //   //         child: CircleAvatar(
+                          //   //           backgroundColor: Colors.blue,
+                          //   //           child: Center(
+                          //   //             child: IconButton(
+                          //   //               onPressed: () =>
+                          //   //                   _controller.previousPage(),
+                          //   //               color: Colors.white,
+                          //   //               icon: const Icon(
+                          //   //                 Icons.arrow_back_ios,
+                          //   //                 size: 15,
+                          //   //               ),
+                          //   //             ),
+                          //   //           ),
+                          //   //         ),
+                          //   //       ),
+                          //   //     ),
+                          //   //
+                          //   //     Flexible(
+                          //   //       child: IconButton(
+                          //   //         onPressed: () => _controller.nextPage(),
+                          //   //         color: Colors.white,
+                          //   //         icon: const Icon(Icons.arrow_forward_ios),
+                          //   //       ),
+                          //   //     ),
+                          //   //     // ...Iterable<int>.generate(colors.length).map(
+                          //   //     //       (int  itemIndex) => Flexible(
+                          //   //     //     child: ElevatedButton(
+                          //   //     //       onPressed: () => _controller.animateToPage(itemIndex),
+                          //   //     //       child: Text("$itemIndex"),
+                          //   //     //     ),
+                          //   //     //   ),
+                          //   //     // ),
+                          //   //   ],
+                          //   // ),
+                          // ]),
                           Space.vertical(10.h),
                           EazyButtons.fullWidthShareButton(
                             'Share Card',
                             () async {
-                              final bytes1 = await Utils.capture(key1);
+                              final imageData =
+                                  await widgetsToImageController.capture();
 
-                              //print(bytes1);
-                              setState(() {
-                                this.bytes1 = bytes1;
-                              });
-                              buildPopUp(bytes1);
+                              final temp = await getTemporaryDirectory();
+                              final path = '${temp.path}/image1.jpg';
+                              File(path).writeAsBytesSync(imageData!);
+                              final dynam = await FirebaseDynamicLinksPlatform
+                                  .instance
+                                  .buildShortLink(
+                                DynamicLinkParameters(
+                                  link: Uri.parse(
+                                    'https://eazypizy.in/dl/?id=${controller.eazyMen.eazyManUid}',
+                                  ),
+                                  uriPrefix: 'https://dl.eazypizy.in/dl',
+                                  androidParameters: AndroidParameters(
+                                    packageName: 'customer.eazypizy.in',
+                                    minimumVersion: 21,
+                                    fallbackUrl: Uri.parse(
+                                      'https://play.google.com/store/apps/details?id=customer.eazypizy.in',
+                                    ),
+                                  ),
+                                ),
+                              );
+                              print(dynam);
+                              // Share.share(
+                              //   'Hi! Find me on Eazypizy and Book Remarkable services! Let\'s meet ASAP... - ${dynam.shortUrl}',
+                              // );
+                              Share.shareFiles(
+                                [path],
+                                text:
+                                    'Hi! Find me on Eazypizy and Book Remarkable services! Let\'s meet ASAP... - ${dynam.shortUrl}',
+                                // subject: 'Subject',
+                              );
+                              // final bytes1 = await Utils.capture(key1);
+
+                              // //print(bytes1);
+                              // setState(() {
+                              //   this.bytes1 = bytes1;
+                              // });
+                              // buildPopUp(bytes1);
                             },
                           ),
                           Space.vertical(10.h),
@@ -207,7 +253,36 @@ class _AccountState extends State<Account> {
                                         30),
                                     Space.horizontal(10.w),
                                     EazyButtons.flexWidthElevatedButton(
-                                        'Share Profile', () {}, 30),
+                                      'Share Profile',
+                                      () async {
+                                        final dynam =
+                                            await FirebaseDynamicLinksPlatform
+                                                .instance
+                                                .buildShortLink(
+                                          DynamicLinkParameters(
+                                            link: Uri.parse(
+                                              'https://eazypizy.in/dl/?id=${controller.eazyMen.eazyManUid}',
+                                            ),
+                                            uriPrefix:
+                                                'https://dl.eazypizy.in/dl',
+                                            androidParameters:
+                                                AndroidParameters(
+                                              packageName:
+                                                  'customer.eazypizy.in',
+                                              minimumVersion: 21,
+                                              fallbackUrl: Uri.parse(
+                                                'https://play.google.com/store/apps/details?id=customer.eazypizy.in',
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                        print(dynam);
+                                        Share.share(
+                                          'Hi! Find me on Eazypizy and Book Remarkable services! Let\'s meet ASAP... - ${dynam.shortUrl}',
+                                        );
+                                      },
+                                      30,
+                                    ),
                                   ],
                                 ),
                                 Space.vertical(10),

@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
     return ScreenUtilInit(
       designSize: const Size(360, 739),
       builder: (context, child) => GetMaterialApp(
-        //  title: 'Flutter Demo',
+        title: 'Eazyman',
         theme: theme,
         // useInheritedMediaQuery: true,
         // locale: DevicePreview.locale(context),
