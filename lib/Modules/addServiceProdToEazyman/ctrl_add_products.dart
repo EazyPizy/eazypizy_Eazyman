@@ -14,7 +14,7 @@ class AddSubServiceProductsController extends GetxController {
   final _categoryService = CategoryService.instance;
 
   final List<EazymenProductModel> eazymenProducts = [];
-  late final List<TextEditingController> priceControllers;
+  late List<TextEditingController> priceControllers;
 
   void makeControllers() {
     priceControllers = List.generate(
@@ -100,7 +100,7 @@ class AddSubServiceProductsController extends GetxController {
       await fetchEazymen();
       Get.offAllNamed(Routes.navigationScreen);
     } catch (e) {
-      EazySnackBar.buildSuccessSnackbar('Error','Something went wrong!');
+      EazySnackBar.buildSuccessSnackbar('Error', 'Something went wrong!');
     }
   }
 
