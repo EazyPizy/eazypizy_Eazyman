@@ -21,7 +21,11 @@ Future<void> main() async {
       // status bar color
     ),
   );
+
   WidgetsFlutterBinding.ensureInitialized();
+  await SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+  );
   await Firebase.initializeApp();
   await Future.wait([
     Get.putAsync(() => CategoryService().init()),

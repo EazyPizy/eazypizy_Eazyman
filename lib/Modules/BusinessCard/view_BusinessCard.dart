@@ -173,9 +173,10 @@ class VisitingCard extends StatelessWidget {
           color: EazyColors.white,
           child: Center(
             child: SizedBox(
-                height: 100,
-                width: 100,
-                child: Image.asset('assets/Blue Logo PNG.png')),
+              height: 100,
+              width: 100,
+              child: Image.asset('assets/EazymenLogo.png'),
+            ),
           ),
         ));
   }
