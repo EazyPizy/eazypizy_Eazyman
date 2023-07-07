@@ -87,7 +87,7 @@ class VisitingCard extends StatelessWidget {
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(eazyMenModel.personalDetail?.phoneNumber ?? "",
+                  child: Text(eazyMenModel.phoneNumber ?? "",
                       style: Get.textTheme.titleMedium),
                 ),
                 EasyContainer(

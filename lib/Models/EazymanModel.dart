@@ -91,6 +91,7 @@ class EazyMenModel {
   Map<String, dynamic> toJson() => {
         'fcm_token': fcmToken,
         'Personal_Detail': [personalDetail?.toJson()],
+        'phoneNumber': phoneNumber,
         //  personalDetail == null
         //     ? []
         //     : List<dynamic>.from(personalDetail!.map((x) => x.toJson())),
