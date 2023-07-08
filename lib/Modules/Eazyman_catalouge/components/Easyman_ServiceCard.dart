@@ -99,14 +99,17 @@ class EazymanServiceCard extends StatelessWidget {
                                 overflow: TextOverflow.fade,
                               ),
                               Space.horizontal(6.w),
-                              Text(
-                                '₹${product.productDetails?.serviceRetailPrice}',
-                                style: Get.textTheme.titleSmall!.copyWith(
-                                  decoration: TextDecoration.lineThrough,
+                              if (product.price !=
+                                  product.productDetails?.serviceRetailPrice
+                                      ?.toInt())
+                                Text(
+                                  '₹${product.productDetails?.serviceRetailPrice}',
+                                  style: Get.textTheme.titleSmall!.copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                  softWrap: true,
+                                  overflow: TextOverflow.fade,
                                 ),
-                                softWrap: true,
-                                overflow: TextOverflow.fade,
-                              ),
                             ],
                           ),
                           // Row(

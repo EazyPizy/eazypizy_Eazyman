@@ -19,8 +19,15 @@ class AddSubServiceProductsController extends GetxController {
   void makeControllers() {
     priceControllers = List.generate(
       eazymenProducts.length,
-      (index) =>
-          TextEditingController(text: eazymenProducts[index].price.toString()),
+      (index) => TextEditingController(
+        text: eazymenProducts[index].price == 0
+            ? eazymenProducts[index]
+                .productDetails
+                ?.serviceRetailPrice
+                ?.toInt()
+                .toString()
+            : eazymenProducts[index].price.toString(),
+      ),
     );
   }
 

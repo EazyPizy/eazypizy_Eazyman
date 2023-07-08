@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,6 +39,8 @@ class _AccountState extends State<Account> {
   final WidgetsToImageController widgetsToImageController =
       WidgetsToImageController();
 
+  PackageInfo? appPackageInfo;
+
   List<Color> colors = [
     Colors.red.withOpacity(0.50),
     Colors.greenAccent.withOpacity(0.25),
@@ -59,6 +62,20 @@ class _AccountState extends State<Account> {
     Alignment.topCenter,
     Alignment.bottomLeft,
   ];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    PackageInfo.fromPlatform().then(
+      (value) {
+        print(value);
+        setState(() {
+          appPackageInfo = value;
+        });
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -426,6 +443,22 @@ class _AccountState extends State<Account> {
                   ),
                   socialLinks(),
                   Space.vertical(60.h),
+                  // const Spacer(),
+                  Center(
+                    child: SizedBox(
+                      height: 20,
+                      child: Image.asset('assets/EazymenLogo.png'),
+                    ),
+                  ),
+                  Space.vertical(2),
+                  if (appPackageInfo != null)
+                    Center(
+                      child: Text(
+                        'v${appPackageInfo!.version}',
+                        style: TextStyle(
+                            fontSize: 10.sp, color: EazyColors.primary),
+                      ),
+                    ),
 
                   // Padding(
                   //   padding: const EdgeInsets.only(left: 10.0, right: 10),
