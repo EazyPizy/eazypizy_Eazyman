@@ -41,7 +41,7 @@ class _BasicDetailsState extends State<BasicDetails> {
           state:
               _activeCurrentStep <= 0 ? StepState.editing : StepState.complete,
           isActive: _activeCurrentStep >= 0,
-          title: const Text('Basic Details'),
+          title: const Text('1'),
           content: const PersonalDetails1(),
         ),
 
@@ -53,7 +53,7 @@ class _BasicDetailsState extends State<BasicDetails> {
           state:
               _activeCurrentStep <= 1 ? StepState.editing : StepState.complete,
           isActive: _activeCurrentStep >= 1,
-          title: const Text('Locations'),
+          title: const Text('2'),
           content: Form(
             key: controller.addressformKey,
             child: Column(
@@ -100,7 +100,7 @@ class _BasicDetailsState extends State<BasicDetails> {
           state:
               _activeCurrentStep <= 2 ? StepState.editing : StepState.complete,
           isActive: _activeCurrentStep >= 2,
-          title: const Text('Select Services'),
+          title: const Text('3'),
           content: const SelectServiceTile(),
         ),
 
@@ -373,12 +373,12 @@ class _BasicDetailsState extends State<BasicDetails> {
                 setState(() {
                   _activeCurrentStep -= 1;
                 });
-              }, EazyColors.primary, 68),
+              }, EazyColors.primary, 68.w),
               if (controller.loading)
-                const Expanded(
+                 Expanded(
                   child: SizedBox(
-                    height: 58,
-                    child: Center(
+                    height: 58.h,
+                    child: const Center(
                       child: EazyLoadingWidget(),
                     ),
                   ),
@@ -421,7 +421,7 @@ class _BasicDetailsState extends State<BasicDetails> {
                     controller.submit();
                     // controller.upload();
                   }
-                }, 68),
+                }, 68.w),
               // ElevatedButton(
               //   child: Text('Elevated Button'),
               //   style: ElevatedButton.styleFrom(

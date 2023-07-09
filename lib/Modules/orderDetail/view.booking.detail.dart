@@ -56,6 +56,10 @@ class DetailOrderView extends StatelessWidget {
                       ),
                       Space.vertical(10.h),
                       ListTile(
+                        shape: RoundedRectangleBorder( //<-- SEE HERE
+
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                         tileColor: EazyColors.white,
                         title: Text(
                           'Job Details',
@@ -76,7 +80,7 @@ class DetailOrderView extends StatelessWidget {
                       Space.vertical(10.h),
                       EasyContainer(
                           // height: 150.h,
-                          borderRadius: 10,
+                          borderRadius: 10.r,
                           padding: 12,
                           color: EazyColors.white,
                           child: Column(

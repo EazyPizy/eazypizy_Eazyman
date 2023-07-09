@@ -84,8 +84,8 @@ class AddSubServiceToUserCatalogueState
                                         borderColor: EazyColors.borderColors,
                                         showBorder: true,
                                         color: EazyColors.white,
-                                        height: 40.h,
-                                        width: 40.w,
+                                        height: 60.h,
+                                        width: 60.w,
                                         child: Image.network(
                                           products[prodIndex].serviceProdImage!,
                                           errorBuilder:

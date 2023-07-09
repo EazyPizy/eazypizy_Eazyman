@@ -23,7 +23,9 @@ class VisitingCard extends StatelessWidget {
         front: EasyContainer(
           //padding: 10,
           margin: 8,
-          borderRadius: 10.r,
+          showBorder: true,
+          borderRadius: 15.r,
+          borderColor: EazyColors.barBg,
           color: colors,
           child: Stack(children: [
             Positioned(
@@ -170,12 +172,13 @@ class VisitingCard extends StatelessWidget {
           ]),
         ),
         back: EasyContainer(
-          color: EazyColors.white,
+          borderRadius: 15.r,
+          color: EazyColors.primary,
           child: Center(
             child: SizedBox(
-              height: 100,
+              height: 150,
               width: 100,
-              child: Image.asset('assets/EazymenLogo.png'),
+              child: Image.asset('assets/White Logo PNG.png'),
             ),
           ),
         ));

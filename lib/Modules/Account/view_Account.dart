@@ -97,26 +97,26 @@ class _AccountState extends State<Account> {
                       padding: const EdgeInsets.all(10),
                       child: Column(
                         children: [
-                          Row(
-                            children: [
-                              Text(
-                                'Business Card',
-                                style: Get.textTheme.titleMedium,
-                              ),
-                              const Spacer(),
-                              EazyButtons.primaryTextButton(
-                                'Edit Card',
-                                () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const EditBusinessCard(),
-                                    ),
-                                  );
-                                },
-                              )
-                            ],
-                          ),
+                          // Row(
+                          //   children: [
+                          //     Text(
+                          //       'Business Card',
+                          //       style: Get.textTheme.titleMedium,
+                          //     ),
+                          //     const Spacer(),
+                          //     EazyButtons.primaryTextButton(
+                          //       'Edit Card',
+                          //       () {
+                          //         Navigator.of(context).push(
+                          //           MaterialPageRoute(
+                          //             builder: (context) =>
+                          //                 const EditBusinessCard(),
+                          //           ),
+                          //         );
+                          //       },
+                          //     )
+                          //   ],
+                          // ),
                           WidgetsToImage(
                             controller: widgetsToImageController,
                             child: VisitingCard(
@@ -446,9 +446,9 @@ class _AccountState extends State<Account> {
                   // const Spacer(),
                   Center(
                     child: SizedBox(
-                      height: 20,
-                      child: Image.asset('assets/EazymenLogo.png'),
-                    ),
+                      height: 30,
+
+                        child: Image.asset('assets/EazymenLogo.png')),
                   ),
                   Space.vertical(2),
                   if (appPackageInfo != null)

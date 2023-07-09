@@ -110,6 +110,10 @@ flutter:
     - assets/EazymenLogo.png
     - assets/createProfile.png
     - assets/Blue Logo PNG.png
+    - assets/White Logo PNG.png
+    - assets/Eazyman Logo _48x48 (1.0x baseline) for medium density (mdpi).png
+    - assets/Eazyman Logo _144x144 (3.0x) for extra-extra-high density (xxhdpi).png
+    - assets/Eazyman Logo _96x96 (2.0x) for extra-high density (xhdpi).png
     # - assets/eazymen.jpg
     - assets/five.jpg
     - assets/cleaningServices.jpg

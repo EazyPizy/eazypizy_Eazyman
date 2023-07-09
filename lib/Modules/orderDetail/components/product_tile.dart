@@ -1,3 +1,4 @@
+import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:eazypizy_eazyman/widgets/easy_container.dart';
 import 'package:eazypizy_eazyman/widgets/eazy_networkimage.dart';
 import 'package:flutter/material.dart';
@@ -24,11 +25,14 @@ class BookingProductTile extends StatelessWidget {
       contentPadding: const EdgeInsets.all(8),
       isThreeLine: true,
       leading: EasyContainer(
-        borderRadius: 20,
-        height: 75.h,
-        width: 60.w,
+        borderRadius: 10,
+        showBorder: true,
+        borderColor: EazyColors.primary,
+        //height: 75.h,
+        width: 50.w,
         child: EazyNetworkImage(
           url: imageUrl,
+          fit: BoxFit.contain,
         ),
       ),
       title: Text(

@@ -113,6 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding:
                                     const EdgeInsets.fromLTRB(13, 0, 13, 0),
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Flexible(
                                       child: EasyContainer(
@@ -130,6 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       icon: const Icon(
                                         Icons.qr_code_2,
                                         size: 30,
+                                        color: EazyColors.primary,
                                       ),
                                     ),
                                   ],
@@ -162,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         () {
                                       if (controller.profileLink != null) {
                                         Share.share(
-                                            'Hi! Find me on Eazypizy and Book Remarkable services! Let\'s meet ASAP... - ${controller.profileLink}');
+                                            'Hi! Find me on EazyPizy and Book Remarkable services! Let\'s meet ASAP... - ${controller.profileLink}');
                                       }
                                     }, 40),
                                   ]),

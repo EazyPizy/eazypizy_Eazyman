@@ -65,6 +65,7 @@ class _PersonalDetails1State extends State<PersonalDetails1> {
           SizedBox(
             height: 45.h,
             child: TextFormField(
+              keyboardType: TextInputType.emailAddress,
                 validator: (val) => (val!.isEmpty) ? 'Enter Email' : null,
                 controller: controller.email,
                 decoration: InputDecoration(

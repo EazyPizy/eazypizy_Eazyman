@@ -46,50 +46,74 @@ class _UserImageUploadScreenState extends State<UserImageUploadScreen> {
             textScaleFactor: 1.5,
           ),
           Space.vertical(50.h),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: GestureDetector(
-                onTap: () {
-                  showPickers();
-                  setState(() {
-                    // isTapped = true;
-                  });
-                },
-                child: Container(
-                  margin: const EdgeInsets.all(3),
-                  width: 100,
-                  child: imageFile != null
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.file(
-                            imageFile!,
-                            width: 100.w,
-                            height: 100.h,
-                            fit: BoxFit.cover,
+          Stack(
+            children:[ Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: GestureDetector(
+                  onTap: () {
+                    showPickers();
+                    setState(() {
+                      // isTapped = true;
+                    });
+                  },
+                child:  Container(
+                    margin: const EdgeInsets.all(3),
+                    //width: 100,
+                    child: imageFile != null
+                        ?
+                        ClipRRect(
+                                borderRadius: BorderRadius.circular(10),
+                                child: Image.file(
+                                  imageFile!,
+                                  width: 100.w,
+                                  height: 100.h,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                        : Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey[200],
+                                borderRadius: BorderRadius.circular(10)),
+                            width: 100,
+                            height: 100,
+                            child: Icon(
+                              Icons.camera_alt,
+                              color: Colors.grey[800],
+                            ),
                           ),
-                        )
-                      : Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey[200],
-                              borderRadius: BorderRadius.circular(10)),
-                          width: 100,
-                          height: 100,
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: Colors.grey[800],
-                          ),
-                        ),
+                  ),
                 ),
               ),
             ),
-          ),
-          ElevatedButton(
-            onPressed: () {
-              showPickers();
-            },
-            child: const Text('Upload'),
-          )
+                Positioned(
+                 top: 88,
+                 right: 95,
+                 child: InkWell(
+                   onTap: (){
+                    showPickers();
+                  },
+                   child: const SizedBox(
+                    height: 30,
+                    width: 30,
+                    child: CircleAvatar(
+                      backgroundColor: EazyColors.primary,
+                      child: Icon(
+                        Icons.add,
+                        color: EazyColors.white ,
+                        size: 25,
+                      ),
+                    ),
+                  ),
+                 ),
+               )
+         ] ),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     showPickers();
+          //   },
+          //   child: const Text('Upload'),
+          // )
         ]);
   }
 
