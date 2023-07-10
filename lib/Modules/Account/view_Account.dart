@@ -410,7 +410,14 @@ class _AccountState extends State<Account> {
                           }),
                           EazyButtons.primaryTextButton(
                             'Privacy Policy',
-                            () {},
+                            () async {
+                              final url = Uri.parse(
+                                  'https://eazypizy.in/privacypolicy');
+                              // print(await canLaunchUrl(url));
+                              if (await canLaunchUrl(url)) {
+                                await launchUrl(url);
+                              }
+                            },
                           )
                         ],
                       ),
