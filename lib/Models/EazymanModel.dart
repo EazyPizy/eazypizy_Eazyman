@@ -91,6 +91,7 @@ class EazyMenModel {
   Map<String, dynamic> toJson() => {
         'fcm_token': fcmToken,
         'Personal_Detail': [personalDetail?.toJson()],
+        'phoneNumber': phoneNumber,
         //  personalDetail == null
         //     ? []
         //     : List<dynamic>.from(personalDetail!.map((x) => x.toJson())),
@@ -162,8 +163,9 @@ class PersonalDetail {
     this.images,
     this.age,
     this.dob,
+    this.workingSince,
     this.experiance,
-    this.phoneNumber,
+    // this.phoneNumber,
     this.whatsAppNumber,
   });
   factory PersonalDetail.fromJson(Map<String, dynamic> json) => PersonalDetail(
@@ -177,8 +179,10 @@ class PersonalDetail {
         images: json['Images'] as String?,
         age: json['Age'] as String?,
         dob: json['DOB'] as String?,
+        workingSince: json['working_since'] as String?,
+
         experiance: json['Experiance'] as int?,
-        phoneNumber: json['PhoneNumber'] as String?,
+        // phoneNumber: json['PhoneNumber'] as String?,
         whatsAppNumber: json['WhatsAppNumber'] as String?,
       );
 
@@ -192,8 +196,9 @@ class PersonalDetail {
   final String? images;
   final String? age;
   final String? dob;
+  final String? workingSince;
   final int? experiance;
-  final String? phoneNumber;
+  // final String? phoneNumber;
   final String? whatsAppNumber;
 
   Map<String, dynamic> toJson() => {
@@ -207,8 +212,9 @@ class PersonalDetail {
         'Images': images,
         'Age': age,
         'DOB': dob,
+        'working_since': workingSince,
         'Experiance': experiance,
-        'PhoneNumber': phoneNumber,
+        // 'PhoneNumber': phoneNumber,
         'WhatsAppNumber': whatsAppNumber,
       };
 }

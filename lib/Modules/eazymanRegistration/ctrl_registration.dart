@@ -36,6 +36,7 @@ class RegistrationController extends GetxController {
   TextEditingController lastName = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController dob = TextEditingController();
+  TextEditingController workingSince = TextEditingController();
 
   // TextEditingController address = TextEditingController();
   TextEditingController localityController = TextEditingController();
@@ -46,7 +47,7 @@ class RegistrationController extends GetxController {
 
   bool isEmailCorrect = false;
   int defaultChoiceIndex = 0;
-  int defaultExpIndex = 0;
+  int defaultExpIndex = 1;
   final List<String> choicesList = ['Male', 'Female'];
   final List<String> expList = ['Yes', 'No'];
 
@@ -95,6 +96,7 @@ class RegistrationController extends GetxController {
     final lastname = lastName.text.trim();
     final emailS = email.text.trim();
     final dobS = dob.text.trim();
+    final workingSinceS = workingSince.text.trim();
     final cityS = cityController.text.trim();
     final locality = localityController.text.trim();
     final state = stateController.text.trim();
@@ -118,6 +120,7 @@ class RegistrationController extends GetxController {
           firstName: firstname,
           lastName: lastname,
           dob: dobS,
+          workingSince: workingSinceS.isEmpty ? null : workingSinceS,
           city: cityS,
           locality: locality,
           state: state,

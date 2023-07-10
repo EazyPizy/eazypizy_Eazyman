@@ -16,7 +16,6 @@ class SelectServiceTile extends StatelessWidget {
         id: 'id',
         builder: (controller) {
           return Column(
-
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -25,7 +24,6 @@ class SelectServiceTile extends StatelessWidget {
                 style: Get.textTheme.titleMedium
                     ?.copyWith(color: EazyColors.primary),
                 textScaleFactor: 1.5,
-
               ),
               Space.vertical(10.h),
               ListView.separated(
@@ -34,47 +32,45 @@ class SelectServiceTile extends StatelessWidget {
                 itemCount: controller.mainServiceCategories.length,
                 itemBuilder: (context, index) => EasyContainer(
                   showBorder: true,
-                  borderColor: EazyColors.primary,
+
                   color: EazyColors.white,
-                  height: 120.h,
-                  width: double.infinity,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Image.network(
-                          controller.mainServiceCategories[index].imageUrl ??
-                              'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29',
-                          fit: BoxFit.fill,
-                        ),
+                  borderColor: controller.mainService.contains(
+                      controller.mainServiceCategories[index].serviceId)
+                      ? EazyColors.primary
+                      : EazyColors.barBg,
+
+                  child: ListTile(
+                    leading: EasyContainer(
+                      color: EazyColors.white,
+                      //showBorder: true,
+                      height: 75,
+                      width: 75,
+                      child: Image.network(
+                        controller.mainServiceCategories[index].imageUrl ??
+                            'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29',
+                        fit: BoxFit.fill,
                       ),
-                      ListTile(
-                        contentPadding:
-                        const EdgeInsets.only(left: 8, right: 8),
-                        onTap: () {
-                          controller.addSubServicesToEazman(controller
-                              .mainServiceCategories[index].serviceId ??
+                    ),
+                    contentPadding: const EdgeInsets.all(8),
+                    onTap: () {
+                      controller.addSubServicesToEazman(
+                          controller.mainServiceCategories[index].serviceId ??
                               '');
-                          print(controller.mainService.length);
-                        },
+                    },
 
-                        // tileColor: Colors.white,
-                        trailing: controller.mainService.contains(controller
-                            .mainServiceCategories[index].serviceId)
-                            ? const Icon(
-                          Icons.check_box,
-                          color: Colors.green,
-                        )
-                            : const Icon(
-                          Icons.check_box_outline_blank,
-                        ),
-                        title: Text(
-                          controller.mainServiceCategories[index].serviceName ??
-                              '',
-                        ),
-                      ),
-
-                    ],
+                    // tileColor: Colors.white,
+                    trailing: controller.mainService.contains(
+                            controller.mainServiceCategories[index].serviceId)
+                        ? const Icon(
+                            Icons.check_box,
+                            color: EazyColors.primary,
+                          )
+                        : const Icon(
+                            Icons.check_box_outline_blank,
+                          ),
+                    title: Text(
+                      controller.mainServiceCategories[index].serviceName ?? '',
+                    ),
                   ),
                 ),
                 separatorBuilder: (context, index) => SizedBox(

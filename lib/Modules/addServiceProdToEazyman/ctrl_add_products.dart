@@ -14,13 +14,20 @@ class AddSubServiceProductsController extends GetxController {
   final _categoryService = CategoryService.instance;
 
   final List<EazymenProductModel> eazymenProducts = [];
-  late final List<TextEditingController> priceControllers;
+  late List<TextEditingController> priceControllers;
 
   void makeControllers() {
     priceControllers = List.generate(
       eazymenProducts.length,
-      (index) =>
-          TextEditingController(text: eazymenProducts[index].price.toString()),
+      (index) => TextEditingController(
+        text: eazymenProducts[index].price == 0
+            ? eazymenProducts[index]
+                .productDetails
+                ?.serviceRetailPrice
+                ?.toInt()
+                .toString()
+            : eazymenProducts[index].price.toString(),
+      ),
     );
   }
 
@@ -100,7 +107,7 @@ class AddSubServiceProductsController extends GetxController {
       await fetchEazymen();
       Get.offAllNamed(Routes.navigationScreen);
     } catch (e) {
-      EazySnackBar.buildSuccessSnackbar('Error','Something went wrong!');
+      EazySnackBar.buildSuccessSnackbar('Error', 'Something went wrong!');
     }
   }
 

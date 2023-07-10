@@ -46,77 +46,91 @@ class AddSubServiceToUserCatalogueState
                 mainService.serviceName!,
               ),
             ),
-            body: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: CustomTabViews(
-                        initPosition: initPosition,
-                        itemCount: subServices.length,
-                        tabBuilder: (context, index) => Tab(
-                          text: subServices[index].subServiceName,
-                        ),
-                        onPositionChange: (index) {
-                          initPosition = index;
-                        },
-                        onScroll: (position) => print('Printed'),
-                        pageBuilder: (context, index) {
-                          final products = controller
-                              .getProductsBySubService(subServices[index]);
-                          return ListView.builder(
-                            itemCount: products.length,
-                            itemBuilder: (context, prodIndex) {
-                              print(products[prodIndex].toJson());
-                              return ListTile(
-                                leading: EasyContainer(
-                                  borderColor: EazyColors.borderColors,
-                                  showBorder: true,
-                                  color: EazyColors.white,
-                                  height: 40.h,
-                                  width: 40.w,
-                                  child: Image.network(
-                                    products[prodIndex].serviceProdImage!,
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            const Placeholder(),
-                                  ),
-                                ),
-                                title: Text(
-                                  products[prodIndex].serviceProductName ?? '',
-                                  style: Get.textTheme.titleMedium,
-                                ),
-                                subtitle: Text(
-                                  '${products[prodIndex].serviceRetailPrice ?? ''}',
-                                  style: Get.textTheme.titleMedium,
-                                ),
-                                trailing: Checkbox(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(2),
-                                  ),
-                                  value: controller
-                                      .ifEazymenProduct(products[prodIndex]),
-                                  onChanged: (value) {
-                                    controller.toggleProduct(
-                                        products[prodIndex],
+            body: subServices.isEmpty
+                ? const Center(
+                    child: Text('No services to show'),
+                  )
+                : SafeArea(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Expanded(
+                            child: CustomTabViews(
+                              initPosition: initPosition,
+                              itemCount: subServices.length,
+                              tabBuilder: (context, index) => Tab(
+                                text: subServices[index].subServiceName,
+                              ),
+                              onPositionChange: (index) {
+                                initPosition = index;
+                              },
+                              onScroll: (position) => print('Printed'),
+                              pageBuilder: (context, index) {
+                                final products =
+                                    controller.getProductsBySubService(
                                         subServices[index]);
+                                if (products.isEmpty) {
+                                  return const Center(
+                                    child: Text('No products to show'),
+                                  );
+                                }
+                                return ListView.builder(
+                                  itemCount: products.length,
+                                  itemBuilder: (context, prodIndex) {
+                                    print(products[prodIndex].toJson());
+                                    return ListTile(
+                                      leading: EasyContainer(
+                                        borderColor: EazyColors.borderColors,
+                                        showBorder: true,
+                                        color: EazyColors.white,
+                                        height: 60.h,
+                                        width: 60.w,
+                                        child: Image.network(
+                                          products[prodIndex].serviceProdImage!,
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  const Placeholder(),
+                                        ),
+                                      ),
+                                      title: Text(
+                                        products[prodIndex]
+                                                .serviceProductName ??
+                                            '',
+                                        style: Get.textTheme.titleMedium,
+                                      ),
+                                      subtitle: Text(
+                                        '₹${products[prodIndex].serviceRetailPrice ?? ''}',
+                                        style: Get.textTheme.titleMedium,
+                                      ),
+                                      trailing: Checkbox(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(2),
+                                        ),
+                                        value: controller.ifEazymenProduct(
+                                            products[prodIndex]),
+                                        onChanged: (value) {
+                                          controller.toggleProduct(
+                                              products[prodIndex],
+                                              subServices[index]);
+                                        },
+                                      ),
+                                      onTap: () {
+                                        controller.toggleProduct(
+                                            products[prodIndex],
+                                            subServices[index]);
+                                      },
+                                    );
                                   },
-                                ),
-                                onTap: () {
-                                  controller.toggleProduct(
-                                      products[prodIndex], subServices[index]);
-                                },
-                              );
-                            },
-                          );
-                        },
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
+                  ),
             bottomNavigationBar: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
               child: EazyButtons.fullWidthElevatedButton('Add Products', () {
@@ -173,12 +187,15 @@ class AddSubServiceToUserCatalogueState
     return Get.bottomSheet(
       Stack(children: [
         EasyContainer(
-          padding: 10,
+          // padding: 10,
+          customPadding:
+              EdgeInsets.only(left: 10, right: 10, bottom: 60.h, top: 10),
           customBorderRadius: const BorderRadius.only(
-              topRight: Radius.circular(10),
-              bottomRight: Radius.circular(0),
-              bottomLeft: Radius.circular(0),
-              topLeft: Radius.circular(10)), //borderRadius: 10,
+            topRight: Radius.circular(10),
+            bottomRight: Radius.circular(0),
+            bottomLeft: Radius.circular(0),
+            topLeft: Radius.circular(10),
+          ), //borderRadius: 10,
           height: Get.size.height - 0.1,
           color: Colors.white,
           child: ListView.builder(

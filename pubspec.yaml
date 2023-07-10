@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 1.1.1+3
+version: 1.1.2+4
 
 environment:
   sdk: '>=2.19.2 <3.0.0'
@@ -52,7 +52,7 @@ dependencies:
   flutter_adaptive_scaffold: ^0.1.0
   smooth_page_indicator: ^1.0.0+2
   validators: ^3.0.0
-  share_plus: ^6.3.1
+  share_plus: ^7.0.2
   contacts_service: ^0.6.3
   permission_handler: ^10.2.0
   uuid: ^3.0.6
@@ -64,6 +64,7 @@ dependencies:
   url_launcher: ^6.1.11
   widgets_to_image: ^0.0.2
   path_provider: ^2.0.15
+  package_info_plus: ^4.0.2
 
 
 
@@ -109,6 +110,10 @@ flutter:
     - assets/EazymenLogo.png
     - assets/createProfile.png
     - assets/Blue Logo PNG.png
+    - assets/White Logo PNG.png
+    - assets/Eazyman Logo _48x48 (1.0x baseline) for medium density (mdpi).png
+    - assets/Eazyman Logo _144x144 (3.0x) for extra-extra-high density (xxhdpi).png
+    - assets/Eazyman Logo _96x96 (2.0x) for extra-high density (xhdpi).png
     # - assets/eazymen.jpg
     - assets/five.jpg
     - assets/cleaningServices.jpg

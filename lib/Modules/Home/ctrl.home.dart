@@ -5,6 +5,7 @@ import 'package:eazypizy_eazyman/core/logger.dart';
 import 'package:eazypizy_eazyman/core/services/user_service.dart';
 import 'package:eazypizy_eazyman/core/typedefs.dart';
 import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -14,12 +15,14 @@ class HomeController extends GetxController {
   bool loading = false;
   int bookingCount = 0;
   double amountMade = 0;
+  String? profileLink;
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     getBookings();
+    generateProfileLink();
   }
 
   VoidFuture getBookings() async {
@@ -53,5 +56,25 @@ class HomeController extends GetxController {
       loading = false;
       update();
     }
+  }
+
+  Future<void> generateProfileLink() async {
+    final dynam = await FirebaseDynamicLinksPlatform.instance.buildShortLink(
+      DynamicLinkParameters(
+        link: Uri.parse(
+          'https://eazypizy.in/dl/?id=${_eazymenService.eazyMen!.eazyManUid}',
+        ),
+        uriPrefix: 'https://dl.eazypizy.in/dl',
+        androidParameters: AndroidParameters(
+          packageName: 'customer.eazypizy.in',
+          minimumVersion: 21,
+          fallbackUrl: Uri.parse(
+            'https://play.google.com/store/apps/details?id=customer.eazypizy.in',
+          ),
+        ),
+      ),
+    );
+    profileLink = dynam.shortUrl.toString();
+    update();
   }
 }

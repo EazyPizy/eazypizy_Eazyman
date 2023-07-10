@@ -65,6 +65,7 @@ class _PersonalDetails1State extends State<PersonalDetails1> {
           SizedBox(
             height: 45.h,
             child: TextFormField(
+              keyboardType: TextInputType.emailAddress,
                 validator: (val) => (val!.isEmpty) ? 'Enter Email' : null,
                 controller: controller.email,
                 decoration: InputDecoration(
@@ -210,6 +211,48 @@ class _PersonalDetails1State extends State<PersonalDetails1> {
               ),
             ],
           ),
+          Space.vertical(12.h),
+          if (controller.defaultExpIndex == 0)
+            SizedBox(
+              // height: 45.h,
+              child: TextFormField(
+                validator: (val) =>
+                    (val!.isEmpty && controller.defaultExpIndex == 0)
+                        ? 'Select start date'
+                        : null,
+                readOnly: true,
+                controller: controller.workingSince,
+                obscureText: false,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Working from...',
+                  //helperText: 'Choose Date',
+                  suffixIcon: Icon(Icons.calendar_today),
+                ),
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    //DateTime.now() - not to allow to choose before today.
+                    lastDate: DateTime.now(),
+                  );
+
+                  if (pickedDate != null) {
+                    print(
+                        pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                    String formattedDate =
+                        DateFormat('dd-MM-yyyy').format(pickedDate);
+                    print(
+                        formattedDate); //formatted date output using intl package =>  2021-03-16
+                    setState(() {
+                      controller.workingSince.text =
+                          formattedDate; //set output date to TextField value.
+                    });
+                  }
+                },
+              ),
+            ),
         ],
       ),
     );

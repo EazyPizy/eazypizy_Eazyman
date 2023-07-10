@@ -2,10 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:eazypizy_eazyman/Modules/Home/ctrl.home.dart';
 import 'package:eazypizy_eazyman/theme/app_colors.dart';
 import 'package:eazypizy_eazyman/widgets/EasyButtons.dart';
+import 'package:eazypizy_eazyman/widgets/EasySnackBar.dart';
 import 'package:eazypizy_eazyman/widgets/startpu_logo.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../theme/eazy_spaces.dart';
 import '../../widgets/CarouselImage.dart';
@@ -110,6 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding:
                                     const EdgeInsets.fromLTRB(13, 0, 13, 0),
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Flexible(
                                       child: EasyContainer(
@@ -117,8 +122,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         borderRadius: 5,
                                         height: 45.h,
                                         width: double.infinity,
-                                        child: const Text(
-                                            "https//eazyPizy.netramPlumber.in"),
+                                        child: Text(
+                                          controller.profileLink ?? '',
+                                        ),
                                       ),
                                     ),
                                     IconButton(
@@ -126,6 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       icon: const Icon(
                                         Icons.qr_code_2,
                                         size: 30,
+                                        color: EazyColors.primary,
                                       ),
                                     ),
                                   ],
@@ -136,15 +143,31 @@ class _HomeScreenState extends State<HomeScreen> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    EazyButtons.flexWidthElevatedButton2(
-                                        'Visit', () {}, EazyColors.primary, 40),
+                                    EazyButtons.flexWidthElevatedButton2('Copy',
+                                        () {
+                                      if (controller.profileLink != null) {
+                                        Clipboard.setData(
+                                          ClipboardData(
+                                              text: controller.profileLink),
+                                        );
+                                        EazySnackBar.buildSuccessSnackbar(
+                                          'Copied!',
+                                          'Profile link copied to clipboard',
+                                        );
+                                      }
+                                    }, EazyColors.primary, 40),
                                     // ElevatedButton(
                                     //   onPressed: () {},
                                     //   child: const Text("Visit"),
                                     // ),
                                     const SizedBox(width: 10),
-                                    EazyButtons.flexWidthElevatedButton(
-                                        'Share', () {}, 40),
+                                    EazyButtons.flexWidthElevatedButton('Share',
+                                        () {
+                                      if (controller.profileLink != null) {
+                                        Share.share(
+                                            'Hi! Find me on EazyPizy and Book Remarkable services! Let\'s meet ASAP... - ${controller.profileLink}');
+                                      }
+                                    }, 40),
                                   ]),
                             ),
                           ],

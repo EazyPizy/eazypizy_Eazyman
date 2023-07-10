@@ -5,15 +5,10 @@ class StarterTopLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 27,
-      width: 90,
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/EazymenLogo.png'),
-          fit: BoxFit.fill,
-        ),
-      ),
+    return Image.asset(
+      'assets/EazymenLogo.png',
+      fit: BoxFit.fill,
+      width: 120,height: 25,
     );
   }
 }

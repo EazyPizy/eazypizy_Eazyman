@@ -315,7 +315,9 @@ class BookingCard extends StatelessWidget {
     this.booking, {
     super.key,
   });
+
   final BookingDetailModel booking;
+
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<ManageOrderController>();
@@ -342,11 +344,14 @@ class BookingCard extends StatelessWidget {
                   showBorder: true,
                   borderWidth: .5,
                   color: EazyColors.white,
+                  borderColor: EazyColors.primary,
                   // height: 120,
-                  width: 75.w,
+                  width: 50.w,
                   child: EazyNetworkImage(
-                      url: booking.products.first.serviceProdImage ??
-                          'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
+                    url: booking.products.first.serviceProdImage ??
+                        'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29',
+                    fit: BoxFit.cover,
+                  ),
                 ),
                 title: Text(
                   booking.products.first.serviceProductName ?? '',

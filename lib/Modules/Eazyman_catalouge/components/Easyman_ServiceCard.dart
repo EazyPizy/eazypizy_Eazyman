@@ -46,14 +46,14 @@ class EazymanServiceCard extends StatelessWidget {
                 flex: 1,
                 child: EasyContainer(
                   borderColor: EazyColors.borderColors,
-                  showBorder: true,
                   color: EazyColors.white,
-                  height: 90.h,
-                  width: 150.w,
+                  borderRadius: 10,
+                  height: 70.h,
+                  width: 140.w,
                   child: EazyNetworkImage(
                     url: product.productDetails?.serviceProdImage ??
                         'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29',
-                    fit: BoxFit.fill,
+                   // fit: BoxFit.fill,
                   ),
                   // 'https://firebasestorage.googleapis.com/v0/b/eazyman-2e7a7.appspot.com/o/User_images%2FEazyMan.png?alt=media&token=a376abde-5072-4d49-b25d-a7b059f4fb29'),
                 ),
@@ -99,14 +99,17 @@ class EazymanServiceCard extends StatelessWidget {
                                 overflow: TextOverflow.fade,
                               ),
                               Space.horizontal(6.w),
-                              Text(
-                                '₹${product.productDetails?.serviceRetailPrice}',
-                                style: Get.textTheme.titleSmall!.copyWith(
-                                  decoration: TextDecoration.lineThrough,
+                              if (product.price !=
+                                  product.productDetails?.serviceRetailPrice
+                                      ?.toInt())
+                                Text(
+                                  '₹${product.productDetails?.serviceRetailPrice}',
+                                  style: Get.textTheme.titleSmall!.copyWith(
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                  softWrap: true,
+                                  overflow: TextOverflow.fade,
                                 ),
-                                softWrap: true,
-                                overflow: TextOverflow.fade,
-                              ),
                             ],
                           ),
                           // Row(
